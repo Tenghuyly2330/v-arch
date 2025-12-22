@@ -36,7 +36,7 @@
                             @foreach ($project_image as $img)
                                 <div class="swiper-slide w-full h-full">
                                     <img src="{{ asset($img) }}" alt="" loading="lazy"
-                                        class="w-full h-[350px] md:h-[400px] object-contain  object-center cursor-pointer">
+                                        class="w-full h-[350px] md:h-[400px] object-contain object-center cursor-pointer">
                                 </div>
                             @endforeach
                         </div>

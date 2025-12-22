@@ -17,11 +17,25 @@ class ProductBackendController extends Controller
     public function index(Request $request)
     {
         $products = Product::with('category')
+            ->when(
+                $request->search,
+                fn($q) =>
+                $q->where('name_en', 'like', '%' . $request->search . '%')
+            )
+            ->when(
+                $request->category,
+                fn($q) =>
+                $q->where('category_id', $request->category)
+            )
             ->orderBy('created_at', 'desc')
-            ->paginate(6);
+            ->paginate(20)
+            ->withQueryString();
 
-        return view('admin.products.index', compact('products'));
+        $categories = Category::orderBy('name_en')->get();
+
+        return view('admin.products.index', compact('products', 'categories'));
     }
+
 
 
     public function create()

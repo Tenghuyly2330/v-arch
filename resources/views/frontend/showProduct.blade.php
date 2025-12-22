@@ -132,12 +132,12 @@
 
                         <!-- Images -->
                         <template x-if="selectedColor && selectedColor.images && selectedColor.images.length > 0">
-                            <div class="relative w-full h-[200px] sm:h-[250px] md:h-[400px] overflow-hidden">
+                            <div class="relative w-full h-[300px] md:h-[400px] overflow-hidden">
                                 <template x-for="(img, i) in selectedColor.images" :key="i">
                                     <img :src="img.startsWith('http') ? img : '{{ asset('') }}' + (img.startsWith('/') ? img
                                         .substring(1) : img)"
                                         :alt="selectedColor.name"
-                                        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                                        class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700"
                                         :class="i === slideIndex ? 'opacity-100' : 'opacity-0'" @click="openLightbox(i)">
                                 </template>
                             </div>
@@ -147,7 +147,7 @@
                         <!-- Fallback -->
                         <template x-if="!selectedColor || !selectedColor.images || selectedColor.images.length === 0">
                             <img src="{{ asset('assets/images/default.jpg') }}"
-                                class="w-full h-[320px] object-cover rounded">
+                                class="w-full h-[320px] object-contain rounded">
                         </template>
                     </div>
 

@@ -21,7 +21,7 @@ class GoogleService
         $this->sheets = new Sheets($client);
         $this->drive = new Drive($client);
 
-        $this->spreadsheetId = env('GOOGLE_SHEET_ID');
+        $this->spreadsheetId = config('services.google.spreadsheet_id');
     }
 
 

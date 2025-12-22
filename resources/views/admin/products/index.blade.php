@@ -18,21 +18,35 @@
         }
     </style>
     <div class="">
-        <div class="my-4 flex items-center gap-4 justify-end">
+        <form method="GET" id="filterForm" class="my-4 flex flex-wrap items-center gap-4 justify-between">
 
+            <div class="flex flex-wrap gap-3 items-center">
+                <!-- Search -->
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name..."
+                    class="border rounded px-3 py-2 text-sm w-[220px]" onkeyup="submitFilter()" />
+
+                <!-- Category -->
+                <select name="category" class="border rounded px-3 py-2 text-sm w-[200px]" onchange="submitFilter()">
+                    <option value="">All Categories</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name_en }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Add New -->
             <a href="{{ route('product_backend.create') }}"
-                class="bg-[#613bf1] text-[#fff] flex items-center gap-4 px-4 py-2 rounded-[5px] text-[12px] sm:text-[14px]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M6 12H18M12 6V18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                    </g>
+                class="bg-[#613bf1] text-white flex items-center gap-2 px-4 py-2 rounded text-sm">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#fff">
+                    <path d="M6 12H18M12 6V18" stroke-width="2" stroke-linecap="round" />
                 </svg>
-                <span class="">Add new</span>
+                Add new
             </a>
-        </div>
+        </form>
+
+
 
         @component('admin.components.alert')
         @endcomponent
@@ -154,4 +168,16 @@
 
 
     </div>
+
+    <script>
+        let timer;
+
+        function submitFilter() {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                document.getElementById('filterForm').submit();
+            }, 400); // delay while typing
+        }
+    </script>
+
 @endsection

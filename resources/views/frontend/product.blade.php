@@ -49,7 +49,7 @@
         </div>
 
         <div id="product_in_stock"
-            class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 pt-6 md:pt-10 md:gap-x-4 md:gap-y-10 px-2 xl:px-0">
+            class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 pt-6 md:pt-10 px-2 xl:px-0">
             @forelse ($products as $item)
                 @php
                     $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
