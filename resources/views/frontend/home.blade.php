@@ -37,111 +37,179 @@
             content: "";
         }
 
+        /* client */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-scroll {
+            animation: scroll 20s linear infinite;
+        }
+
 
         @media (max-width: 1279px) {
-                .products_swiper .swiper {
-                    margin-inline: 0;
-                    padding-top: 6rem;
-                }
-
-                .products_swiper .swiper-button-next,
-                .products_swiper .swiper-button-prev {
-                    position: absolute;
-                    top: 60px;
-                    transform: translateY(-50%);
-                    z-index: 10;
-                    background-color: transparent;
-                }
-
-                .products_swiper .swiper-button-next {
-                    right: 10px;
-                }
-
-                .products_swiper .swiper-button-prev {
-                    left: 10px;
-                }
+            .products_swiper .swiper {
+                margin-inline: 0;
+                padding-top: 6rem;
             }
+
+            .products_swiper .swiper-button-next,
+            .products_swiper .swiper-button-prev {
+                position: absolute;
+                top: 60px;
+                transform: translateY(-50%);
+                z-index: 10;
+                background-color: transparent;
+            }
+
+            .products_swiper .swiper-button-next {
+                right: 10px;
+            }
+
+            .products_swiper .swiper-button-prev {
+                left: 10px;
+            }
+        }
     </style>
 @endsection
 @section('content')
     {{-- <x-loading /> --}}
-
     <x-scroll-top-button />
 
     <section class="relative w-full h-[70vh] sm:h-screen">
-        <div class="absolute inset-0 w-full h-full overflow-hidden">
+        <div class="absolute inset-0 z-[8] opacity-50 w-full h-full overflow-hidden bg-[#ffe19a]">
+        </div>
+        <div class="absolute inset-0 w-full h-full overflow-hidden z-[7]">
             {{-- <video autoplay muted loop class="w-full h-full object-cover">
                 <source src="{{ asset('assets/videos/home-video.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video> --}}
-            <img src="{{ asset('assets/images/home_bg.png') }}" alt="" class="object-cover w-full h-full"
-                loading="lazy">
+
+            @php
+                $videoPath = is_array($banners->media) ? $banners->media['path'] ?? null : $banners->media;
+            @endphp
+
+            @if ($videoPath)
+                <video autoplay muted loop playsinline class="absolute inset-0 z-0 object-cover w-full h-full"
+                    poster="fallback-image.jpg">
+                    <source src="{{ asset($videoPath) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            @endif
+
+            {{-- <img src="{{ asset('assets/images/home_bg_new.png') }}" alt="" class="object-cover w-full h-full"
+                loading="lazy"> --}}
         </div>
 
         <div
             class="relative z-10 flex flex-col items-center justify-center w-full h-full px-4 text-center text-white lg:pt-20">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="" class="w-32">
-            <div class="flex items-center justify-center mt-4">
-                <svg class="w-[10rem] sm:w-[15rem] lg:w-[25rem]" viewBox="0 0 743 276" fill="none"
+            <img src="{{ asset('assets/images/logo-black.png') }}" alt="" class="w-48 md:w-64" data-aos="fade-up"
+                data-aos-duration="1000">
+            <div class="flex items-center justify-center mt-4" data-aos="fade-up" data-aos-duration="1200">
+                <svg class="w-[8rem] sm:w-[10rem] lg:w-[15rem]" viewBox="0 0 498 148" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
-                        d="M16.907 272.657C22.3738 264.239 27.2061 255.425 31.3637 246.289C58.6193 182.601 76.014 105.081 81.8753 57.4781C84.3769 31.4297 82.7915 12.3915 65.9495 13.0897C49.0057 14.3695 35.2325 29.1754 26.1715 42.6868C12.1074 64.881 4.15182 98.3324 21.1684 104.121C27.5968 106.041 35.5379 104.761 42.5336 99.6122C43.6535 98.6523 45.4424 99.2923 45.2533 100.572C44.5988 106.39 39.4357 114.084 32.28 118.272C24.8626 122.126 13.2855 122.126 6.87162 116.338C-11.9338 100.252 11.0458 46.5265 37.4141 23.7068C50.2274 12.7697 65.9205 1.8908 83.2279 2.15259C105.262 3.1125 112.214 22.7324 111.821 40.1125C110.367 97.6779 76.1012 202.54 37.6468 256.906C55.2906 240.821 71.7807 223.515 86.9947 205.115C120.81 165.235 151.73 123.421 184.905 83.5265C197.893 67.7753 211.928 53.2894 226.036 38.44C237.817 25.903 249.554 13.715 265.392 5.62855C271.675 2.71974 279.456 0.494509 286.379 1.45442C290.742 2.09435 298.102 4.36323 293.84 10.4572C292.546 12.3915 290.568 12.7115 288.575 13.0315C282.03 13.6715 276.184 15.9403 269.668 18.5001C247.96 27.927 228.283 41.4697 211.725 58.3798C203.929 66.4227 195.726 76.7199 188.454 85.4027C144.72 138.154 105.655 193.799 57.9212 243.656C46.286 254.914 34.4035 266.491 20.1067 275.173C17.4742 276.846 15.5544 274.912 16.907 272.657Z"
-                        fill="white" />
-                    <path d="M245.714 148.597H171.743L176.208 141.208H250.194L245.714 148.597Z" fill="white" />
+                        d="M11.335 146.245C15.0002 141.729 18.24 137.002 21.0274 132.102C39.3005 97.9412 50.9625 56.362 54.8921 30.8295C56.5693 16.8579 55.5064 6.64645 44.2149 7.02089C32.8552 7.70738 23.6211 15.6488 17.5463 22.8959C8.11725 34.8001 2.78353 52.7424 14.192 55.8472C18.5019 56.8769 23.8259 56.1904 28.516 53.4289C29.2668 52.914 30.4662 53.2572 30.3394 53.9437C29.9006 57.0641 26.4391 61.1908 21.6417 63.4375C16.6688 65.5047 8.9071 65.5048 4.60698 62.4C-8.00087 53.7721 7.40547 24.9553 25.0838 12.7156C33.6743 6.84929 44.1954 1.01418 55.7989 1.1546C70.5715 1.66946 75.2324 12.1929 74.9691 21.5151C73.994 52.3913 51.021 108.636 25.2398 137.796C37.0688 129.169 48.1243 119.886 58.3244 110.017C80.9951 88.6268 101.725 66.199 123.967 44.801C132.675 36.3525 142.084 28.5828 151.543 20.618C159.441 13.8936 167.31 7.35633 177.928 3.01899C182.141 1.4588 187.357 0.265256 191.999 0.780119C194.924 1.12336 199.858 2.34031 197.001 5.60892C196.133 6.64645 194.807 6.81809 193.471 6.98971C189.083 7.33295 185.163 8.54991 180.795 9.92288C166.241 14.9792 153.049 22.243 141.948 31.3131C136.721 35.6271 131.222 41.1501 126.346 45.8073C97.0255 74.1014 70.8347 103.948 38.8324 130.69C31.0318 136.728 23.0653 142.937 13.4802 147.594C11.7153 148.491 10.4282 147.454 11.335 146.245Z"
+                        fill="black" />
+                    <path d="M164.735 79.7025H115.143L118.136 75.7396H167.739L164.735 79.7025Z" fill="black" />
                     <path
-                        d="M269.872 152.145C298.8 101.372 336.498 83.9192 357.398 83.9192C369.629 83.9192 377.323 87.7734 376.203 101.939C378.045 96.7907 379.456 92.2869 380.435 88.4279L412.127 85.519L352.642 196.81C342.868 214.496 343.813 220.284 350.242 220.284C362.474 220.284 380.784 201.944 398.048 179.43L401.481 182.004C375.985 216.43 352.714 234.116 334.694 234.116C320.601 233.796 315.176 222.219 326.099 197.755C308.646 219.31 289.026 234.116 271.661 234.116C246.252 234.159 240.623 202.962 269.872 152.145ZM346.068 159.854L355.463 142.488C373.832 106.462 374.371 90.3768 360.801 90.3768C348.584 90.3768 321.387 108.397 296.56 154.065C271.413 199.748 270.73 222.582 282.961 222.582C295.498 222.582 322.914 203.282 346.068 159.854Z"
-                        fill="white" />
+                        d="M180.932 81.6059C200.326 54.3728 225.6 45.0116 239.612 45.0116C247.813 45.0116 252.971 47.0789 252.22 54.677C253.455 51.9155 254.401 49.4998 255.057 47.4299L276.305 45.8697L236.424 105.563C229.871 115.049 230.505 118.153 234.815 118.153C243.015 118.153 255.291 108.316 266.866 96.2406L269.167 97.6213C252.074 116.086 236.472 125.572 224.391 125.572C214.942 125.401 211.305 119.191 218.628 106.07C206.927 117.631 193.773 125.572 182.131 125.572C165.096 125.596 161.323 108.863 180.932 81.6059ZM232.016 85.7404L238.315 76.4261C250.631 57.1031 250.991 48.4752 241.894 48.4752C233.703 48.4752 215.469 58.1406 198.824 82.6357C181.965 107.138 181.507 119.386 189.707 119.386C198.112 119.386 216.493 109.034 232.016 85.7404Z"
+                        fill="black" />
                     <path
-                        d="M439.615 88.4569L471.307 85.5481L443.12 137.732C468.66 103.001 492.803 84.021 508.569 84.021C527.229 84.021 524.989 108.47 510.474 118.112C498.839 125.835 485.967 122.301 484.295 114.898C483.349 109.08 486.432 104.281 493.239 103.961C500.686 103.641 504.874 92.7038 497.297 93.3437C486.142 94.6382 454.087 122.301 419.995 180.841L391.765 233.272L364.582 234.232L423.689 125.152C431.805 111.553 437.317 98.0996 439.615 88.4569Z"
-                        fill="white" />
+                        d="M294.734 47.4455L315.981 45.8853L297.084 73.8752C314.206 55.2464 330.393 45.0662 340.963 45.0662C353.473 45.0662 351.971 58.1796 342.24 63.3517C334.439 67.494 325.81 65.5983 324.688 61.6276C324.055 58.5072 326.122 55.9329 330.685 55.7613C335.678 55.5897 338.486 49.7234 333.406 50.0666C325.927 50.7609 304.436 65.5983 281.58 96.9972L262.653 125.12L244.429 125.635L284.056 67.1273C289.497 59.8334 293.193 52.6175 294.734 47.4455Z"
+                        fill="black" />
                     <path
-                        d="M503.696 152.145C532.944 101.241 570.323 83.9482 591.222 83.9482C617.605 83.9482 620.79 104.863 610.13 118.359C601.403 129.631 586.074 129.297 581.652 119.334C580.977 117.846 580.739 116.198 580.964 114.58C581.189 112.962 581.869 111.441 582.925 110.194C583.981 108.948 585.37 108.027 586.929 107.539C588.488 107.051 590.153 107.015 591.731 107.437C598.32 108.397 604.705 104.863 605.97 99.3941C607.163 94.2455 604.516 89.4168 596.4 89.4168C579.994 89.4168 552.768 105.503 527.665 151.171C504.831 192.665 513.121 221.288 531.155 221.288C549.481 221.288 571.428 201.988 588.779 179.474L591.877 182.048C566.716 216.474 539.518 234.159 515.128 234.159C489.4 234.159 474.768 202.962 503.696 152.145Z"
-                        fill="white" />
+                        d="M337.696 81.6059C357.305 54.3025 382.365 45.0272 396.377 45.0272C414.065 45.0272 416.2 56.245 409.053 63.4843C403.202 69.53 392.925 69.3506 389.961 64.0069C389.508 63.209 389.348 62.3247 389.499 61.4569C389.65 60.589 390.106 59.7734 390.814 59.1048C391.522 58.4362 392.453 57.9423 393.498 57.6805C394.543 57.4186 395.66 57.3996 396.718 57.6257C401.135 58.1406 405.416 56.245 406.264 53.3118C407.064 50.5503 405.289 47.9603 399.848 47.9603C388.849 47.9603 370.595 56.5882 353.765 81.0832C338.457 103.339 344.015 118.692 356.106 118.692C368.392 118.692 383.106 108.34 394.739 96.2639L396.815 97.6447C379.947 116.11 361.712 125.596 345.36 125.596C328.111 125.596 318.302 108.862 337.696 81.6059Z"
+                        fill="black" />
                     <path
-                        d="M688.711 2.57433L720.359 0L641.239 147.637C670.706 108.717 702.324 83.9483 721.232 83.9483C737.23 84.2682 750.902 92.951 721.435 145.033L693.962 196.825C684.508 214.51 685.133 220.299 691.562 220.299C703.793 220.299 722.352 201.959 739.383 179.444L742.8 182.019C717.319 216.445 694.354 234.13 676.029 234.13C660.03 233.81 655.173 218.684 672.771 187.167L697.758 140.525C711.851 114.476 716.417 99.045 705.146 99.045C684.566 99.045 641.152 150.182 620.121 186.527L595.135 233.17L567.952 234.13L673.164 39.5308C680.857 26.0484 686.326 12.537 688.711 2.57433Z"
-                        fill="white" />
+                        d="M461.737 1.38079L482.955 0L429.91 79.1876C449.665 58.3122 470.863 45.0272 483.54 45.0272C494.266 45.1988 503.431 49.856 483.676 77.7912L465.257 105.57C458.919 115.056 459.338 118.161 463.648 118.161C471.848 118.161 484.29 108.324 495.709 96.2483L498 97.6291C480.917 116.094 465.52 125.58 453.234 125.58C442.508 125.408 439.251 117.295 451.05 100.391L467.802 75.373C477.25 61.4014 480.312 53.1246 472.755 53.1246C458.958 53.1246 429.851 80.5528 415.752 100.047L399 125.065L380.775 125.58L451.313 21.203C456.471 13.9715 460.138 6.72445 461.737 1.38079Z"
+                        fill="black" />
                 </svg>
+
             </div>
-            <p class="mt-4 text-[16px] md:text-[25px] text-[#DD483A] font-[500] max-w-[500px]">LIGHTING UP YOUR HOME WITH
-                CHARMING LIGHTING
+            <p class="mt-4 text-[16px] md:text-[25px] text-[#830B00] font-[500] max-w-[500px]" data-aos="fade-up"
+                data-aos-duration="1500">LIGHTING UP YOUR HOME WITH CHARMING LIGHTING
             </p>
         </div>
+    </section>
 
-        <div
-            class="absolute left-0 -bottom-[15rem] w-full h-full overflow-visible flex items-end justify-center pb-10 pointer-events-none">
-            <img src="{{ asset('assets/images/lamp.png') }}" alt="" class="p-0 w-[20rem] sm:w-[30rem]">
+    <section class="relative -top-[2rem] z-[1]">
+        <div data-aos="fade-up" data-aos-duration="1700"
+            class="w-full h-full overflow-visible flex items-end justify-center pointer-events-none">
+            <img src="{{ asset('assets/images/testing.png') }}" alt="" class="p-0 w-[20rem] sm:w-[30rem]">
         </div>
     </section>
 
     {{-- about us --}}
-    <section id="about" class="w-full pt-52 sm:pt-40 xl:pt-32 pb-10 bg-white">
-        <div class="max-w-7xl mx-auto px-2 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <section id="about" class="w-full pb-10 bg-white">
+        <div class="max-w-7xl mx-auto px-2 grid grid-cols-1 md:grid-cols-2 gap-4 items-center overflow-hidden">
 
             <!-- LEFT IMAGE COLLAGE -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2" data-aos="fade-right" data-aos-duration="1400">
                 <div class="flex flex-col gap-2">
-                    <img src="{{ asset('assets/images/about/img-1.png') }}" class="w-52 h-40 object-cover">
+                    <img src="{{ asset('assets/images/about/about-1.jpg') }}" class="w-52 h-40 object-cover">
                     <div class="flex gap-2 items-start">
                         <div class="w-8 h-8 bg-[#326BEA]"></div>
-                        <img src="{{ asset('assets/images/about/img-2.png') }}"
+                        <img src="{{ asset('assets/images/about/about-3.jpg') }}"
                             class="w-[142px] sm:w-36 lg:w-[164px] h-40 object-cover" loading="lazy">
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <div class="w-8 h-8 bg-[#DD483A]"></div>
-                    <img src="{{ asset('assets/images/about/img-3.png') }}" class="w-48 h-48 object-cover" loading="lazy">
+                    <div class="w-8 h-8 bg-[#830B00]"></div>
+                    <img src="{{ asset('assets/images/about/about-2.jpg') }}" class="w-48 h-48 object-cover" loading="lazy">
                 </div>
             </div>
 
             <!-- RIGHT CONTENT -->
-            <div>
-                <h2 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] mb-4">
-                    {{ app()->getLocale() === 'en'
-                        ? $aboutus->title_en
-                        : (app()->getLocale() === 'km'
-                            ? $aboutus->title_km
-                            : $aboutus->title_ch) }}
+            <div data-aos="fade-left" data-aos-duration="1400">
+                <h2 class="text-[20px] md:text-[30px] xl:text-[40px] flex items-end gap-4 font-bold text-[#830B00] mb-4">
+                    <svg class="w-10 h-10 md:w-14 md:h-14" fill="none" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:svgjs="http://svgjs.dev/svgjs">
+                        <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                            <g fill="rgb(0,0,0)">
+                                <path clip-rule="evenodd"
+                                    d="m17 7c0 2.76142-2.2386 5-5 5-2.76142 0-5-2.23858-5-5s2.23858-5 5-5c2.7614 0 5 2.23858 5 5zm-2 0c0 1.65685-1.3431 3-3 3s-3-1.34315-3-3 1.3431-3 3-3 3 1.34315 3 3z"
+                                    fill-rule="evenodd" fill="#830b00" fill-opacity="1" data-original-color="#000000ff"
+                                    stroke="none" stroke-opacity="1" />
+                                <path
+                                    d="m18 4c-.5523 0-1 .44772-1 1s.4477 1 1 1c1.1046 0 2 .89543 2 2s-.8954 2-2 2c-.5523 0-1 .4477-1 1s.4477 1 1 1c2.2091 0 4-1.7909 4-4 0-2.20914-1.7909-4-4-4z"
+                                    fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                    stroke-opacity="1" />
+                                <path
+                                    d="m7 14c0-.5523-.44772-1-1-1h-1c-1.65685 0-3 1.3431-3 3v5c0 .5523.44772 1 1 1s1-.4477 1-1v-5c0-.5523.44772-1 1-1h1c.55228 0 1-.4477 1-1z"
+                                    fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                    stroke-opacity="1" />
+                                <path
+                                    d="m10 13c-1.65685 0-3 1.3431-3 3v4c0 .5523.44772 1 1 1s1-.4477 1-1v-4c0-.5523.44772-1 1-1h4c.5523 0 1 .4477 1 1v4c0 .5523.4477 1 1 1s1-.4477 1-1v-4c0-1.6569-1.3431-3-3-3z"
+                                    fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                    stroke-opacity="1" />
+                                <path
+                                    d="m18 13c-.5523 0-1 .4477-1 1s.4477 1 1 1h1c.5523 0 1 .4477 1 1v5c0 .5523.4477 1 1 1s1-.4477 1-1v-5c0-1.6569-1.3431-3-3-3z"
+                                    fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                    stroke-opacity="1" />
+                                <path
+                                    d="m7 5c0-.55228-.44772-1-1-1-2.20914 0-4 1.79086-4 4 0 2.2091 1.79086 4 4 4 .55228 0 1-.4477 1-1s-.44772-1-1-1c-1.10457 0-2-.89543-2-2s.89543-2 2-2c.55228 0 1-.44772 1-1z"
+                                    fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                    stroke-opacity="1" />
+                            </g>
+                        </g>
+                    </svg>
+
+                    <span class="leading-none">
+                        {{ app()->getLocale() === 'en'
+                            ? $aboutus->title_en
+                            : (app()->getLocale() === 'km'
+                                ? $aboutus->title_km
+                                : $aboutus->title_ch) }}
+                    </span>
                 </h2>
                 <div class="text-gray-700 leading-relaxed text-[14px] xl:text-[16px]">
                     {!! app()->getLocale() === 'en'
@@ -156,17 +224,41 @@
     </section>
 
     {{-- firm history --}}
-    <section class="w-full pb-10 md:py-12 bg-white">
-        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] pb-10 md:py-10 text-center px-2">
-            {{ app()->getLocale() === 'en'
-                ? 'Firm History'
-                : (app()->getLocale() === 'km'
-                    ? 'ប្រវត្តិក្រុមហ៊ុនរបស់យើងខ្ញុំ'
-                    : 'Firm History') }}
-        </h1>
-        <div class="hidden md:flex relative w-full">
+    <section class="w-full pb-10 md:py-12 bg-white max-w-7xl mx-auto px-4">
+        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] flex items-end justify-center gap-2 px-2 pb-6 md:pb-10"
+            data-aos="fade-right" data-aos-duration="1400">
 
-            <!-- Horizontal Line -->
+            <svg class="w-10 h-10 md:w-14 md:h-14" id="Layer_1" viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" version="1.1"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                    <path
+                        d="m244.36 48.49c53.19 0 66.07 1.55 85.56 3.88 5.18.62 11 1.33 18.07 2.06l.8.08a71.78 71.78 0 0 1 15.28 3.34l1 .34.76.28h.12l.13.05a71.39 71.39 0 0 1 45 50.75l.94 9c2.41 23.24 4.33 58.29 5.32 99.05a23.55 23.55 0 0 0 23.6 23 25.05 25.05 0 0 0 24.95-25.28c-.47-62-5.54-101.71-5.54-101.71a119.45 119.45 0 0 0 -77.65-99.83c-1.11-.41-2.22-.81-3.34-1.2a119.37 119.37 0 0 0 -25.58-5.57l-.83-.09c-33.23-3.41-38.56-6.15-108.59-6.15-70 0-81.33 2.74-114.54 6.19l-.83.09a119.18 119.18 0 0 0 -26.81 6v-.46a119.47 119.47 0 0 0 -80.38 100.8c-4.16 40-6.28 78.57-6.28 140.44s2.12 100.45 6.28 140.45a119.61 119.61 0 0 0 106.58 106.58l.83.08c28.93 3 36.7 5.48 84.55 6.06a24 24 0 0 0 24.29-23.72 24 24 0 0 0 -23.5-24.26c-31.15-.64-50-2.31-62.34-3.79-5.17-.62-11-1.32-18.06-2.05l-.8-.09a71.59 71.59 0 0 1 -63.81-63.81c-3.61-34.69-6-71-6-135.48s2.41-100.78 6-135.47a71.37 71.37 0 0 1 40.46-57.18l7.92-2.76a71.74 71.74 0 0 1 16-3.6l.86-.08c5.4-.57 10.13-1.1 14.7-1.61 23.19-2.61 38.51-4.33 94.87-4.33"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m365.35 512.49c-72.31 0-131.13-58.82-131.13-131.12a131.27 131.27 0 0 1 131.13-131.13c72.3 0 131.13 58.82 131.13 131.13s-58.83 131.12-131.13 131.12zm0-214.25a83.13 83.13 0 1 0 83.13 83.13 83.22 83.22 0 0 0 -83.13-83.13z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path d="m131.63 133.64h218.26a23.83 23.83 0 0 1 0 47.65h-218.26a23.83 23.83 0 0 1 0-47.65z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path d="m131.63 283.21a23.82 23.82 0 0 1 0-47.64h124.46a23.82 23.82 0 1 1 0 47.64z" fill="#830b00"
+                        fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                    <path
+                        d="m407.81 406h-44.59a21.77 21.77 0 0 1 -21.75-21.75v-53.5a21.75 21.75 0 1 1 43.5 0v31.75h22.84a21.75 21.75 0 0 1 0 43.5z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                </g>
+            </svg>
+            <span class="leading-none">
+                {{ app()->getLocale() === 'en' ? 'Firm History' : (app()->getLocale() === 'km' ? 'ប្រវត្តិក្រុមហ៊ុនរបស់យើងខ្ញុំ' : 'Firm History') }}
+            </span>
+        </h1>
+
+
+        {{-- <div class="hidden md:flex relative w-full">
+
             <div class="absolute top-[140px] left-0 right-0 h-[2px] bg-[#1E1E1E]"></div>
 
             <div class="grid grid-cols-4 gap-4 md:gap-8 px-4">
@@ -174,9 +266,7 @@
                 @foreach ($histories as $item)
                     <div class="relative" x-data="{ open: false }">
 
-                        <!-- Text -->
                         <div class="text-[12px] lg:text-sm text-gray-700 leading-relaxed line-clamp-3">
-                            {{-- {!! $item->content !!} --}}
                             {!! app()->getLocale() === 'en'
                                 ? $item->content_en
                                 : (app()->getLocale() === 'km'
@@ -194,7 +284,6 @@
                             </svg>
                         </button>
 
-                        <!-- Modal -->
                         <div x-show="open" x-transition x-cloak
                             class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
                             <div @click.away="open = false" class="bg-white max-w-lg w-full mx-4 rounded-xl p-6 relative">
@@ -215,13 +304,11 @@
                             </div>
                         </div>
 
-                        <!-- Year + Dot -->
                         <div class="relative flex flex-col items-center mt-4">
                             <span class="text-[#DD483A] text-sm mb-4 font-[400]">{{ $item->year }}</span>
                             <div class="w-3 h-3 bg-[#1E1E1E] rotate-45 z-10"></div>
                         </div>
 
-                        <!-- Image -->
                         <div class="mt-10">
                             <img src="{{ $item->image }}" class="w-full h-[120px] md:h-[180px] object-cover"
                                 loading="lazy" />
@@ -234,27 +321,21 @@
         </div>
 
         <div class="md:hidden flex relative w-full">
-
-            <!-- Vertical Line (Mobile) -->
             <div class="md:hidden absolute left-5 top-0 bottom-0 w-[2px] bg-[#1E1E1E]"></div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
                 @foreach ($histories as $item)
-                    <!-- Item -->
                     <div class="relative md:text-center pl-12 pr-2" x-data="{ open: false }">
 
-                        <!-- Dot -->
                         <div
                             class="absolute md:static left-[14px] top-2 md:top-auto
                             w-3 h-3 bg-[#1E1E1E] rotate-45 z-10">
                         </div>
 
-                        <!-- Year -->
                         <span class="block text-[#DD483A] text-sm mb-4 font-[400]">
                             {{ $item->year }}
                         </span>
 
-                        <!-- Text -->
                         <div class="text-[12px] text-gray-700 leading-relaxed line-clamp-3">
                             {!! app()->getLocale() === 'en'
                                 ? $item->content_en
@@ -273,7 +354,6 @@
                             </svg>
                         </button>
 
-                        <!-- Modal -->
                         <div x-show="open" x-transition x-cloak
                             class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
                             <div @click.away="open = false" class="bg-white max-w-lg w-full mx-4 rounded-xl p-6 relative">
@@ -294,21 +374,100 @@
                             </div>
                         </div>
 
-                        <!-- Image -->
                         <img src="{{ $item->image }}" class="w-full h-[140px] sm:h-[150px] object-cover"
                             loading="lazy" />
 
                     </div>
                 @endforeach
             </div>
+        </div> --}}
+
+        <div class="relative">
+            <div class="absolute left-1/2 w-1 h-full bg-gradient transform -translate-x-1/2"></div>
+
+            @forelse ($histories as $index => $item)
+                @php
+                    $images = json_decode($item->image, true) ?? [];
+                @endphp
+                @if (($index + 1) % 2 === 1)
+                    <div
+                        class="mb-10 md:mb-32 flex flex-col md:flex-row justify-between items-center w-full relative overflow-hidden">
+                        <div data-aos="fade-right" data-aos-duration="1400"
+                            class="w-full order-1 md:order-1 md:w-5/12 px-2 md:px-4 py-4 bg-white rounded-lg shadow-xl mt-8 md:mt-0 mr-0 md:mr-8">
+                            <h3 class="text-gradient font-[600] text-[20px] md:text-[30px] mt-1">{{ $item->year }}
+                            </h3>
+                            <div
+                                class="prose mt-2 prose-p:text-[#000] text-justify prose-p:mx-0 prose-p:my-2 prose-h1:text-[#000] prose-h2:text-[#000] prose-h3:text-[#000] prose-ul:text-[#000] prose-ol:text-[#000] prose-ul:marker:text-[#000]">
+                                {!! app()->getLocale() === 'en'
+                                    ? $item->content_en
+                                    : (app()->getLocale() === 'km'
+                                        ? $item->content_km
+                                        : $item->content_ch) !!}</div>
+                        </div>
+
+                        <div
+                            class="absolute left-1/2 w-6 h-6 bg-gradient rounded-full transform -translate-x-1/2 border-4 border-white">
+                        </div>
+
+                        <div data-aos="fade-left" data-aos-duration="1400"
+                            class="w-full order-1 md:order-2 mt-2 md:mt-0 px-2 md:px-0 md:w-5/12 flex justify-center md:justify-start mb-4 md:mb-0">
+                            <div class="w-full h-full grid grid-cols-2 gap-2 rounded-md overflow-hidden">
+                                @foreach ($images as $img)
+                                    @if (!empty($img))
+                                        <img src="{{ asset($img) }}" alt="" loading="lazy"
+                                            class="w-full h-[300px] md:h-[400px] object-top {{ count(array_filter($images)) === 1 ? 'col-span-2 object-cover md:object-contain' : 'object-cover' }}">
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div
+                        class="mb-10 md:mb-32 flex flex-col md:flex-row justify-between items-center w-full relative overflow-hidden">
+                        <div data-aos="fade-right" data-aos-duration="1400"
+                            class="w-full order-2 md:order-1 mt-2 md:mt-0 px-2 md:px-0 md:w-5/12 flex justify-center md:justify-end mb-4 md:mb-0">
+                            <div class="w-full h-full grid grid-cols-2 gap-2 rounded-md overflow-hidden">
+                                @foreach ($images as $img)
+                                    @if (!empty($img))
+                                        <img src="{{ asset($img) }}" alt="" loading="lazy"
+                                            class="w-full h-[300px] md:h-[400px] object-top {{ count(array_filter($images)) === 1 ? 'col-span-2 object-cover md:object-contain' : 'object-contain' }}">
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div
+                            class="absolute left-1/2 w-6 h-6 bg-gradient rounded-full transform -translate-x-1/2 border-4 border-white">
+                        </div>
+
+                        <div data-aos="fade-left" data-aos-duration="1400"
+                            class="w-full order-1 md:w-5/12 px-2 md:px-4 py-4 bg-white rounded-lg shadow-xl mt-8 md:mt-0 ml-0 md:ml-8">
+                            <h3 class="text-gradient font-[600]  text-[20px] md:text-[30px] mt-1">{{ $item->year }}
+                            </h3>
+                            <div
+                                class="prose mt-2 text-justify prose-p:text-[#000] prose-p:mx-0 prose-p:my-2 prose-h1:text-[#000] prose-h2:text-[#000] prose-h3:text-[#000] prose-ul:text-[#000] prose-ol:text-[#000] prose-ul:marker:text-[#000]">
+                                {!! app()->getLocale() === 'en'
+                                    ? $item->content_en
+                                    : (app()->getLocale() === 'km'
+                                        ? $item->content_km
+                                        : $item->content_ch) !!}</div>
+                        </div>
+                    </div>
+                @endif
+            @empty
+                <!-- Content to show when $history is empty -->
+                <div class="text-center py-8">
+                    <p>No history items found</p>
+                </div>
+            @endforelse
         </div>
     </section>
 
     {{-- vision & mission & core value --}}
     <section class="w-full max-w-7xl mx-auto px-2 xl:px-4 pt-10 mb-10">
         {{-- vision & mission --}}
-        <div class="relative grid grid-cols-1 md:grid-cols-2 gap-4 items-center z-20">
-            <div
+        <div class="relative grid grid-cols-1 md:grid-cols-2 gap-4 items-center z-20 overflow-hidden">
+            <div data-aos="fade-right" data-aos-duration="1000"
                 class="w-full h-full px-10 pb-6 md:pb-10 pt-6 bg-white border border-gray-300 relative group hover:bg-[#01014F] hover:text-[#fff] transition">
                 <h1 class="text-[#01014F] group-hover:text-[#fff] text-[20px] sm:text-[30px] md:text-[40px] font-[700]">
                     {{ app()->getLocale() === 'en'
@@ -356,7 +515,7 @@
 
                 </div>
             </div>
-            <div
+            <div data-aos="fade-left" data-aos-duration="1000"
                 class="w-full h-full px-10 pb-6 md:pb-10 pt-6 bg-white border border-gray-300 relative group hover:bg-[#01014F] hover:text-[#fff] transition">
                 <h1 class="text-[#01014F] group-hover:text-[#fff] text-[20px] sm:text-[30px] md:text-[40px] font-[700]">
                     {{ app()->getLocale() === 'en'
@@ -449,12 +608,12 @@
 
         {{-- core value / md up --}}
         <div class="relative -top-[4rem] z-10 hidden md:block">
-            <div class="absolute w-full h-full">
+            <div class="absolute w-full h-full" data-aos="fade-up" data-aos-duration="800">
                 <img src="{{ asset('assets/images/lamp-1.png') }}" alt=""
                     class="w-[40rem] lg:w-[50rem] mx-auto relative ">
             </div>
             <div class="relative pt-10 text-center">
-                <h1
+                <h1 data-aos="fade-up" data-aos-duration="1400"
                     class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] pb-10 md:py-10 text-center px-2">
                     {{ app()->getLocale() === 'en'
                         ? $core->title_en
@@ -463,8 +622,9 @@
                             : $core->title_ch) }}
                 </h1>
 
-                <div class="flex justify-between">
-                    <div class="w-[48%] flex items-center justify-end text-end pr-10 leading-none">
+                <div class="flex justify-between overflow-hidden">
+                    <div class="w-[48%] flex items-center justify-end text-end pr-10 leading-none" data-aos="fade-right"
+                        data-aos-duration="1400">
                         <div class="text-[20px] xl:text-[30px] max-w-[300px]">
                             {!! app()->getLocale() === 'en'
                                 ? $core->content1_en
@@ -475,7 +635,8 @@
                         <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                         <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">01</h1>
                     </div>
-                    <div class="w-[48%] flex items-center justify-start text-start pl-10 leading-none">
+                    <div class="w-[48%] flex items-center justify-start text-start pl-10 leading-none"
+                        data-aos="fade-left" data-aos-duration="1400">
                         <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">02</h1>
                         <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                         <div class="text-[20px] xl:text-[30px] max-w-[300px]">
@@ -487,8 +648,9 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between pt-20 xl:pt-32">
-                    <div class="w-[48%] flex items-center justify-end text-end pr-40 lg:pr-52 leading-none">
+                <div class="flex justify-between pt-20 xl:pt-32 overflow-hidden">
+                    <div class="w-[48%] flex items-center justify-end text-end pr-40 lg:pr-52 leading-none"
+                        data-aos="fade-right" data-aos-duration="1400">
                         <div class="text-[20px] xl:text-[30px] max-w-[300px]">
                             {!! app()->getLocale() === 'en'
                                 ? $core->content3_en
@@ -499,7 +661,8 @@
                         <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                         <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">03</h1>
                     </div>
-                    <div class="w-[48%] flex items-center justify-start text-start pl-40 lg:pl-52 leading-none">
+                    <div class="w-[48%] flex items-center justify-start text-start pl-40 lg:pl-52 leading-none"
+                        data-aos="fade-left" data-aos-duration="1400">
                         <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">04</h1>
                         <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                         <div class="text-[20px] xl:text-[30px] max-w-[300px]">
@@ -513,7 +676,8 @@
                 </div>
 
                 <div class="flex justify-between pt-32 lg:pt-56 xl:pt-44">
-                    <div class="w-full flex items-center justify-center text-end pr-16 leading-none">
+                    <div class="w-full flex items-center justify-center text-end pr-16 leading-none" data-aos="fade-up"
+                        data-aos-duration="1400">
                         <div class="text-[20px] xl:text-[30px] max-w-[300px]">
                             {!! app()->getLocale() === 'en'
                                 ? $core->content5_en
@@ -538,7 +702,8 @@
             <h1 class="text-[20px] font-bold text-[#830B00] pb-6 text-center px-2">
                 Core Values</h1>
             <div class="flex flex-col items-start justify-center gap-4">
-                <div class="flex items-center justify-start text-start leading-none">
+                <div class="flex items-center justify-start text-start leading-none" data-aos="fade-right"
+                    data-aos-duration="1400">
                     <h1 class="text-[40px] text-[#830B00] leading-none min-w-[50px]">01</h1>
                     <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                     <div class="text-[16px]">
@@ -549,7 +714,8 @@
                                 : $core->content1_ch) !!}
                     </div>
                 </div>
-                <div class="flex items-center justify-start text-start leading-none">
+                <div class="flex items-center justify-start text-start leading-none" data-aos="fade-right"
+                    data-aos-duration="1400">
                     <h1 class="text-[40px] text-[#830B00] leading-none min-w-[50px]">02</h1>
                     <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                     <div class="text-[16px]">
@@ -560,7 +726,8 @@
                                 : $core->content2_ch) !!}
                     </div>
                 </div>
-                <div class="flex items-center justify-start text-start leading-none">
+                <div class="flex items-center justify-start text-start leading-none" data-aos="fade-right"
+                    data-aos-duration="1400">
                     <h1 class="text-[40px] text-[#830B00] leading-none min-w-[50px]">03</h1>
                     <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                     <div class="text-[16px]">
@@ -571,7 +738,8 @@
                                 : $core->content3_ch) !!}
                     </div>
                 </div>
-                <div class="flex items-center justify-start text-start leading-none">
+                <div class="flex items-center justify-start text-start leading-none" data-aos="fade-right"
+                    data-aos-duration="1400">
                     <h1 class="text-[40px] text-[#830B00] leading-none min-w-[50px]">04</h1>
                     <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                     <div class="text-[16px]">
@@ -582,7 +750,8 @@
                                 : $core->content4_ch) !!}
                     </div>
                 </div>
-                <div class="flex items-center justify-start text-start leading-none">
+                <div class="flex items-center justify-start text-start leading-none" data-aos="fade-right"
+                    data-aos-duration="1400">
                     <h1 class="text-[40px] text-[#830B00] leading-none min-w-[50px]">05</h1>
                     <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
                     <div class="text-[16px]">
@@ -595,61 +764,6 @@
                 </div>
             </div>
 
-            {{-- <div class="relative pt-10 text-center">
-                <h1 class="text-[20px] font-bold text-[#830B00] pb-10 md:py-10 text-center px-2">
-                    Core Values</h1>
-
-                <div class="flex justify-between">
-                    <div class="w-[48%] flex items-start justify-end text-end pr-10 leading-none">
-                        <p class="text-[12px] xl:text-[14px] max-w-[300px]">We prioritize high standards in our products
-                            and services to
-                            ensure customer satisfaction.</p>
-                        <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
-                        <h1 class="text-[40px] text-[#830B00] leading-none">01</h1>
-                    </div>
-                    <div class="w-[48%] flex items-start justify-start text-start pl-10 leading-none">
-                        <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">02</h1>
-                        <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
-                        <p class="text-[12px] xl:text-[14px] max-w-[300px]">We prioritize high standards in our products
-                            and services to
-                            ensure customer satisfaction.</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between pt-20 xl:pt-32">
-                    <div class="w-[48%] flex items-start justify-end text-end pr-40 lg:pr-52 leading-none">
-                        <p class="text-[12px] xl:text-[14px] max-w-[300px]">We prioritize high standards in our products
-                            and services to
-                            ensure customer satisfaction.</p>
-                        <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
-                        <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">03</h1>
-                    </div>
-                    <div class="w-[48%] flex items-start justify-start text-start pl-40 lg:pl-52 leading-none">
-                        <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">04</h1>
-                        <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
-                        <p class="text-[12px] xl:text-[14px] max-w-[300px]">We prioritize high standards in our products
-                            and services to
-                            ensure customer satisfaction.</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between pt-24 xl:pt-40">
-                    <div class="w-[48%] flex items-start justify-end text-end pr-16 leading-none">
-                        <p class="text-[12px] xl:text-[14px] max-w-[300px]">We prioritize high standards in our products
-                            and services to
-                            ensure customer satisfaction.</p>
-                        <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
-                        <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">05</h1>
-                    </div>
-                    <div class="w-[48%] flex items-start justify-start text-start pl-16 leading-none">
-                        <h1 class="text-[40px] lg:text-[50px] text-[#830B00] leading-none">06</h1>
-                        <div class="w-[3px] h-[50px] bg-[#01014F] mx-2"></div>
-                        <p class="text-[12px] xl:text-[14px] max-w-[300px]">We prioritize high standards in our products
-                            and services to
-                            ensure customer satisfaction.</p>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </section>
 
@@ -659,18 +773,27 @@
             <img src="{{ asset('assets/images/bg-1.png') }}" alt="" class="w-full h-full object-cover">
         </div>
         <div class="absolute inset-0 w-full h-full bg-[#fff]/80 z-20"></div>
+
         <div class="relative z-30 max-w-7xl mx-auto px-2 md:px-4">
-            <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] pb-10 text-center px-2">
-                {{ app()->getLocale() === 'en'
-                    ? 'Why Choose Us ?'
-                    : (app()->getLocale() === 'km'
-                        ? 'ហេតុអ្វីបានជាជ្រើសរើសយើងខ្ញុំ​ ?'
-                        : 'Why Choose Us ?') }}
+            <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] flex items-end justify-center gap-2 px-2 pb-6 md:pb-10"
+                data-aos="fade-right" data-aos-duration="1400">
+                <svg class="w-10 h-10 md:w-14 md:h-14" id="Layer_1" enable-background="new 0 0 512 512"
+                    viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                        <path
+                            d="m393.93 460.19c-2.5-12.81-11.54-22.44-24.18-25.76l-52.57-13.83c-3.33-.88-5.75-2.3-8.1-4.75l-11.92-12.45v-6.92c3.93-2.61 7.65-5.6 11.09-8.97 12.56-12.26 20.33-28.14 22.29-45.27 11.75-3.46 20.17-14.25 20.17-27.13 0-6.81-2.42-13.06-6.43-17.94v-26.73c0-41.15-33.48-74.64-74.64-74.64h-41.78c-16.26 0-29.84 11.73-32.72 27.17-15.88 2.51-28.06 16.29-28.06 32.87v41.32c-4.02 4.89-6.44 11.14-6.44 17.95 0 12.88 8.43 23.68 20.19 27.14 1.96 17.14 9.73 33.02 22.29 45.27 3.44 3.36 7.15 6.34 11.07 8.95v6.94l-11.92 12.44c-2.36 2.46-4.78 3.88-8.09 4.75l-52.58 13.83c-12.6 3.32-21.64 12.94-24.18 25.74l-4.82 24.44c-1.33 6.87.39 13.61 4.81 18.97 4.44 5.42 10.74 8.4 17.75 8.4h241.03c7.03 0 13.34-2.98 17.76-8.38 4.46-5.41 6.17-12.17 4.8-19.03zm-163.75-55.65c8.09 2.93 16.7 4.46 25.51 4.46s17.4-1.53 25.48-4.45v5.05c0 14.05-11.43 25.48-25.48 25.48-14.07 0-25.51-11.43-25.51-25.48zm-29.82-165.99h2.21c4.42 0 7.99-3.58 7.99-7.99v-1.47c0-9.53 7.76-17.29 17.29-17.29h41.78c32.34 0 58.65 26.31 58.65 58.65v16.98c-1.51-.32-3.06-.53-4.65-.6v-1.53c0-7.93-2.85-14.79-8.48-20.38-5.55-5.51-12.63-8.38-20.45-8.3-28.32.24-53.05-2.41-73.5-7.92-.48-.13-.97-.21-1.47-.25-20.31-1.59-26.21 21.61-29.34 38.39-.48-.02-.96-.04-1.44-.04-2.02 0-3.99.22-5.9.62v-31.58c.01-9.53 7.77-17.29 17.31-17.29zm-4 96.66c-.11-4.25-3.52-7.66-7.76-7.78-6.6-.19-11.96-5.71-11.96-12.31 0-6.8 5.53-12.33 12.33-12.33 1.67 0 3.28.32 4.77.94 2.23.93 4.77.81 6.9-.35 2.13-1.15 3.62-3.21 4.05-5.59.21-1.13.41-2.31.63-3.52 1.97-11.13 5.23-29.57 12.64-29.9 21.67 5.73 47.53 8.5 76.91 8.22h.16c3.53 0 6.35 1.17 8.87 3.66 2.57 2.55 3.76 5.42 3.76 9.04v10.63c0 2.59 1.25 5.01 3.36 6.51s4.81 1.89 7.25 1.04c1.33-.46 2.71-.69 4.13-.69 6.8 0 12.33 5.53 12.33 12.33 0 6.6-5.35 12.12-11.93 12.31-4.24.12-7.65 3.54-7.76 7.78-.82 31.87-27.44 57.81-59.33 57.81-31.92 0-58.53-25.93-59.35-57.8zm185.24 158.24c-1.42 1.73-3.14 2.54-5.41 2.54h-241.03c-2.25 0-3.96-.81-5.4-2.57-1.43-1.73-1.89-3.57-1.47-5.75l4.82-24.4c1.34-6.76 5.92-11.63 12.56-13.38l52.59-13.83c6.19-1.63 11.13-4.54 15.56-9.15l2.91-3.04c5.84 15.85 21.1 27.19 38.96 27.19 17.85 0 33.1-11.34 38.94-27.19l2.92 3.05c4.35 4.53 9.43 7.52 15.55 9.14l52.59 13.83c6.66 1.75 11.24 6.62 12.56 13.38l4.82 24.42c.43 2.19-.03 4.02-1.47 5.76zm-158.31-414.8c12.68 0 22.99-10.3 22.99-22.96 0-2.58 1.02-5.02 2.87-6.88 1.83-1.83 4.32-2.87 6.85-2.87 2.55 0 4.99 1.03 6.85 2.87 1.85 1.85 2.87 4.3 2.87 6.88 0 2-.62 3.93-1.78 5.58-.16.22-.31.43-.45.63-1.21 1.44-2.74 2.5-4.43 3.07-7.66 2.55-14.18 7.31-18.86 13.75-4.68 6.48-7.16 14.15-7.16 22.2v14.77c0 12.66 10.3 22.96 22.96 22.96s22.96-10.3 22.96-22.96l.01-2.2c0-1.95.01-4.74.01-7.2 8.27-3.76 15.47-9.47 21.08-16.74.38-.44.75-.93 1.1-1.45 6.88-9.53 10.51-20.73 10.51-32.42 0-14.84-5.8-28.82-16.34-39.36-10.52-10.51-24.49-16.3-39.33-16.3s-28.81 5.79-39.33 16.32c-10.54 10.54-16.34 24.52-16.34 39.36 0 12.65 10.3 22.95 22.96 22.95zm39.76 23.52c.11.69.32 1.35.59 1.97-.28-.64-.48-1.3-.59-1.97zm.63 2.05c.07.15.14.29.22.43-.08-.14-.15-.28-.22-.43zm.33.65c.06.11.13.21.2.31-.06-.1-.13-.21-.2-.31zm.38.59c.08.11.16.22.25.32-.08-.1-.17-.21-.25-.32zm.42.54c.13.15.26.29.39.43-.14-.14-.27-.28-.39-.43zm.44.49c1.12 1.14 2.58 1.93 4.2 2.24-1.69-.31-3.12-1.14-4.2-2.24zm4.37 2.26c.18.03.36.06.54.07-.19-.01-.37-.04-.54-.07zm-41.64-81.11c7.5-7.5 17.45-11.63 28.02-11.63s20.52 4.13 28.02 11.63c7.52 7.52 11.66 17.48 11.66 28.05 0 8.33-2.61 16.34-7.55 23.14-.06.09-.12.17-.18.26-.02.03-.06.09-.03.05-.14.16-.28.33-.41.5-4.88 6.4-11.49 11.12-19.1 13.65-3.52 1.17-5.75 4.59-5.45 8.24.04 1.55.02 9.04.01 11.93v2.24c0 3.85-3.13 6.97-6.97 6.97s-6.97-3.13-6.97-6.97v-14.77c0-4.66 1.43-9.1 4.12-12.82 2.7-3.72 6.49-6.48 10.97-7.97 4.74-1.58 8.93-4.54 12.1-8.55.18-.23.34-.45.5-.7l.09-.12c.03-.05.07-.09.1-.14 3.15-4.4 4.81-9.56 4.81-14.94 0-6.85-2.68-13.31-7.58-18.21-4.9-4.86-11.34-7.53-18.13-7.53-6.73 0-13.35 2.75-18.15 7.56-4.87 4.87-7.56 11.33-7.56 18.18 0 3.84-3.14 6.97-7 6.97-3.85 0-6.97-3.13-6.97-6.97-.02-10.57 4.13-20.53 11.65-28.05zm28.02 115.44c-12.68 0-22.99 10.31-22.99 22.99s10.31 22.99 22.99 22.99c12.66 0 22.96-10.31 22.96-22.99s-10.3-22.99-22.96-22.99zm0 29.99c-3.86 0-7-3.14-7-7s3.14-7 7-7c3.85 0 6.97 3.14 6.97 7s-3.13 7-6.97 7zm186.3-47.12c-10.54-10.54-24.51-16.34-39.33-16.34-14.84 0-28.82 5.8-39.36 16.34-10.52 10.52-16.32 24.49-16.32 39.33 0 12.66 10.3 22.96 22.96 22.96 12.68 0 22.99-10.3 22.99-22.96 0-2.58 1.01-5 2.9-6.87 1.82-1.84 4.25-2.85 6.82-2.85 2.56 0 5 1.02 6.85 2.87 1.83 1.83 2.87 4.32 2.87 6.85 0 2.55-.96 4.43-1.78 5.57-.15.21-.29.41-.43.61-1.19 1.45-2.73 2.52-4.5 3.11-7.71 2.58-14.22 7.36-18.82 13.78-4.7 6.5-7.18 14.17-7.18 22.17v14.77c0 12.68 10.31 22.99 22.99 22.99 12.66 0 22.96-10.31 22.96-22.99v-1.77c0-1.94.01-4.97 0-7.63 8.24-3.75 15.43-9.43 21.04-16.68.43-.5.82-.99 1.16-1.48 6.88-9.56 10.51-20.77 10.51-32.45.02-14.82-5.79-28.79-16.33-39.33zm-30.69 89.4c.21.27.43.53.67.78-.25-.25-.47-.51-.67-.78zm-.77-1.18c.19.36.4.7.64 1.03-.25-.33-.46-.68-.64-1.03zm1.69 2.17c.22.21.45.41.7.59-.26-.18-.48-.38-.7-.59zm22.58-27.88c-.06.08-.07.09-.12.18l-.08.09c-.15.17-.29.34-.43.52-4.89 6.39-11.49 11.1-19.09 13.63-3.07 1.02-5.22 3.79-5.45 7.02-.03.36-.03.72 0 1.08.03 1.46.02 9.74.01 12.52v1.79c0 3.86-3.13 7-6.97 7-3.86 0-7-3.14-7-7v-14.77c0-4.62 1.44-9.05 4.17-12.84 2.65-3.7 6.43-6.45 10.89-7.95 4.81-1.59 9.02-4.56 12.17-8.58.07-.09.15-.19.22-.29.1-.13.19-.27.29-.42l.05-.08c.03-.04.06-.08.08-.11 3.16-4.37 4.83-9.55 4.83-14.97 0-6.73-2.75-13.35-7.56-18.15-4.87-4.87-11.32-7.56-18.15-7.56-6.88 0-13.33 2.69-18.13 7.53-4.89 4.85-7.58 11.3-7.58 18.18 0 3.84-3.14 6.97-7 6.97-3.85 0-6.97-3.13-6.97-6.97 0-10.57 4.13-20.52 11.63-28.02 7.52-7.52 17.48-11.66 28.05-11.66 10.55 0 20.5 4.14 28.02 11.66s11.66 17.47 11.66 28.02c.01 8.33-2.6 16.34-7.54 23.18zm-24.83 24.37c-.18-.58-.29-1.16-.33-1.68.05.57.16 1.14.33 1.68zm-7.33 39.87c-12.66 0-22.96 10.3-22.96 22.96 0 12.68 10.3 22.99 22.96 22.99 12.68 0 22.99-10.31 22.99-22.99 0-12.66-10.32-22.96-22.99-22.96zm0 29.96c-3.85 0-6.97-3.14-6.97-7 0-3.84 3.13-6.97 6.97-6.97 3.86 0 7 3.13 7 6.97 0 3.86-3.14 7-7 7zm-303.65-117.38c0-2.58 1.01-5 2.87-6.85 1.85-1.85 4.29-2.87 6.85-2.87 2.58 0 5 1.01 6.87 2.9 1.84 1.82 2.85 4.24 2.85 6.82 0 2.06-.61 3.98-1.77 5.57-.12.16-.17.24-.28.41l-.12.17c-1.16 1.46-2.71 2.54-4.49 3.14-7.68 2.56-14.2 7.33-18.88 13.81-4.67 6.51-7.14 14.17-7.14 22.15v14.77c0 12.68 10.3 22.99 22.96 22.99 12.68 0 22.99-10.31 22.99-22.99v-1.3c0-1.89.01-5.22 0-8.1 8.29-3.77 15.52-9.5 21.14-16.81.3-.36.59-.73.89-1.13.03-.04.07-.09.1-.13 6.9-9.59 10.55-20.84 10.55-32.53 0-14.86-5.81-28.83-16.34-39.32-10.51-10.54-24.48-16.35-39.34-16.35s-28.83 5.81-39.32 16.34c-10.55 10.51-16.35 24.48-16.35 39.34 0 12.66 10.31 22.96 22.99 22.96 12.67-.03 22.97-10.33 22.97-22.99zm19.36 51.17c.59.52 1.26.96 1.99 1.29-.76-.34-1.42-.79-1.99-1.29zm-35.35-51.17c0 3.84-3.13 6.97-6.97 6.97-3.86 0-7-3.13-7-6.97 0-10.58 4.14-20.52 11.67-28.03 7.49-7.51 17.44-11.65 28.01-11.65s20.52 4.14 28.03 11.67c7.51 7.49 11.65 17.44 11.65 28.01 0 8.29-2.59 16.28-7.48 23.12-.17.22-.34.43-.51.64-.06.07-.11.14-.16.21-4.89 6.39-11.5 11.1-19.11 13.63-3.27 1.09-5.47 4.14-5.47 7.58 0 .23.01.45.03.67.03 1.11.04 5.42.03 12.84v1.32c0 3.86-3.14 7-7 7-3.84 0-6.97-3.14-6.97-7v-14.77c0-4.62 1.43-9.05 4.13-12.81 2.69-3.73 6.48-6.49 10.96-7.98 4.84-1.61 9.05-4.59 12.16-8.62.07-.09.13-.17.19-.26l.07-.1c.15-.21.31-.43.45-.65 3.09-4.3 4.72-9.42 4.72-14.82 0-6.88-2.69-13.33-7.53-18.13-4.85-4.89-11.3-7.58-18.18-7.58-6.83 0-13.28 2.68-18.13 7.53-4.89 4.84-7.59 11.3-7.59 18.18zm33 47.5c-.15-.48-.25-.96-.29-1.42.05.49.15.96.29 1.42zm15.67 62.88c0-12.66-10.3-22.96-22.96-22.96-12.68 0-22.99 10.3-22.99 22.96 0 12.68 10.31 22.99 22.99 22.99 12.66 0 22.96-10.32 22.96-22.99zm-22.96 7c-3.86 0-7-3.14-7-7 0-3.84 3.14-6.97 7-6.97 3.85 0 6.97 3.13 6.97 6.97.01 3.86-3.12 7-6.97 7z"
+                            fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                            stroke-opacity="1" />
+                    </g>
+                </svg>
+                <span
+                    class="leading-none">{{ app()->getLocale() === 'en' ? 'Why Choose Us ?' : (app()->getLocale() === 'km' ? 'ហេតុអ្វីបានជាជ្រើសរើសយើងខ្ញុំ​ ?' : 'Why Choose Us ?') }}</span>
             </h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 xl:gap-16 px-4 md:px-0">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 xl:gap-16 px-4 md:px-0 overflow-hidden">
                 @foreach ($whys as $item)
-                    <div class="flex flex-col w-full">
+                    <div class="flex flex-col w-full" data-aos="fade-left" data-aos-duration="1400">
                         <div class="flex items-center justify-start">
                             <img src="{{ $item->image }}" alt="" class="h-10 lg:h-16">
                         </div>
@@ -692,196 +815,48 @@
                     </div>
                 @endforeach
 
-                {{-- <div class="flex flex-col w-full sm:w-[46%] lg:w-[30%] xl:w-[28%]">
-                    <div class="flex items-center justify-start">
-                        <svg class="h-10 lg:h-16" viewBox="0 0 52 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.64285 53L47.3571 53C48.5881 52.9985 49.7682 52.4995 50.6385 51.6124C51.5089 50.7252 51.9986 49.5224 52 48.2679L52 4.73215C51.9986 3.47756 51.5089 2.27478 50.6385 1.38765C49.7682 0.500515 48.5881 0.00147599 47.3571 3.40881e-06L29.7143 1.86642e-06C28.4834 0.00147423 27.3033 0.500513 26.4329 1.38764C25.5625 2.27477 25.0729 3.47756 25.0714 4.73214L25.0714 8.73598C25.0759 8.95927 25.1576 9.17378 25.302 9.34171C25.4465 9.50963 25.6445 9.62018 25.8611 9.65388C26.0387 9.68562 26.2214 9.6654 26.3881 9.59554C28.858 8.25286 33.2716 9.70036 33.215 12.398C33.2893 15.1234 28.8752 16.536 26.3881 15.2009C26.1839 15.1105 25.9547 15.0976 25.7419 15.1644C25.5292 15.2313 25.347 15.3736 25.2282 15.5655C25.1338 15.7134 25.0797 15.8843 25.0714 16.0606L25.0714 25.5536L17.9214 25.5536C18.6332 22.0963 16.1994 18.3088 13.0276 18.3889C9.85596 18.3072 7.42368 22.0986 8.13448 25.5536L4.64286 25.5536C3.41194 25.555 2.23185 26.0541 1.36146 26.9412C0.491064 27.8283 0.00144024 29.0311 -1.82895e-06 30.2857L-3.401e-06 48.2679C0.00143844 49.5224 0.491062 50.7252 1.36145 51.6124C2.23185 52.4995 3.41193 52.9985 4.64285 53ZM47.3571 51.1071L26.9286 51.1071L26.9286 43.1976C26.9155 43.0693 26.8917 42.9423 26.8576 42.818C26.7596 42.5922 26.5812 42.4128 26.3583 42.3159C26.1355 42.2191 25.8849 42.2121 25.6572 42.2963C23.4006 43.2982 20.1725 41.6927 20.2613 39.2767C20.1746 36.8616 23.3985 35.2543 25.6573 36.2574C25.8878 36.3342 26.137 36.3305 26.3653 36.2468C26.5314 36.1668 26.6723 36.0409 26.7719 35.8835C26.8714 35.726 26.9257 35.5433 26.9286 35.3559L26.9286 27.4464L33.6472 27.4464C32.6665 31.0369 35.1562 35.3379 38.5358 35.2359C41.9153 35.3402 44.4044 31.0339 43.4241 27.4463L50.1429 27.4464L50.1429 48.2679C50.1421 49.0206 49.8483 49.7423 49.326 50.2746C48.8038 50.8069 48.0957 51.1063 47.3571 51.1071ZM26.9286 17.3753C30.5795 18.442 35.1934 15.9061 35.0721 12.3977C35.1958 8.89001 30.5763 6.35337 26.9285 7.4213L26.9286 4.73215C26.9294 3.97937 27.2231 3.25767 27.7454 2.72537C28.2676 2.19308 28.9757 1.89368 29.7143 1.89286L47.3571 1.89286C48.0957 1.89368 48.8038 2.19308 49.3261 2.72538C49.8483 3.25767 50.1421 3.97937 50.1429 4.73215L50.1429 25.5536L42.1199 25.5536C41.9646 25.5588 41.813 25.6027 41.6784 25.6816C41.5437 25.7604 41.4301 25.8717 41.3475 26.0058C41.2649 26.1398 41.2159 26.2925 41.2047 26.4504C41.1935 26.6083 41.2205 26.7665 41.2834 26.9113C42.586 29.3064 41.1272 33.4453 38.5356 33.343C35.9053 33.4062 34.4973 29.3276 35.7938 26.8889C35.8546 26.7468 35.8798 26.5915 35.8674 26.437C35.8549 26.2826 35.8051 26.1336 35.7224 26.0035C35.6425 25.8675 35.5296 25.7547 35.3947 25.6759C35.2597 25.5971 35.1071 25.555 34.9516 25.5536L26.9286 25.5536L26.9286 17.3753ZM1.85714 30.2857C1.85795 29.5329 2.1517 28.8112 2.67395 28.2789C3.1962 27.7467 3.90428 27.4472 4.64286 27.4464L9.36914 27.4464C9.61436 27.443 9.84858 27.3422 10.022 27.1654C10.1954 26.9887 10.2943 26.7499 10.2977 26.5C10.0585 25.7982 9.91794 25.0654 9.88019 24.3234C9.88012 22.095 11.292 20.2817 13.0277 20.2817C15.611 20.2745 16.8468 23.9202 15.7856 26.3601C15.7457 26.5773 15.7855 26.8018 15.8975 26.991C16.0094 27.1801 16.1857 27.3207 16.3928 27.386C16.4897 27.4233 16.5921 27.4437 16.6956 27.4464L25.0714 27.4464L25.0714 34.1618C21.7474 33.5327 18.3464 36.07 18.4042 39.2768C18.3448 42.4839 21.7496 45.0203 25.0714 44.3917L25.0714 51.1071L4.64285 51.1071C3.90428 51.1063 3.19619 50.8069 2.67395 50.2746C2.1517 49.7423 1.85794 49.0206 1.85714 48.2679L1.85714 30.2857Z"
-                                fill="#01014F" />
-                        </svg>
-                    </div>
-                    <h1 class="text-[16px] lg:text-[20px] font-[600] py-2">Comprehensive Solutions</h1>
-                    <div class="w-full h-[2px] bg-[#830B00]"></div>
-                    <p class="text-[14px] pt-4">We offer a full range of accounting, tax, and business advisory services to
-                        meet all your needs under one roof.</p>
-                </div>
-                <div class="flex flex-col w-full sm:w-[46%] lg:w-[30%] xl:w-[28%]">
-                    <div class="flex items-center justify-start">
-                        <svg class="h-10 lg:h-16" viewBox="0 0 69 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9.8444 36.8705C9.78002 36.8705 9.71427 36.8664 9.64715 36.8568C6.51717 36.4048 3.51458 35.4227 0.725683 33.9364C0.0585931 33.5803 -0.194818 32.7502 0.161328 32.0817C0.518844 31.416 1.34483 31.1626 2.01603 31.5174C4.52275 32.8557 7.22262 33.7378 10.0375 34.1433C10.7868 34.2515 11.306 34.946 11.1991 35.6953C11.1005 36.3788 10.5142 36.8705 9.8444 36.8705Z"
-                                fill="#01014F" />
-                            <path
-                                d="M58.647 36.8706C57.9772 36.8706 57.3909 36.3789 57.2923 35.6967C57.1855 34.9474 57.7046 34.253 58.4539 34.1447C61.2702 33.7393 63.9687 32.8571 66.4754 31.5189C67.148 31.1641 67.9726 31.4175 68.3301 32.0832C68.6863 32.7503 68.4329 33.5818 67.7658 33.9379C64.9769 35.4241 61.9743 36.4063 58.8443 36.8583C58.7772 36.8665 58.7114 36.8706 58.647 36.8706Z"
-                                fill="#01014F" />
-                            <path
-                                d="M44.3194 24.5739C44.0619 24.5739 43.803 24.5013 43.5729 24.352C42.9387 23.9383 42.7592 23.0904 43.1729 22.4562C45.1139 19.4797 48.3932 17.7017 51.9464 17.7017C52.7039 17.7017 53.3162 18.314 53.3162 19.0715C53.3162 19.829 52.7039 20.4412 51.9464 20.4412C49.3219 20.4412 46.9001 21.7535 45.4687 23.952C45.2071 24.3547 44.7687 24.5739 44.3194 24.5739Z"
-                                fill="#01014F" />
-                            <path
-                                d="M54.9831 20.4412C50.1272 20.4412 46.026 16.3401 46.026 11.4855C46.026 6.63095 50.1272 2.52979 54.9831 2.52979C59.8376 2.52979 63.9388 6.63095 63.9388 11.4855C63.9388 16.3401 59.8376 20.4412 54.9831 20.4412ZM54.9831 5.26937C51.6134 5.26937 48.7656 8.11581 48.7656 11.4855C48.7656 14.8552 51.6134 17.7016 54.9831 17.7016C58.3528 17.7016 61.1992 14.8552 61.1992 11.4855C61.1992 8.11581 58.3528 5.26937 54.9831 5.26937Z"
-                                fill="#01014F" />
-                            <path
-                                d="M67.1212 29.5464C66.3637 29.5464 65.7514 28.9341 65.7514 28.1766C65.7514 23.9124 62.2817 20.4427 58.0175 20.4427C57.26 20.4427 56.6477 19.8304 56.6477 19.0729C56.6477 18.3154 57.26 17.7031 58.0175 17.7031C63.7926 17.7031 68.4909 22.4029 68.4909 28.1766C68.4909 28.9327 67.8786 29.5464 67.1212 29.5464Z"
-                                fill="#01014F" />
-                            <path
-                                d="M58.0172 20.4412H51.9477C51.1902 20.4412 50.5779 19.829 50.5779 19.0715C50.5779 18.314 51.1902 17.7017 51.9477 17.7017H58.0172C58.7747 17.7017 59.387 18.314 59.387 19.0715C59.387 19.829 58.7734 20.4412 58.0172 20.4412Z"
-                                fill="#01014F" />
-                            <path
-                                d="M67.1209 34.0981C66.3634 34.0981 65.7511 33.4858 65.7511 32.7283V28.1764C65.7511 27.4189 66.3634 26.8066 67.1209 26.8066C67.8784 26.8066 68.4907 27.4189 68.4907 28.1764V32.7283C68.4907 33.4858 67.8784 34.0981 67.1209 34.0981Z"
-                                fill="#01014F" />
-                            <path
-                                d="M18.0616 35.1093C17.3041 35.1093 16.6918 34.497 16.6918 33.7395C16.6918 26.2905 22.7517 20.2319 30.1993 20.2319C30.9568 20.2319 31.5691 20.8442 31.5691 21.6017C31.5691 22.3592 30.9568 22.9715 30.1993 22.9715C24.2613 22.9715 19.4314 27.8014 19.4314 33.7395C19.4314 34.497 18.8177 35.1093 18.0616 35.1093Z"
-                                fill="#01014F" />
-                            <path
-                                d="M38.2924 22.9715H30.1996C29.4421 22.9715 28.8298 22.3592 28.8298 21.6017C28.8298 20.8442 29.4421 20.2319 30.1996 20.2319H38.2924C39.0499 20.2319 39.6622 20.8442 39.6622 21.6017C39.6622 22.3592 39.0499 22.9715 38.2924 22.9715Z"
-                                fill="#01014F" />
-                            <path
-                                d="M24.1725 24.5739C23.7245 24.5739 23.2862 24.3547 23.0232 23.952C21.5904 21.7549 19.17 20.4412 16.5455 20.4412C15.788 20.4412 15.1757 19.829 15.1757 19.0715C15.1757 18.314 15.788 17.7017 16.5455 17.7017C20.1001 17.7017 23.378 19.4797 25.319 22.4562C25.7327 23.0904 25.5532 23.9383 24.919 24.352C24.6875 24.5013 24.4286 24.5739 24.1725 24.5739Z"
-                                fill="#01014F" />
-                            <path
-                                d="M18.0616 41.1788C17.3041 41.1788 16.6918 40.5665 16.6918 39.809V33.7394C16.6918 32.9819 17.3041 32.3696 18.0616 32.3696C18.8191 32.3696 19.4314 32.9819 19.4314 33.7394V39.809C19.4314 40.5665 18.8177 41.1788 18.0616 41.1788Z"
-                                fill="#01014F" />
-                            <path
-                                d="M34.2457 22.9714C28.02 22.9714 22.76 17.7114 22.76 11.4857C22.76 5.26001 28.02 0 34.2457 0C40.4715 0 45.7315 5.26001 45.7315 11.4857C45.7315 17.7114 40.4715 22.9714 34.2457 22.9714ZM34.2457 2.73959C29.5049 2.73959 25.4996 6.74487 25.4996 11.4857C25.4996 16.2266 29.5049 20.2319 34.2457 20.2319C38.9866 20.2319 42.9919 16.2266 42.9919 11.4857C42.9919 6.74487 38.9866 2.73959 34.2457 2.73959Z"
-                                fill="#01014F" />
-                            <path
-                                d="M50.4299 35.1093C49.6724 35.1093 49.0601 34.497 49.0601 33.7395C49.0601 27.8014 44.2302 22.9715 38.2922 22.9715C37.5347 22.9715 36.9224 22.3592 36.9224 21.6017C36.9224 20.8442 37.5347 20.2319 38.2922 20.2319C45.7411 20.2319 51.7997 26.2919 51.7997 33.7395C51.7997 34.497 51.1874 35.1093 50.4299 35.1093Z"
-                                fill="#01014F" />
-                            <path
-                                d="M50.4298 41.1788C49.6723 41.1788 49.06 40.5665 49.06 39.809V33.7394C49.06 32.9819 49.6723 32.3696 50.4298 32.3696C51.1873 32.3696 51.7996 32.9819 51.7996 33.7394V39.809C51.7996 40.5665 51.1873 41.1788 50.4298 41.1788Z"
-                                fill="#01014F" />
-                            <path
-                                d="M34.2456 45.2333C28.4651 45.2333 22.6859 43.8279 17.4163 41.0185C16.7492 40.661 16.4958 39.8322 16.8519 39.1638C17.2095 38.4981 18.0341 38.2446 18.7066 38.5994C28.4377 43.7896 40.0563 43.7896 49.7859 38.5994C50.4571 38.2446 51.2845 38.4981 51.6406 39.1638C51.9968 39.8309 51.7433 40.661 51.0762 41.0185C45.8053 43.8266 40.0261 45.2333 34.2456 45.2333Z"
-                                fill="#01014F" />
-                            <path
-                                d="M13.5086 20.4412C8.65408 20.4412 4.55292 16.3401 4.55292 11.4855C4.55292 6.63095 8.65408 2.52979 13.5086 2.52979C18.3632 2.52979 22.4643 6.63095 22.4643 11.4855C22.4643 16.3401 18.3632 20.4412 13.5086 20.4412ZM13.5086 5.26937C10.1389 5.26937 7.29251 8.11581 7.29251 11.4855C7.29251 14.8552 10.1389 17.7016 13.5086 17.7016C16.8783 17.7016 19.7248 14.8552 19.7248 11.4855C19.7248 8.11581 16.8783 5.26937 13.5086 5.26937Z"
-                                fill="#01014F" />
-                            <path
-                                d="M1.37083 29.5464C0.613336 29.5464 0.0010376 28.9341 0.0010376 28.1766C0.0010376 22.4015 4.7008 17.7031 10.4745 17.7031C11.232 17.7031 11.8443 18.3154 11.8443 19.0729C11.8443 19.8304 11.232 20.4427 10.4745 20.4427C6.21032 20.4413 2.74063 23.911 2.74063 28.1766C2.74063 28.9327 2.12833 29.5464 1.37083 29.5464Z"
-                                fill="#01014F" />
-                            <path
-                                d="M16.5442 20.4412H10.4746C9.7171 20.4412 9.1048 19.829 9.1048 19.0715C9.1048 18.314 9.7171 17.7017 10.4746 17.7017H16.5442C17.3016 17.7017 17.9139 18.314 17.9139 19.0715C17.9139 19.829 17.3016 20.4412 16.5442 20.4412Z"
-                                fill="#01014F" />
-                            <path
-                                d="M1.37083 34.0981C0.613336 34.0981 0.0010376 33.4858 0.0010376 32.7283V28.1764C0.0010376 27.4189 0.613336 26.8066 1.37083 26.8066C2.12833 26.8066 2.74063 27.4189 2.74063 28.1764V32.7283C2.74063 33.4858 2.12833 34.0981 1.37083 34.0981Z"
-                                fill="#01014F" />
-                        </svg>
-                    </div>
 
-                    <h1 class="text-[16px] lg:text-[20px] font-[600] py-2">Experienced Team</h1>
-                    <div class="w-full h-[2px] bg-[#830B00]"></div>
-                    <p class="text-[14px] pt-4">Our professionals bring extensive industry knowledge and practical
-                        experience, providing you with trusted advice and insights</p>
-                </div>
-                <div class="flex flex-col w-full sm:w-[46%] lg:w-[30%] xl:w-[28%]">
-                    <div class="flex items-center justify-start">
-                        <svg class="h-10 lg:h-16" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M53 29.9665V23.0336C53 22.6136 52.695 22.2559 52.2803 22.1895L48.0394 21.5107C47.4903 19.1291 46.5564 16.8765 45.2571 14.7997L47.7775 11.3186C48.0239 10.9785 47.9865 10.5098 47.6896 10.2129L42.7872 5.31059C42.4904 5.01375 42.0217 4.97635 41.6814 5.22265L38.2003 7.74304C36.1229 6.44347 33.8705 5.50966 31.4894 4.96064L30.8105 0.719776C30.7442 0.305071 30.3863 0 29.9664 0H23.0334C22.6135 0 22.2557 0.305071 22.1894 0.719669L21.5105 4.96053C19.129 5.50955 16.8764 6.44336 14.7995 7.74282L11.3185 5.22254C10.9785 4.97624 10.5097 5.01364 10.2127 5.31048L5.31026 10.2128C5.01342 10.5097 4.97602 10.9784 5.22242 11.3186L7.74281 14.7996C6.44281 16.8778 5.50901 19.1299 4.96042 21.5106L0.719561 22.1894C0.304964 22.2559 0 22.6136 0 23.0336V29.9665C0 30.3865 0.304964 30.7442 0.719667 30.8106L4.96052 31.4894C5.50954 33.8708 6.44345 36.1234 7.74292 38.2004L5.22253 41.6815C4.97612 42.0216 5.01352 42.4903 5.31036 42.7872L10.2128 47.6895C10.5099 47.9866 10.9786 48.0235 11.3186 47.7775L14.7996 45.2571C16.8777 46.5571 19.1302 47.491 21.5106 48.0395L22.1895 52.2803C22.2558 52.6949 22.6137 53 23.0335 53H29.9665C30.3864 53 30.7442 52.6949 30.8105 52.2803L31.4196 48.4758C33.6461 51.233 37.0523 53 40.8641 53C47.5559 53.0001 53 47.556 53 40.8642C53 37.0524 51.2329 33.6461 48.4757 31.4196L52.2802 30.8106C52.695 30.7443 53 30.3866 53 29.9665ZM41.7699 28.7621C41.4708 28.7398 41.1688 28.7283 40.8641 28.7283C39.0289 28.7283 37.2882 29.1385 35.7272 29.8708V28.5191C35.7272 26.4992 34.1977 24.9614 31.5306 24.2999C30.6012 24.0694 29.6727 23.9042 28.7469 23.7999C30.1627 22.8063 31.1225 20.9058 31.1225 18.728C31.1225 15.7824 29.3513 13.9525 26.5001 13.9525C23.6488 13.9525 21.8776 15.7824 21.8776 18.728C21.8776 20.9011 22.8334 22.798 24.2441 23.7933C23.3101 23.8974 22.382 24.0651 21.4624 24.3016C18.7607 24.9961 17.2728 26.4939 17.2728 28.5191V36.1247C17.2728 36.5968 17.6555 36.9795 18.1276 36.9795H29.3658C28.9525 38.1997 28.7282 39.5062 28.7282 40.8642C28.7282 41.1688 28.7398 41.4709 28.762 41.77C28.0142 41.8798 27.2564 41.9355 26.5 41.9355C17.9889 41.9355 11.0646 35.0112 11.0646 26.4999C11.0646 17.9887 17.9889 11.0645 26.5 11.0645C35.0111 11.0645 41.9354 17.9889 41.9354 26.5001C41.9354 27.2565 41.8797 28.0143 41.7699 28.7621ZM31.0678 29.4126C30.5957 29.4126 30.213 29.7954 30.213 30.2674V35.0522C30.1736 35.1242 30.1351 35.1969 30.0971 35.2698H22.7868V30.2674C22.7868 29.7954 22.404 29.4126 21.932 29.4126C21.4599 29.4126 21.0771 29.7954 21.0771 30.2674V35.2698H18.9823V28.519C18.9823 27.0191 20.5624 26.2981 21.8879 25.9573C24.8933 25.1845 27.9989 25.1851 31.1189 25.9592C32.2015 26.2277 34.0175 26.9172 34.0175 28.519V30.8494C33.2516 31.3747 32.5486 31.9851 31.9227 32.6675V30.2673C31.9227 29.7954 31.5399 29.4126 31.0678 29.4126ZM26.5 22.8248C24.8939 22.8248 23.5871 20.9869 23.5871 18.7278C23.5871 16.0603 25.4121 15.6621 26.5 15.6621C27.5879 15.6621 29.4128 16.0604 29.4128 18.7278C29.4128 20.987 28.106 22.8248 26.5 22.8248ZM51.2903 40.8642C51.2903 46.6133 46.6132 51.2904 40.8641 51.2904C35.1151 51.2904 30.4379 46.6133 30.4379 40.8642C30.4379 35.115 35.1151 30.438 40.8641 30.438C46.6132 30.438 51.2903 35.1151 51.2903 40.8642ZM51.2903 29.2377L47.1923 29.8936C46.9778 29.928 46.7906 30.042 46.6605 30.2045C45.6694 29.6634 44.5947 29.2571 43.4615 29.0091C43.5833 28.1796 43.6451 27.339 43.6451 26.5001C43.6451 17.0462 35.9538 9.35495 26.4999 9.35495C17.046 9.35495 9.35482 17.0463 9.35482 26.5001C9.35482 35.9538 17.0461 43.6453 26.4999 43.6453C27.3389 43.6453 28.1794 43.5835 29.009 43.4617C29.2571 44.5949 29.6633 45.6696 30.2044 46.6608C30.0419 46.7908 29.9279 46.978 29.8935 47.1926L29.2375 51.2904H23.7624L23.1064 47.1925C23.0501 46.8406 22.7812 46.5605 22.4319 46.4899C19.8593 45.9693 17.4408 44.9666 15.2438 43.5098C14.947 43.313 14.559 43.3209 14.2701 43.5299L10.9064 45.9654L7.03489 42.0938L9.47033 38.7299C9.67934 38.4412 9.68735 38.0532 9.49042 37.7562C8.0342 35.5607 7.03148 33.1423 6.51034 30.5681C6.43961 30.2187 6.15954 29.95 5.80767 29.8937L1.70968 29.2377V23.7624L5.80756 23.1064C6.15954 23.0501 6.43961 22.7813 6.51024 22.432C7.03094 19.8592 8.03356 17.4409 9.49031 15.2439C9.68735 14.947 9.67934 14.5589 9.47022 14.2702L7.03479 10.9065L10.9062 7.03491L14.27 9.47035C14.5587 9.67936 14.9469 9.68727 15.2438 9.49033C17.4392 8.03422 19.8577 7.03149 22.4319 6.51025C22.7812 6.43951 23.05 6.15945 23.1064 5.80757L23.7624 1.70968H29.2375L29.8935 5.80757C29.9498 6.15945 30.2187 6.43951 30.568 6.51025C33.1416 7.03138 35.56 8.03411 37.7561 9.49033C38.0529 9.68716 38.4409 9.67936 38.7298 9.47024L42.0935 7.0348L45.9651 10.9064L43.5297 14.2702C43.3207 14.5589 43.3126 14.9469 43.5096 15.2439C44.9657 17.4392 45.9683 19.8576 46.4897 22.432C46.5604 22.7813 46.8405 23.05 47.1923 23.1064L51.2903 23.7624V29.2377ZM44.3055 36.1584L39.1977 41.3406L37.4228 39.5658C36.9478 39.0908 36.3163 38.8291 35.6445 38.8291C34.9727 38.8291 34.3412 39.0907 33.8663 39.5656C33.3912 40.0406 33.1295 40.6722 33.1295 41.3439C33.1295 42.0157 33.3911 42.6472 33.8661 43.1222L37.4263 46.6824C37.9167 47.1727 38.5606 47.4178 39.2046 47.4177C39.8486 47.4177 40.4927 47.1726 40.983 46.6823C42.7987 44.8665 46.5055 41.0721 47.8682 39.6958C48.341 39.2203 48.6004 38.5893 48.5985 37.9188C48.5966 37.2483 48.3338 36.6186 47.8584 36.1459C46.877 35.1698 45.2843 35.1742 44.3055 36.1584ZM46.6545 38.4918C45.2864 39.8735 41.5827 43.6649 39.7739 45.4736C39.46 45.7875 38.9491 45.7875 38.6353 45.4736L35.0752 41.9134H35.0751C34.923 41.7613 34.8393 41.5591 34.8393 41.344C34.8393 41.129 34.923 40.9268 35.0752 40.7747C35.2273 40.6227 35.4293 40.5389 35.6445 40.5389C35.8596 40.5389 36.0617 40.6227 36.2139 40.7747L38.5977 43.1584C38.758 43.3187 38.9754 43.4088 39.202 43.4088H39.2051C39.433 43.4079 39.6509 43.3163 39.8108 43.1541L45.5204 37.3614C45.8316 37.0484 46.3396 37.0471 46.6528 37.3583C46.8045 37.5091 46.8882 37.7099 46.8889 37.9237C46.8893 38.1374 46.8067 38.3387 46.6545 38.4918Z"
-                                fill="#01014F" />
-                        </svg>
-
-                    </div>
-                    <h1 class="text-[16px] lg:text-[20px] font-[600] py-2">Personalized Approach</h1>
-                    <div class="w-full h-[2px] bg-[#830B00]"></div>
-                    <p class="text-[14px] pt-4">We listen closely to your needs, tailoring our solutions to ensure they
-                        align with your specific business goals.</p>
-                </div>
-                <div class="flex flex-col w-full sm:w-[46%] lg:w-[30%] xl:w-[28%]">
-                    <div class="flex items-center justify-start">
-                        <svg class="h-10 lg:h-16" viewBox="0 0 63 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M56.2533 33.346C55.9599 33.346 55.7643 33.2482 55.5688 33.0526C55.1776 32.6615 55.1776 32.0747 55.5688 31.6836C62.1206 25.0339 62.1206 14.3749 55.5688 7.72525C52.3417 4.49821 48.1368 2.73801 43.6385 2.73801C39.1402 2.73801 34.8375 4.49821 31.7082 7.72525L21.7337 17.6019C22.8094 18.3843 24.0807 18.8732 25.3519 18.8732C26.9166 18.971 28.3834 18.3843 29.4591 17.3086L29.8502 16.9174C31.5127 14.8639 34.0552 14.1793 36.4021 14.9616C37.2822 15.255 38.1623 15.4506 39.0424 15.4506C41.7805 15.4506 44.323 13.9838 45.8876 11.539C46.181 11.0501 46.7677 10.9523 47.2567 11.2457C47.7456 11.539 47.8434 12.1258 47.5501 12.6147C45.6921 15.6462 42.465 17.4064 39.0424 17.4064C37.8689 17.4064 36.7933 17.2108 35.7176 16.8196C34.153 16.2329 32.4905 16.8196 31.3171 18.1887C31.1215 18.3843 31.0237 18.5798 30.8281 18.7754C29.3613 20.2423 27.4055 21.0246 25.2541 20.9268C23.1028 20.829 21.147 19.9489 19.5824 18.3843L18.8979 17.6997L30.2414 6.3562C33.7618 2.8358 38.5535 0.782227 43.6385 0.782227C48.7235 0.782227 53.4174 2.73801 57.0356 6.3562C64.3698 13.6904 64.3698 25.7184 57.0356 33.0526C56.7422 33.2482 56.5467 33.346 56.2533 33.346Z"
-                                fill="#01014F" />
-                            <path
-                                d="M28.7745 57.5C27.4055 57.5 26.232 57.0111 25.2541 56.0332C23.2983 54.0774 23.2983 50.9482 25.2541 48.9924L28.9701 45.2764C29.948 44.2985 31.1215 43.8096 32.4905 43.8096C33.8596 43.8096 35.033 44.2985 36.0109 45.2764C37.9667 47.2322 37.9667 50.3614 36.0109 52.3172L32.2949 56.0332C31.3171 56.9133 30.0458 57.5 28.7745 57.5ZM32.3927 45.7654C31.6104 45.7654 30.8281 46.0587 30.2414 46.6455L26.5254 50.3614C25.3519 51.5349 25.3519 53.4907 26.5254 54.6642C27.6989 55.8376 29.6546 55.8376 30.8281 54.6642L34.5441 50.9482C35.7176 49.7747 35.7176 47.8189 34.5441 46.6455C33.9574 46.0587 33.2728 45.7654 32.3927 45.7654Z"
-                                fill="#01014F" />
-                            <path
-                                d="M22.4183 52.5123C21.0492 52.5123 19.778 52.0234 18.8979 51.0455C16.9421 49.0897 16.9421 45.9605 18.8979 44.0047L24.4718 38.4307C25.4497 37.4528 26.721 36.9639 27.9923 36.9639C29.2635 36.9639 30.6326 37.4528 31.5127 38.4307C33.4684 40.3865 33.4684 43.5157 31.5127 45.4715L25.9387 51.0455C24.9608 51.9256 23.6895 52.5123 22.4183 52.5123ZM27.9923 38.8219C27.2099 38.8219 26.4276 39.1152 25.8409 39.702L20.2669 45.2759C19.0934 46.4494 19.0934 48.4052 20.2669 49.5787C21.4404 50.7521 23.3962 50.7521 24.5696 49.5787L30.1436 44.0047C31.3171 42.8312 31.3171 40.8754 30.1436 39.702C29.5569 39.213 28.7746 38.8219 27.9923 38.8219Z"
-                                fill="#01014F" />
-                            <path
-                                d="M15.9642 47.525C14.5952 47.525 13.4217 47.036 12.4438 46.0581L12.346 45.9603C10.3902 44.0046 10.3902 40.8753 12.346 39.0173L20.7559 30.6075C21.7338 29.6296 22.9072 29.1406 24.2763 29.1406C25.6453 29.1406 26.8188 29.6296 27.7967 30.6075L27.8945 30.7052C29.8503 32.661 29.8503 35.7903 27.8945 37.6483L19.4846 46.0581C18.5067 47.036 17.3333 47.525 15.9642 47.525ZM24.3741 30.9986C23.5918 30.9986 22.8095 31.292 22.2227 31.8787L13.8129 40.2886C12.6394 41.462 12.6394 43.32 13.8129 44.4935L13.9106 44.5913C15.0841 45.7648 17.0399 45.7648 18.1156 44.5913L26.5254 36.1814C27.6989 35.008 27.6989 33.15 26.5254 31.9765L26.4276 31.8787C25.9387 31.3898 25.1564 30.9986 24.3741 30.9986Z"
-                                fill="#01014F" />
-                            <path
-                                d="M10.9769 41.0712C9.60785 41.0712 8.33659 40.5823 7.45649 39.6044C5.50071 37.6486 5.50071 34.5194 7.45649 32.5636L12.5415 27.4786C13.5194 26.5007 14.7907 26.0117 16.0619 26.0117C17.431 26.0117 18.7022 26.5007 19.5823 27.4786C21.5381 29.4343 21.5381 32.5636 19.5823 34.5194L14.4973 39.6044C13.6172 40.5823 12.3459 41.0712 10.9769 41.0712ZM16.0619 27.9675C15.2796 27.9675 14.4973 28.2609 13.9106 28.8476L8.82554 33.9326C7.65207 35.1061 7.65207 37.0619 8.82554 38.2354C9.99901 39.4088 11.9548 39.4088 13.1283 38.2354L18.2133 33.1503C19.3868 31.9769 19.3868 30.0211 18.2133 28.8476C17.6266 28.2609 16.8442 27.9675 16.0619 27.9675Z"
-                                fill="#01014F" />
-                            <path
-                                d="M7.74979 34.1284C7.45642 34.1284 7.26084 34.0306 7.06526 33.835L5.50064 32.2704C-1.83355 24.9362 -1.83355 12.9082 5.50064 5.57398C9.02104 2.05357 13.8127 0 18.8977 0C23.9828 0 28.6766 1.95578 32.2948 5.57398C32.686 5.96513 32.686 6.55187 32.2948 6.94303C31.9037 7.33418 31.317 7.33418 30.9258 6.94303C27.6988 3.71599 23.4938 1.95578 18.9955 1.95578C14.4972 1.95578 10.1945 3.71599 7.06526 6.94303C0.513393 13.5927 0.513393 24.2517 7.06526 30.9014L8.62989 32.466C9.02104 32.8571 9.02104 33.4439 8.62989 33.835C8.23873 34.0306 8.04315 34.1284 7.74979 34.1284Z"
-                                fill="#01014F" />
-                            <path
-                                d="M41.9759 51.9261C40.6068 51.9261 39.4334 51.4371 38.4555 50.4593L34.8373 46.8411C34.4461 46.4499 34.4461 45.8632 34.8373 45.472C35.2284 45.0809 35.8152 45.0809 36.2063 45.472L39.8245 49.0902C40.998 50.2637 42.9538 50.2637 44.1272 49.0902C45.3007 47.9167 45.3007 45.961 44.1272 44.7875L39.0422 39.7025C38.6511 39.3113 38.6511 38.7246 39.0422 38.3334C39.4334 37.9422 40.0201 37.9422 40.4113 38.3334L45.4963 43.4184C47.4521 45.3742 47.4521 48.5035 45.4963 50.4593C44.5184 51.3394 43.2471 51.9261 41.9759 51.9261Z"
-                                fill="#01014F" />
-                            <path
-                                d="M34.8373 56.2281C33.7616 56.2281 32.7837 55.9348 31.9036 55.2502C31.5124 54.9569 31.4147 54.2723 31.708 53.8812C32.0014 53.49 32.6859 53.3922 33.0771 53.6856C34.2505 54.5657 36.0107 54.4679 36.9886 53.3922C38.1621 52.2188 38.1621 50.263 36.9886 49.0895L36.1085 48.1116C35.7174 47.7205 35.7174 47.1337 36.1085 46.7426C36.4997 46.3514 37.0864 46.3514 37.4776 46.7426L38.3577 47.6227C40.3135 49.5785 40.3135 52.7077 38.3577 54.6635C37.4776 55.7392 36.1085 56.2281 34.8373 56.2281Z"
-                                fill="#01014F" />
-                            <path
-                                d="M49.0167 47.6233C47.7454 47.6233 46.4742 47.1344 45.4963 46.1565L36.4019 37.0621C36.0107 36.671 36.0107 36.0842 36.4019 35.6931C36.793 35.3019 37.3798 35.3019 37.7709 35.6931L46.8653 44.7875C48.0388 45.9609 49.9946 45.9609 51.168 44.7875C52.3415 43.614 52.3415 41.6582 51.168 40.4847L42.856 32.1727C42.4648 31.7815 42.4648 31.1948 42.856 30.8036C43.2471 30.4125 43.8339 30.4125 44.225 30.8036L52.5371 39.1157C54.4929 41.0715 54.4929 44.2007 52.5371 46.1565C51.5592 47.1344 50.2879 47.6233 49.0167 47.6233Z"
-                                fill="#01014F" />
-                            <path
-                                d="M53.3194 40.5824C52.0482 40.5824 50.7769 40.0934 49.799 39.1155L40.7047 30.0211C40.3135 29.63 40.3135 29.0432 40.7047 28.6521C41.0958 28.2609 41.6825 28.2609 42.0737 28.6521L51.1681 37.7465C52.3416 38.9199 54.2973 38.9199 55.373 37.7465L55.4708 37.6487C56.6443 36.4752 56.6443 34.6172 55.4708 33.4437L41.487 19.3621C41.0958 18.971 41.0958 18.3842 41.487 17.9931C41.8781 17.6019 42.4649 17.6019 42.856 17.9931L56.8398 32.0747C58.7956 34.0305 58.7956 37.1597 56.8398 39.0177L56.7421 39.1155C55.862 39.9956 54.6885 40.5824 53.3194 40.5824Z"
-                                fill="#01014F" />
-                        </svg>
-                    </div>
-
-                    <h1 class="text-[16px] lg:text-[20px] font-[600] py-2">Commitment to Excellence</h1>
-                    <div class="w-full h-[2px] bg-[#830B00]"></div>
-                    <p class="text-[14px] pt-4">We’re dedicated to delivering high-quality service, prioritizing accuracy,
-                        compliance, and efficiency in everything we do</p>
-                </div>
-                <div class="flex flex-col w-full sm:w-[46%] lg:w-[30%] xl:w-[28%]">
-                    <div class="flex items-center justify-start">
-                        <svg class="h-10 lg:h-16" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="mask0_101_7032" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0"
-                                width="63" height="63">
-                                <path d="M61.3663 61.3667V1.50049H1.50006V61.3667H61.3663Z" fill="white" stroke="white"
-                                    stroke-width="3" />
-                            </mask>
-                            <g mask="url(#mask0_101_7032)">
-                                <path
-                                    d="M6.1393 35.2396C6.81708 35.2396 7.36717 35.7897 7.36717 36.4674C7.36717 37.1452 6.81708 37.6953 6.1393 37.6953C5.46152 37.6953 4.91144 37.1452 4.91144 36.4674C4.91144 35.7897 5.46152 35.2396 6.1393 35.2396Z"
-                                    fill="#01014F" />
-                                <path
-                                    d="M11.0508 51.2094C11.0471 52.5626 9.94936 53.6577 8.59503 53.6577H1.22784V31.5562H8.59503C9.95182 31.5562 11.0508 32.6552 11.0508 34.0119V51.2094Z"
-                                    stroke="#01014F" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M41.7546 45.8425L56.8426 40.6561C58.4523 40.0752 60.3592 40.6241 61.172 42.1282C62.2759 44.1703 61.3095 46.4222 59.4346 47.1723L36.4919 57.2741C34.6158 58.1274 32.5787 58.5693 30.5184 58.5693C27.903 58.5693 25.3368 57.8584 23.0947 56.5127L16.673 52.6597C15.191 51.7707 12.7733 51.2723 11.0506 51.2095"
-                                    stroke="#01014F" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M11.0508 34.0119H20.7718C22.0377 34.0119 23.2815 34.3373 24.3842 34.9586L30.8722 38.6078C31.2406 38.8153 31.6543 38.9233 32.0767 38.9233H40.0284C42.0629 38.9233 43.712 40.5724 43.712 42.6069C43.712 43.9821 42.9593 45.1805 41.8419 45.8129C41.3066 46.1174 40.6877 46.2905 40.0284 46.2905H27.5459"
-                                    stroke="#01014F" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M20.8677 10.1929C21.8621 6.79897 24.6901 4.28565 28.4496 4.28565C34.5054 4.28565 36.4185 11.1924 36.4185 11.1924C36.4185 11.1924 38.3315 4.28565 44.3885 4.28565C49.106 4.28565 52.3574 8.24551 52.3574 12.9358C52.3574 19.1428 46.5054 23.2978 36.5658 31.9126C30.5781 26.7229 25.7213 23.0967 22.9652 19.4864"
-                                    stroke="#01014F" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M20.7509 13.8748C21.4287 13.8748 21.9787 14.4249 21.9787 15.1027C21.9787 15.7805 21.4287 16.3306 20.7509 16.3306C20.0731 16.3306 19.523 15.7805 19.523 15.1027C19.523 14.4249 20.0731 13.8748 20.7509 13.8748Z"
-                                    fill="#01014F" />
-                            </g>
-                        </svg>
-
-                    </div>
-
-                    <h1 class="text-[16px] lg:text-[20px] font-[600] py-2">Client Partnership</h1>
-                    <div class="w-full h-[2px] bg-[#830B00]"></div>
-                    <p class="text-[14px] pt-4">We see ourselves as an extension of your team, committed to building
-                        long-term relationships and supporting your continued success.</p>
-                </div> --}}
             </div>
         </div>
     </section>
 
-    {{-- our product --}}
-    <section class="relative w-full h-full py-16">
-        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] text-center px-2 pb-6 md:pb-10">
-            {{ app()->getLocale() === 'en' ? 'New Product' : (app()->getLocale() === 'km' ? 'ផលិតផល​ ថ្មី' : 'New Product') }}
+    {{-- new product --}}
+    <section class="relative w-full h-full py-16 overflow-hidden">
+        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] flex items-end justify-center gap-2 px-2 pb-6 md:pb-10"
+            data-aos="fade-right" data-aos-duration="1400">
+            <svg class="w-10 h-10 md:w-14 md:h-14" id="_27_Think_outside_the_box" viewBox="0 0 64 64"
+                xmlns="http://www.w3.org/2000/svg" data-name="27 Think outside the box" version="1.1"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                    <path
+                        d="m63.894 42.553-5-10c-.17-.339-.516-.553-.894-.553h-20v-2c.553 0 1-.448 1-1 0-.518-.398-.929-.903-.98.217-.941.809-1.797 1.68-2.381 3.896-2.607 6.223-6.958 6.223-11.639 0-3.976-1.7-7.779-4.664-10.433-2.963-2.652-6.951-3.919-10.931-3.479-6.223.689-11.378 5.676-12.259 11.859-.772 5.421 1.557 10.668 6.078 13.693.871.583 1.462 1.439 1.679 2.379-.505.051-.903.462-.903.98 0 .552.447 1 1 1v2h-20c-.379 0-.725.214-.895.553l-5 10.001c-.155.31-.139.678.044.973s.504.475.851.475h4v19c0 .553.447 1 1 1h52c.553 0 1-.447 1-1v-19h4c.347 0 .668-.18.851-.475s.199-.663.044-.973zm-43.767-30.323c.754-5.293 5.169-9.563 10.499-10.153 3.469-.384 6.801.674 9.376 2.98 2.541 2.275 3.998 5.535 3.998 8.943 0 4.012-1.994 7.741-5.335 9.977-1.43.957-2.36 2.422-2.599 4.023h-1.066v-8h1c1.654 0 3-1.346 3-3s-1.346-3-3-3-3 1.346-3 3v1h-2v-1c0-1.654-1.346-3-3-3s-3 1.346-3 3 1.346 3 3 3h1v8h-1.066c-.239-1.602-1.169-3.066-2.598-4.022-3.876-2.594-5.872-7.095-5.209-11.748zm10.873 15.77v-8h2v8zm-2-10h-1c-.552 0-1-.449-1-1s.448-1 1-1 1 .449 1 1zm6 0v-1c0-.551.448-1 1-1s1 .449 1 1-.448 1-1 1zm-7 12h8v2h-8zm-21.382 4h23.764l-4 8h-23.764zm.382 10h20c.379 0 .725-.214.894-.553l3.106-6.211v24.764h-24zm50 18h-24v-24.764l3.105 6.211c.17.339.516.553.895.553h20zm-19.382-20-4-8h23.764l4 8z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m6 24c2.757 0 5 2.243 5 5 0 .552.447 1 1 1s1-.448 1-1c0-3.86-3.141-7-7-7-.553 0-1 .448-1 1s.447 1 1 1z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m52 30c.553 0 1-.448 1-1 0-2.757 2.243-5 5-5 .553 0 1-.448 1-1s-.447-1-1-1c-3.859 0-7 3.14-7 7 0 .552.447 1 1 1z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m48 25c.553 0 1-.448 1-1 0-1.654 1.346-3 3-3 .553 0 1-.448 1-1s-.447-1-1-1c-2.757 0-5 2.243-5 5 0 .552.447 1 1 1z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m12 21c1.654 0 3 1.346 3 3 0 .552.447 1 1 1s1-.448 1-1c0-2.757-2.243-5-5-5-.553 0-1 .448-1 1s.447 1 1 1z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                </g>
+            </svg>
+            <span
+                class="leading-none">{{ app()->getLocale() === 'en' ? 'New Product' : (app()->getLocale() === 'km' ? 'ផលិតផល​ ថ្មី' : 'New Product') }}</span>
         </h1>
 
-        <div class="max-w-7xl mx-auto pt-5 products_swiper px-2 ">
+        <div class="w-full pt-5 products_swiper px-2 md:px-10 xl:px-20">
             <div class="swiper productSwiper">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper" data-aos="fade-up" data-aos-duration="1400">
                     @forelse ($product as $item)
                         @php
                             $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
@@ -899,14 +874,14 @@
                                 <div class="relative group w-full rounded-xl overflow-hidden">
                                     <!-- Image -->
                                     @if ($firstImage)
-                                        <div class="w-full h-52 lg:h-64">
+                                        <div class="w-full h-full">
                                             <img src="{{ asset($firstImage) }}"
-                                                class="w-full h-[300px] object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105" />
+                                                class="w-full h-[250px] md:h-[300px] xl:h-[400px] object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105" />
                                         </div>
                                     @else
-                                        <div class="w-full h-52 lg:h-64">
+                                        <div class="w-full h-full">
                                             <img src="{{ asset('assets/images/default.jpg') }}"
-                                                class="w-full h-[300px] object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105" />
+                                                class="w-full h-[250px] md:h-[300px] xl:h-[400px] object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105" />
                                         </div>
                                     @endif
                                     {{-- @if ($item->status)
@@ -919,7 +894,7 @@
                                     <a href="{{ route('product.show', $item->id) }}"
                                         class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
                                         <button class="p-10 bg-black/80 text-white">
-                                            More Detail
+                                            {{ app()->getLocale() === 'en' ? 'More Detail' : (app()->getLocale() === 'km' ? 'More Detail' : 'More Detail') }}
                                         </button>
                                     </a>
                                 </div>
@@ -953,48 +928,363 @@
         </div>
     </section>
 
-    {{-- our project --}}
-    <section class="relative w-full h-full pt-10 pb-16">
-        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] text-center px-2 pb-6 md:pb-10">
-            {{ app()->getLocale() === 'en' ? 'Our Projects' : (app()->getLocale() === 'km' ? 'គម្រោងរបស់យើងខ្ញុំ' : 'Our Projects') }}
+    {{-- our product --}}
+    <section class="w-full pt-5 px-2 md:px-10 xl:px-20">
+        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] flex items-end justify-center gap-2 px-2 pb-6 md:pb-10"
+            data-aos="fade-right" data-aos-duration="1400">
+            <svg class="w-10 h-10 md:w-14 md:h-14" viewBox="-68 0 511 511.94546" xmlns="http://www.w3.org/2000/svg"
+                version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                    <path
+                        d="m154.046875 511.945312h68.269531c14.136719 0 25.597656-11.460937 25.597656-25.601562v-18.636719c10.191407-3.601562 17.023438-13.21875 17.066407-24.027343v-18.636719c10.191406-3.605469 17.023437-13.222657 17.066406-24.03125v-3.464844c-.132813-26.441406 11.046875-51.683594 30.722656-69.351563 58.328125-51.722656 78.621094-134.113281 50.988281-207.011718-27.636718-72.894532-97.449218-121.1289065-175.410156-121.183594-77.957031-.0546875-147.839844 48.074219-175.582031 120.933594-27.738281 72.855468-7.5625 155.277344 50.691406 207.085937 19.726563 17.71875 30.953125 43.011719 30.859375 69.527344v3.464844c.042969 10.808593 6.875 20.425781 17.066406 24.03125v18.636719c.042969 10.808593 6.875 20.425781 17.066407 24.027343v18.636719c0 6.792969 2.695312 13.300781 7.496093 18.105469 4.800782 4.800781 11.3125 7.496093 18.101563 7.496093zm76.800781-25.601562c0 4.714844-3.820312 8.535156-8.53125 8.535156h-68.269531c-4.710937 0-8.53125-3.820312-8.53125-8.535156v-17.066406h85.332031zm17.066406-42.664062c0 4.710937-3.820312 8.53125-8.53125 8.53125h-102.402343c-4.710938 0-8.53125-3.820313-8.53125-8.53125v-17.066407h119.464843zm-173.132812-128.410157c-36.398438-32.425781-57.234375-78.84375-57.265625-127.589843 0-94.222657 76.351563-170.617188 170.570313-170.667969 3.074218 0 6.152343.078125 9.242187.238281 89.265625 5.898438 159.308594 78.886719 161.519531 168.320312.605469 49.566407-20.347656 96.953126-57.421875 129.859376-23.316406 20.914062-36.578125 50.796874-36.445312 82.117187v3.464844c0 4.714843-3.820313 8.535156-8.53125 8.535156h-136.535157c-4.710937 0-8.53125-3.820313-8.53125-8.535156v-3.464844c.082032-31.386719-13.234374-61.320313-36.601562-82.277344zm0 0"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m179.648438 51.394531h.511718c2.652344-.167969 5.324219-.25 8.019532-.25 4.714843 0 8.535156-3.820312 8.535156-8.53125 0-4.714843-3.820313-8.535156-8.535156-8.535156-3.027344 0-6.039063.09375-9.035157.265625-4.710937.136719-8.421875 4.066406-8.285156 8.78125.136719 4.710938 4.066406 8.421875 8.78125 8.285156zm0 0"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m153.671875 46.496094c-.664063-2.164063-2.164063-3.976563-4.167969-5.035156-2.003906-1.058594-4.34375-1.277344-6.507812-.605469-51.730469 16.066406-91.253906 58.070312-104.148438 110.683593-1.109375 4.578126 1.703125 9.1875 6.28125 10.300782.664063.160156 1.339844.238281 2.023438.238281 3.933594-.007813 7.351562-2.703125 8.277344-6.527344 11.480468-46.777343 46.640624-84.117187 92.644531-98.378906 4.492187-1.410156 6.996093-6.183594 5.597656-10.675781zm0 0"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m333.25 196.210938c4.710938 0 8.53125-3.820313 8.53125-8.53125 0-3.023438-.09375-6.035157-.265625-9.039063-.277344-4.710937-4.324219-8.304687-9.035156-8.027344-4.714844.277344-8.308594 4.324219-8.03125 9.035157.175781 2.664062.265625 5.339843.265625 8.03125 0 4.710937 3.820312 8.53125 8.535156 8.53125zm0 0"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                    <path
+                        d="m239.800781 383.835938c.453125.074218.914063.109374 1.371094.109374 4.183594-.003906 7.746094-3.039062 8.414063-7.167968.882812-5.40625 2.105468-10.75 3.664062-16 6.609375-22.421875 19.363281-42.546875 36.820312-58.09375.34375-.308594.664063-.640625.953126-1 23.035156-20.640625 39.25-47.796875 46.492187-77.867188.824219-3-.050781-6.210937-2.28125-8.378906-2.230469-2.171875-5.464844-2.953125-8.441406-2.042969-2.976563.910157-5.222657 3.367188-5.859375 6.414063-6.769532 28.070312-22.3125 53.253906-44.371094 71.890625-.554688.464843-1.046875 1.003906-1.460938 1.597656-17.972656 17.179687-31.132812 38.769531-38.167968 62.617187-1.773438 5.949219-3.164063 12.003907-4.15625 18.132813-.753906 4.640625 2.386718 9.015625 7.023437 9.789063zm0 0"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                </g>
+            </svg>
+            <span
+                class="leading-none">{{ app()->getLocale() === 'en' ? 'Our Products' : (app()->getLocale() === 'km' ? 'ផលិតផល​របស់យើងខ្ញុំ' : 'Our Products') }}</span>
         </h1>
 
-        <div class="max-w-7xl mx-auto pt-5 grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 px-2 md:px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            @forelse ($products as $item)
+                @php
+                    $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
+                @endphp
+                <div class=" text-[#580B0C] h-full">
+                    <div class="">
+                        @php
+                            $colors = $item->color ?? [];
+                            $firstColor = $colors[0] ?? null;
+                            $firstCode = $firstColor['code'] ?? null;
+                            $firstName = $firstColor['name'] ?? null;
+                            $firstImage = $firstColor['images'][0] ?? null;
+                        @endphp
+                        <div class="relative w-full rounded-xl overflow-hidden">
+                            <!-- Image -->
+                            @if ($firstImage)
+                                <div class="w-full h-full">
+                                    <img src="{{ asset($firstImage) }}"
+                                        class="w-full h-[250px] object-cover object-center rounded-xl" />
+                                </div>
+                            @else
+                                <div class="w-full h-full">
+                                    <img src="{{ asset('assets/images/default.jpg') }}"
+                                        class="w-full h-[250px] object-cover object-center rounded-xl" />
+                                </div>
+                            @endif
+
+                            <div class="bg-white p-4 text-[16px] md:text-[20px]">
+                                <h1>{{ app()->getLocale() === 'en'
+                                    ? $item->name_en
+                                    : (app()->getLocale() === 'km'
+                                        ? $item->name_km
+                                        : $item->name_ch) }}
+                                </h1>
+                                <div class="text-[12px] md:text-[14px] text-[#000]">
+                                    {!! app()->getLocale() === 'en'
+                                        ? $item->content_en
+                                        : (app()->getLocale() === 'km'
+                                            ? $item->content_km
+                                            : $item->content_ch) !!}
+                                </div>
+
+                                <div class="flex justify-end">
+                                    <a href="{{ route('product') }}"
+                                        class="inline-block px-3 py-1
+                                                border border-[#830B00] rounded-full
+                                                text-[12px] md:text-[14px] hover:bg-[#830B00] hover:text-[#fff] hover:translate-x-1
+                                                transition-all duration-300">
+
+
+                                        {{ app()->getLocale() === 'en'
+                                            ? 'More Product'
+                                            : (app()->getLocale() === 'km'
+                                                ? 'More Product'
+                                                : 'More Product') }}
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+                            {{-- @if ($item->status)
+                                        <span class="absolute top-2 right-2 bg-green-600 text-white text-[10px] px-2 py-1 rounded">
+                                            New
+                                        </span>
+                                    @endif --}}
+
+                            <!-- Hover button -->
+                            {{-- <a href="{{ route('product.show', $item->id) }}"
+                            class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+                            <button class="p-10 bg-black/80 text-white">
+                                More Detail
+                            </button>
+                        </a> --}}
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <p class="col-span-2 text-center text-gray-500 py-10">
+                    No items available in this category.
+                </p>
+            @endforelse
+        </div>
+
+    </section>
+
+    {{-- our project --}}
+    <section class="relative w-full h-full bg-[#ede8e4] py-10 md:py-14 mt-5">
+        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] flex items-end justify-center gap-2 px-2 pb-6 md:pb-10"
+            data-aos="fade-right" data-aos-duration="1400">
+
+            <svg class="w-10 h-10 md:w-14 md:h-14" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 482.13 482.13"
+                style="enable-background:new 0 0 482.13 482.13;" xml:space="preserve"
+                xmlns:svgjs="http://svgjs.dev/svgjs">
+                <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                    <g>
+                        <g>
+                            <path
+                                d="M475.266,126.603c-0.001,0-0.001,0-0.002,0l-0.016-0.016l-31.12-4.44c-4.374-0.623-7.415-4.674-6.792-9.048&#10;&#9;&#9;&#9;c0.299-2.102,1.422-3.998,3.12-5.272l25.152-18.864c3.535-2.651,4.251-7.665,1.6-11.2l-28.8-38.4&#10;&#9;&#9;&#9;c-2.651-3.535-7.665-4.251-11.2-1.6l-25.144,18.864c-3.52,2.671-8.538,1.983-11.209-1.537c-1.297-1.709-1.853-3.868-1.543-5.991&#10;&#9;&#9;&#9;l4.448-31.12c0.627-4.374-2.41-8.427-6.783-9.055c-0.003,0-0.006-0.001-0.009-0.001L339.48,2.139&#10;&#9;&#9;&#9;c-4.373-0.628-8.428,2.408-9.056,6.782c0,0.001,0,0.001,0,0.002l-4.448,31.12c-0.623,4.374-4.674,7.415-9.048,6.792&#10;&#9;&#9;&#9;c-2.102-0.299-3.998-1.422-5.272-3.12L292.8,18.563c-2.651-3.535-7.665-4.251-11.2-1.6l-24.04,18.04&#10;&#9;&#9;&#9;c-10.876-1.156-21.844-1.156-32.72,0C153.614,43.144,97.759,99.946,90.816,171.299c-0.216,2.264-0.296,4.512-0.408,6.76h-2.4&#10;&#9;&#9;&#9;c-3.796,0.007-7.065,2.681-7.824,6.4l-5.528,26.288l-22.144-15.272c-3.178-2.193-7.47-1.802-10.2,0.928l-24,24&#10;&#9;&#9;&#9;c-2.726,2.729-3.116,7.015-0.928,10.192l15.2,22.104l-26.296,5.528c-3.678,0.806-6.296,4.067-6.288,7.832v32&#10;&#9;&#9;&#9;c-0.002,3.784,2.649,7.052,6.352,7.832l26.296,5.528l-15.2,22.104c-2.188,3.177-1.798,7.463,0.928,10.192l24,24&#10;&#9;&#9;&#9;c2.73,2.73,7.022,3.121,10.2,0.928l22.104-15.24l5.528,26.296c0.759,3.719,4.028,6.393,7.824,6.4h32&#10;&#9;&#9;&#9;c3.784,0.002,7.052-2.649,7.832-6.352l5.528-26.296l22.104,15.2c3.177,2.188,7.463,1.798,10.192-0.928l12.424-12.464v22.8&#10;&#9;&#9;&#9;c0.036,11.381,6.133,21.88,16,27.552v44.448c0,17.673,14.327,32,32,32h32c17.673,0,32-14.327,32-32v-44.448&#10;&#9;&#9;&#9;c9.867-5.672,15.964-16.171,16-27.552v-31.664c0.217-13.323,7.187-25.623,18.504-32.656c6.639-4.307,12.935-9.122,18.832-14.4&#10;&#9;&#9;&#9;l-10.672-11.92c-5.275,4.728-10.911,9.037-16.856,12.888c-15.885,9.97-25.609,27.334-25.808,46.088v31.664c0,8.837-7.163,16-16,16&#10;&#9;&#9;&#9;h-64c-8.837,0-16-7.163-16-16v-32.328c-0.185-18.399-9.756-35.428-25.376-45.152c-63.407-39.842-82.511-123.541-42.669-186.948&#10;&#9;&#9;&#9;c24.72-39.341,67.862-63.286,114.325-63.452c-0.119,0.285-0.224,0.576-0.312,0.872c-0.297,2.1,0.253,4.233,1.528,5.928&#10;&#9;&#9;&#9;l18.856,25.144c1.988,2.573,2.179,6.107,0.48,8.88c-1.636,2.79-4.799,4.312-8,3.848l-31.12-4.448&#10;&#9;&#9;&#9;c-4.374-0.627-8.427,2.41-9.055,6.783c0,0.003-0.001,0.006-0.001,0.009l-6.792,47.512c-0.627,4.373,2.41,8.427,6.783,9.055&#10;&#9;&#9;&#9;c0.003,0,0.006,0.001,0.009,0.001l31.12,4.448c4.374,0.623,7.415,4.674,6.792,9.048c-0.299,2.102-1.422,3.998-3.12,5.272&#10;&#9;&#9;&#9;l-25.144,18.856c-3.535,2.651-4.251,7.665-1.6,11.2l28.8,38.4c2.651,3.535,7.665,4.251,11.2,1.6l25.152-18.856&#10;&#9;&#9;&#9;c3.538-2.646,8.552-1.923,11.198,1.616c1.266,1.693,1.811,3.819,1.514,5.912l-4.44,31.12c-0.628,4.373,2.408,8.428,6.782,9.056&#10;&#9;&#9;&#9;c0.001,0,0.001,0,0.002,0l47.52,6.792c0.374,0.048,0.751,0.072,1.128,0.072c3.983,0.005,7.362-2.921,7.928-6.864l4.44-31.12&#10;&#9;&#9;&#9;c0.623-4.374,4.674-7.415,9.048-6.792c2.102,0.299,3.998,1.422,5.272,3.12l18.864,25.144c2.651,3.535,7.665,4.251,11.2,1.6&#10;&#9;&#9;&#9;l38.4-28.8c3.535-2.651,4.251-7.665,1.6-11.2l-18.856-25.144c-1.979-2.577-2.17-6.105-0.48-8.88c1.601-2.827,4.793-4.359,8-3.84&#10;&#9;&#9;&#9;l31.12,4.44c4.373,0.628,8.428-2.409,9.056-6.782c0-0.001,0-0.001,0-0.002l6.784-47.52&#10;&#9;&#9;&#9;C482.676,131.285,479.64,127.231,475.266,126.603z M210.112,410.059h64v16h-64V410.059z M210.112,442.059h64v8&#10;&#9;&#9;&#9;c0,8.837-7.163,16-16,16h-32c-8.837,0-16-7.163-16-16V442.059z M146.424,304.099c4.368,3.572,8.932,6.898,13.672,9.96&#10;&#9;&#9;&#9;c7.559,4.777,13.249,12.004,16.12,20.472l-17.16,17.128l-16.616-11.456c-7.276-5.014-17.239-3.18-22.254,4.096&#10;&#9;&#9;&#9;c-1.202,1.745-2.046,3.711-2.482,5.784l-4.192,19.976H94.496l-4.192-19.944c-1.82-8.647-10.305-14.182-18.952-12.362&#10;&#9;&#9;&#9;c-2.073,0.436-4.039,1.28-5.784,2.482l-16.624,11.424l-14.576-14.544l11.448-16.608c5.019-7.273,3.191-17.237-4.082-22.256&#10;&#9;&#9;&#9;c-1.746-1.205-3.714-2.051-5.79-2.488L16,291.563v-19.008l19.944-4.2c8.644-1.833,14.166-10.326,12.333-18.971&#10;&#9;&#9;&#9;c-0.435-2.051-1.268-3.996-2.453-5.725l-11.456-16.656l14.576-14.544l16.632,11.456c7.279,5.009,17.242,3.169,22.251-4.11&#10;&#9;&#9;&#9;c1.2-1.743,2.042-3.707,2.477-5.778l1.4-6.656c1.282,9.218,3.405,18.298,6.344,27.128c-26.323,3.138-45.118,27.022-41.98,53.345&#10;&#9;&#9;&#9;c3.138,26.323,27.022,45.118,53.345,41.98C125.259,327.934,139.13,318.293,146.424,304.099z M134,292.827&#10;&#9;&#9;&#9;c-5.974,16.605-24.277,25.223-40.882,19.25c-16.605-5.974-25.223-24.277-19.25-40.882c4.57-12.703,16.631-21.164,30.131-21.136&#10;&#9;&#9;&#9;c0.104,0,0.2,0,0.304,0C111.66,265.922,121.707,280.391,134,292.827z M460.512,172.971l-23.2-3.312&#10;&#9;&#9;&#9;c-13.122-1.874-25.278,7.245-27.152,20.366c-0.9,6.301,0.74,12.702,4.56,17.794l14.056,18.744l-25.6,19.2l-14.064-18.736&#10;&#9;&#9;&#9;c-7.952-10.605-22.995-12.756-33.599-4.804c-5.092,3.818-8.459,9.503-9.361,15.804l-3.24,23.232l-31.672-4.528l3.312-23.2&#10;&#9;&#9;&#9;c1.879-13.121-7.235-25.281-20.356-27.159c-6.305-0.903-12.709,0.737-17.804,4.559l-18.744,14.056l-19.2-25.6l18.736-14.064&#10;&#9;&#9;&#9;c10.605-7.952,12.756-22.995,4.804-33.599c-3.818-5.092-9.503-8.459-15.804-9.361l-23.2-3.312l4.528-31.672l23.2,3.312&#10;&#9;&#9;&#9;c13.121,1.879,25.281-7.235,27.159-20.356c0.903-6.305-0.737-12.709-4.559-17.804l-14.104-18.76l25.6-19.2l14.064,18.744&#10;&#9;&#9;&#9;c7.952,10.605,22.995,12.756,33.599,4.804c5.092-3.818,8.459-9.503,9.361-15.804l3.312-23.2l31.672,4.52l-3.312,23.2&#10;&#9;&#9;&#9;c-1.874,13.122,7.244,25.278,20.366,27.152c6.301,0.9,12.702-0.74,17.794-4.56l18.744-14.056l19.2,25.6l-18.744,14.064&#10;&#9;&#9;&#9;c-10.605,7.952-12.756,22.995-4.804,33.599c3.818,5.092,9.503,8.459,15.804,9.361l23.2,3.312L460.512,172.971z"
+                                fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <path
+                                d="M344,76.171c-35.346,0-64,28.654-64,64c0,35.346,28.654,64,64,64c35.346,0,64-28.654,64-64&#10;&#9;&#9;&#9;C407.96,104.841,379.33,76.21,344,76.171z M344,188.171c-26.51,0-48-21.49-48-48s21.49-48,48-48c26.51,0,48,21.49,48,48&#10;&#9;&#9;&#9;C391.969,166.668,370.497,188.14,344,188.171z"
+                                fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <rect x="234.112" y="354.059" width="16" height="24" fill="#830b00" fill-opacity="1"
+                                data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <path
+                                d="M207.12,275.491c-49.385-19.292-73.78-74.966-54.487-124.351c7.476-19.136,20.893-35.369,38.279-46.313l-8.552-13.536&#10;&#9;&#9;&#9;c-52.336,32.971-68.035,102.126-35.064,154.462c12.769,20.269,31.701,35.91,54.016,44.626c19.752,7.568,32.795,26.528,32.8,47.68&#10;&#9;&#9;&#9;h16C250.137,310.307,233.035,285.418,207.12,275.491z"
+                                fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                                stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <rect x="394.112" y="298.059" width="56" height="16" fill="#830b00" fill-opacity="1"
+                                data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <rect x="402.113" y="334.822"
+                                transform="matrix(0.6401 -0.7683 0.7683 0.6401 -133.6437 446.8239)" width="16"
+                                height="62.48" fill="#830b00" fill-opacity="1" data-original-color="#000000ff"
+                                stroke="none" stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <rect x="346.112" y="362.059" width="16" height="56" fill="#830b00" fill-opacity="1"
+                                data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <rect x="9.128" y="130.058" transform="matrix(0.9701 -0.2425 0.2425 0.9701 -32.2251 14.3351)"
+                                width="65.968" height="15.992" fill="#830b00" fill-opacity="1"
+                                data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <rect x="46.111" y="35.657" transform="matrix(0.5812 -0.8137 0.8137 0.5812 -34.3557 73.3688)"
+                                width="15.992" height="68.816" fill="#830b00" fill-opacity="1"
+                                data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <rect x="97.938" y="1.024" transform="matrix(0.9688 -0.2477 0.2477 0.9688 -5.133 27.2971)"
+                                width="16" height="66.056" fill="#830b00" fill-opacity="1"
+                                data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                        </g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                    <g>
+                    </g>
+                </g>
+            </svg>
+            <span
+                class="leading-none">{{ app()->getLocale() === 'en' ? 'Our Projects' : (app()->getLocale() === 'km' ? 'គម្រោងរបស់យើងខ្ញុំ' : 'Our Projects') }}</span>
+        </h1>
+
+        <div class="pt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 px-2 md:px-10 xl:px-20"
+            data-aos="fade-up" data-aos-duration="1400">
             @foreach ($project as $index => $item)
                 @php
                     $images = json_decode($item->image, true);
                 @endphp
-                <div class="relative group w-full h-[200px] sm:h-[250px] md:h-[300px] rounded-xl overflow-hidden">
-                    <!-- Image -->
-                    <img src="{{ asset($images[0]) }}"
-                        class="w-full h-full object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                        alt="">
+                @if (($index + 1) % 2 === 1)
+                    <div class="relative group w-full h-[250px] sm:h-[300px] xl:h-[400px] rounded-xl overflow-hidden">
+                        <!-- Image -->
+                        <img src="{{ asset($images[0]) }}"
+                            class="w-full h-full object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                            alt="">
 
-                    <!-- Hover button -->
-                    <a href="{{ route('project.show', $item->slug) }}"
-                        class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
-                        <button class="p-4 sm:p-10 bg-black/70 text-white text-[14px] md:text-[16px]">
-                            More Detail
-                        </button>
-                    </a>
-                </div>
+                        <div
+                            class="text-[14px] xl:text-[16px] absolute right-4 top-4 rounded-full bg-white py-1 px-2 xl:px-4">
+                            {{ app()->getLocale() === 'en'
+                                ? $item->title_en
+                                : (app()->getLocale() === 'km'
+                                    ? $item->title_km
+                                    : $item->title_ch) }}
+                        </div>
+
+                        <!-- Hover button -->
+                        <a href="{{ route('project.show', $item->slug) }}"
+                            class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+                            <button class="p-4 sm:p-10 bg-black/70 text-white text-[14px] md:text-[16px]">
+                                {{ app()->getLocale() === 'en' ? 'More Detail' : (app()->getLocale() === 'km' ? 'More Detail' : 'More Detail') }}
+                            </button>
+                        </a>
+                    </div>
+                @else
+                    <div
+                        class="relative group w-full h-[250px] sm:h-[300px] xl:h-[400px] rounded-xl overflow-hidden md:mt-10">
+                        <!-- Image -->
+                        <img src="{{ asset($images[0]) }}"
+                            class="w-full h-full object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                            alt="">
+
+
+                        <div
+                            class="text-[14px] xl:text-[16px] absolute right-4 top-4 rounded-full bg-white py-1 px-2 xl:px-4">
+                            {{ app()->getLocale() === 'en'
+                                ? $item->title_en
+                                : (app()->getLocale() === 'km'
+                                    ? $item->title_km
+                                    : $item->title_ch) }}
+                        </div>
+
+                        <!-- Hover button -->
+                        <a href="{{ route('project.show', $item->slug) }}"
+                            class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+                            <button class="p-4 sm:p-10 bg-black/70 text-white text-[14px] md:text-[16px]">
+                                More Detail
+                            </button>
+                        </a>
+                    </div>
+                @endif
             @endforeach
 
         </div>
 
+        <div class="flex items-center justify-center mt-10 text-[#fff]" data-aos="fade-up" data-aos-duration="1400">
+            <a href="{{ route('project') }}" class="px-8 py-4 bg-[#01014F] text-[16px] md:text-[20px]">See More
+                Projects</a>
+        </div>
+    </section>
+
+    {{-- client --}}
+    <section class="w-full pt-5 px-2 md:px-10 xl:px-20 overflow-hidden pb-5 md:pb-10">
+        <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] flex items-end justify-center gap-2 px-2 pb-6 md:pb-10"
+            data-aos="fade-right" data-aos-duration="1400">
+
+            <svg class="w-10 h-10 md:w-14 md:h-14" id="Layer_1" enable-background="new 0 0 512 512"
+                viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                    <path
+                        d="m177.756 120.221c-1.471 4.527-.023 9.379 3.687 12.362l33.035 26.552-11.119 40.899c-1.248 4.592.433 9.368 4.286 12.17 3.854 2.796 8.913 2.919 12.896.313l35.461-23.213 35.462 23.214c1.912 1.251 4.071 1.873 6.226 1.873 2.336 0 4.667-.731 6.668-2.187 3.855-2.799 5.537-7.578 4.286-12.17l-11.119-40.898 33.033-26.551c3.713-2.982 5.161-7.835 3.689-12.364-1.471-4.53-5.495-7.605-10.25-7.835l-42.333-2.064-15.044-39.622c-1.689-4.451-5.858-7.328-10.619-7.328s-8.93 2.876-10.618 7.327l-15.045 39.624-42.33 2.063c-4.757.23-8.781 3.305-10.252 7.835zm56.396 5.934c4.512-.22 8.463-3.091 10.064-7.313l11.784-31.035 11.784 31.038c1.604 4.221 5.556 7.09 10.064 7.31l33.157 1.617-25.876 20.797c-3.521 2.831-5.029 7.476-3.844 11.832l8.709 32.034-27.776-18.183c-1.889-1.236-4.054-1.854-6.219-1.854s-4.332.619-6.222 1.855l-27.774 18.182 8.709-32.032c1.186-4.359-.323-9.005-3.845-11.834l-25.875-20.796zm13.848-88.797v-29.358c0-4.418 3.582-8 8-8s8 3.582 8 8v29.358c0 4.418-3.582 8-8 8s-8-3.582-8-8zm48.719 47.398c-2.956-3.283-2.691-8.342.592-11.298l32.715-29.458c3.284-2.957 8.342-2.692 11.299.592 2.956 3.283 2.691 8.342-.592 11.298l-32.716 29.458c-1.529 1.377-3.443 2.055-5.351 2.055-2.187 0-4.367-.892-5.947-2.647zm-126.044-40.164c2.956-3.284 8.014-3.549 11.299-.592l32.716 29.458c3.283 2.956 3.548 8.015.592 11.298-1.58 1.754-3.76 2.647-5.948 2.647-1.907 0-3.821-.678-5.351-2.055l-32.716-29.458c-3.284-2.956-3.548-8.015-.592-11.298zm187.959 87.991 33.035 26.552-11.119 40.899c-1.248 4.592.433 9.368 4.286 12.17 3.851 2.796 8.911 2.918 12.896.313l35.461-23.213 35.462 23.214c1.912 1.251 4.071 1.873 6.226 1.873 2.336 0 4.667-.731 6.668-2.187 3.853-2.797 5.535-7.574 4.286-12.17l-11.119-40.898 33.033-26.551c3.712-2.981 5.16-7.834 3.688-12.364-1.471-4.53-5.495-7.605-10.249-7.835l-42.333-2.064-15.043-39.622c-1.689-4.451-5.858-7.328-10.619-7.328-4.762 0-8.931 2.876-10.62 7.327l-15.043 39.623-42.33 2.063c-4.758.23-8.782 3.306-10.253 7.836-1.472 4.529-.024 9.382 3.687 12.362zm52.708-6.428c4.513-.22 8.465-3.091 10.067-7.314l11.783-31.035 11.782 31.034c1.603 4.224 5.555 7.095 10.066 7.314l33.157 1.617-25.873 20.795c-3.523 2.83-5.033 7.476-3.847 11.834l8.709 32.034-27.776-18.183c-1.89-1.236-4.055-1.854-6.22-1.854-2.166 0-4.332.619-6.221 1.855l-27.774 18.182 8.709-32.032c1.185-4.357-.323-9.002-3.845-11.834l-25.875-20.797zm-407.092 6.428 33.035 26.552-11.119 40.899c-1.248 4.592.433 9.368 4.286 12.17 3.854 2.796 8.913 2.919 12.896.313l35.461-23.213 35.462 23.214c1.912 1.251 4.071 1.873 6.226 1.873 2.336 0 4.667-.731 6.668-2.187 3.853-2.797 5.535-7.574 4.286-12.17l-11.119-40.898 33.033-26.551c3.71-2.979 5.159-7.831 3.688-12.369-1.474-4.527-5.498-7.601-10.249-7.831l-42.333-2.064-15.043-39.621c-1.689-4.451-5.858-7.328-10.619-7.328-4.762 0-8.931 2.876-10.62 7.327l-15.043 39.623-42.33 2.063c-4.757.23-8.781 3.306-10.251 7.831-1.475 4.531-.028 9.386 3.685 12.367zm52.708-6.428c4.513-.22 8.465-3.091 10.067-7.314l11.783-31.035 11.782 31.034c1.603 4.224 5.555 7.095 10.066 7.314l33.157 1.617-25.873 20.795c-3.523 2.83-5.033 7.476-3.847 11.834l8.709 32.034-27.776-18.183c-1.89-1.236-4.055-1.854-6.22-1.854-2.166 0-4.332.619-6.221 1.855l-27.774 18.182 8.709-32.032c1.185-4.357-.323-9.002-3.845-11.834l-25.875-20.797zm453.783 298.778c-5.629-18.178-17.158-34.5-32.465-45.962-7.328-5.487-15.308-9.761-23.726-12.787 11.671-9.16 19.191-23.38 19.191-39.333 0-27.566-22.427-49.992-49.992-49.992-27.566 0-49.993 22.426-49.993 49.992 0 15.934 7.502 30.14 19.15 39.301-15.611 5.572-29.441 15.362-40.032 28.554-4.95-6.925-10.66-13.357-17.079-19.162-12.934-11.697-28.113-20.287-44.46-25.364 17.335-11.492 28.795-31.169 28.795-53.48 0-35.36-28.769-64.128-64.129-64.128s-64.129 28.768-64.129 64.128c0 22.311 11.459 41.988 28.794 53.48-16.348 5.076-31.527 13.667-44.461 25.364-6.419 5.805-12.129 12.237-17.078 19.161-10.59-13.193-24.42-22.983-40.032-28.556 11.647-9.161 19.15-23.367 19.15-39.301 0-27.566-22.427-49.992-49.992-49.992-27.566 0-49.993 22.426-49.993 49.992 0 15.952 7.52 30.173 19.19 39.333-8.418 3.026-16.398 7.3-23.727 12.787-15.307 11.461-26.836 27.784-32.465 45.961-2.601 8.396-1.16 16.917 4.057 23.995 5.216 7.076 12.93 10.972 21.72 10.972h110.593v14.438c0 20.77 16.897 37.667 37.667 37.667h161.41c20.769 0 37.667-16.897 37.668-37.667v-14.434h110.592c8.791 0 16.505-3.897 21.72-10.972 5.216-7.078 6.657-15.6 4.056-23.995zm-86.992-132.074c18.743 0 33.992 15.249 33.992 33.992 0 18.744-15.249 33.993-33.992 33.993-18.744 0-33.993-15.249-33.993-33.993 0-18.743 15.249-33.992 33.993-33.992zm-215.877 3.841c0-26.538 21.591-48.128 48.129-48.128s48.129 21.59 48.129 48.128c0 26.53-21.577 48.114-48.103 48.128-.009 0-.019 0-.027 0s-.017 0-.026 0c-26.526-.015-48.102-21.599-48.102-48.128zm-119.619-3.845c18.743 0 33.992 15.249 33.992 33.992 0 18.744-15.249 33.993-33.992 33.993-18.744 0-33.993-15.249-33.993-33.993 0-18.743 15.249-33.992 33.993-33.992zm50.414 151.04h-111.631c-3.682 0-6.656-1.502-8.841-4.466-2.186-2.964-2.741-6.25-1.652-9.767 9.784-31.595 38.603-52.822 71.71-52.822 25.043 0 47.856 12.1 61.887 32.583-5.547 10.776-9.432 22.391-11.473 34.472zm219.706 30.438c-.001 11.947-9.721 21.667-21.668 21.667h-161.41c-11.947 0-21.667-9.72-21.667-21.667v-22.003c5.792-52.188 49.716-91.489 102.346-91.502.009 0 .018.001.027.001s.018-.001.026-.001c52.629.014 96.552 39.314 102.346 91.502zm135.433-34.899c-2.185 2.963-5.158 4.465-8.841 4.465h-111.63c-2.042-12.082-5.927-23.697-11.473-34.474 14.032-20.482 36.844-32.581 61.886-32.581 33.107 0 61.926 21.228 71.71 52.823 1.089 3.515.533 6.801-1.652 9.767z"
+                        fill="#830b00" fill-opacity="1" data-original-color="#000000ff" stroke="none"
+                        stroke-opacity="1" />
+                </g>
+            </svg>
+            <span
+                class="leading-none">{{ app()->getLocale() === 'en' ? 'Our Clients' : (app()->getLocale() === 'km' ? 'អតិថិជន​របស់យើងខ្ញុំ' : 'Our Clients') }}</span>
+        </h1>
+
+        <div class="overflow-hidden w-full">
+            <div class="flex gap-6 animate-scroll">
+                @foreach ($clients as $item)
+                    <div
+                        class="flex-shrink-0 relative w-[150px] h-[150px] md:w-[200px] md:h-[200px] border border-gray-400 rounded-full shadow overflow-hidden flex items-center justify-center">
+                        <img src="{{ asset($item->image) }}" alt="Client {{ $item->order }}"
+                            class="w-[80px] md:w-[120px] h-auto object-contain">
+                    </div>
+                @endforeach
+
+                {{-- duplicate for seamless loop --}}
+                @foreach ($clients as $item)
+                    <div
+                        class="flex-shrink-0 relative w-[150px] h-[150px] md:w-[200px] md:h-[200px] border border-gray-400 rounded-full shadow overflow-hidden flex items-center justify-center">
+                        <img src="{{ asset($item->image) }}" alt="Client {{ $item->order }}"
+                            class="w-[80px] md:w-[120px] h-auto object-contain">
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
     </section>
 
     {{-- banner --}}
-    <section class="relative w-full h-full py-12 md:py-16">
+    <section class="relative w-full h-full py-12 md:py-16 mt-5">
         <div class="absolute inset-0 w-full h-full z-10">
             <img src="{{ asset('assets/images/bg-2.png') }}" alt="" class="w-full h-full object-cover">
         </div>
         <div class="absolute inset-0 w-full h-full bg-[#000]/50 z-20"></div>
-        <div class="relative z-30 max-w-7xl mx-auto px-2 md:px-4 text-[#fff] text-center">
+        <div class="relative z-30 max-w-7xl mx-auto px-2 md:px-4 text-[#fff] text-center" data-aos="fade-up"
+            data-aos-duration="1400">
             <img src="{{ asset('assets/images/logo.png') }}" alt=""
                 class="w-24 md:w-32 mx-auto mb-6 object-cover object-center">
-            <div class="flex items-center justify-center  gap-4 ">
+            <div class="flex items-center justify-center gap-4">
                 <div class="w-24 md:w-32 h-[1px] bg-white"></div>
                 <div class="text-[30px] md:text-[50px] font-[300]">
                     V-Arch
@@ -1002,30 +1292,21 @@
                 <div class="w-24 md:w-32 h-[1px] bg-white"></div>
             </div>
             <h1 class="text-[16px] md:text-[20px] font-[300] uppercase">
-                {{ app()->getLocale() === 'en'
-                    ? 'LIGHTING UP YOUR HOME'
-                    : (app()->getLocale() === 'km'
-                        ? 'LIGHTING UP YOUR HOME'
-                        : 'LIGHTING UP YOUR HOME') }}
+                {{ app()->getLocale() === 'en' ? 'LIGHTING UP YOUR HOME' : (app()->getLocale() === 'km' ? 'LIGHTING UP YOUR HOME' : 'LIGHTING UP YOUR HOME') }}
             </h1>
             <p class="text-[20px] md:text-[40px] font-[300] uppercase">
-                {{ app()->getLocale() === 'en'
-                    ? 'WITH CHARMING LIGHTING'
-                    : (app()->getLocale() === 'km'
-                        ? 'WITH CHARMING LIGHTING'
-                        : 'WITH CHARMING LIGHTING') }}
+                {{ app()->getLocale() === 'en' ? 'WITH CHARMING LIGHTING' : (app()->getLocale() === 'km' ? 'WITH CHARMING LIGHTING' : 'WITH CHARMING LIGHTING') }}
             </p>
-        </div>
         </div>
     </section>
 
     {{-- contact form --}}
-    <section class="w-full py-10">
+    <section class="w-full py-10" data-aos="fade-up" data-aos-duration="1400">
         <div x-data="contactForm()" class="w-full max-w-3xl mx-auto px-2">
 
             <form @submit.prevent="submitForm" class="space-y-4">
                 @csrf
-                <h2 class="text-center text-2xl font-bold text-red-800 mb-6">
+                <h2 class="text-[20px] md:text-[30px] xl:text-[40px] text-center font-bold text-[#830B00] mb-6">
                     {{ app()->getLocale() === 'en'
                         ? 'Contact Form'
                         : (app()->getLocale() === 'km'
@@ -1063,7 +1344,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-red-800 text-white py-2 font-semibold hover:bg-red-900">
+                <button type="submit" class="w-full bg-[#830B00] text-white py-2 font-semibold hover:bg-red-900">
                     Submit
                 </button>
             </form>

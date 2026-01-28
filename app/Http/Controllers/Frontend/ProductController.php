@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $data['categories'] = Category::get();
+        $data['banners'] = Banner::find(5);
+
 
         $category = $request->query('category', 'all');
 
@@ -30,6 +33,8 @@ class ProductController extends Controller
 
     public function showProduct($id)
     {
+        $banners = Banner::find(5);
+
         $product = Product::where('id', $id)->firstOrFail();
 
         $relatedItems = Product::with('category')
@@ -54,6 +59,6 @@ class ProductController extends Controller
                 ];
             });
 
-        return view('frontend.showProduct', compact('product', 'relatedItems'));
+        return view('frontend.showProduct', compact('product', 'relatedItems', 'banners'));
     }
 }

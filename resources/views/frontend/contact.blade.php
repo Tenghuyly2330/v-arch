@@ -7,7 +7,7 @@
     <x-scroll-top-button />
 
     <section class="relative w-full min-h-screen bg-cover bg-center pb-10 px-2"
-        style="background-image: url('{{ asset('assets/images/home_bg.png') }}');">
+        style="background-image: url({{ asset($banners->image) }});">
         {{-- <div class="relative flex flex-col w-full h-full px-4 text-center text-white lg:pt-40">
             <img src="{{ asset('assets/images/logo.png') }}" alt="" class="w-32 mx-auto">
             <p class="mt-4 text-[30px] md:text-[50px] text-white/50 font-[700] max-w-[500px] mx-auto">
@@ -17,11 +17,11 @@
 
         <div class="pt-32 lg:pt-40">
             <div
-                class="relative flex flex-col w-full max-w-7xl mx-auto h-full px-4 text-center mt-10 p-4 lg:p-10 bg-[#01014F]/70    rounded-[30px]">
+                class="relative flex flex-col w-full max-w-7xl mx-auto h-full px-4 text-center mt-10 p-4 lg:p-10 bg-[#01014F] rounded-[30px]">
                 <img src="{{ asset('assets/images/logo.png') }}" alt=""
-                    class="w-32 md:w-40 mx-auto relative -top-[4rem]">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-white">
-                    <div class="text-[12px] md:text-[14px] text-start lg:text-end">
+                    class="w-48 md:w-64 mx-auto relative mb-10" data-aos="fade-up" data-aos-duration="1400">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-white overflow-hidden">
+                    <div class="text-[12px] md:text-[14px] text-start lg:text-end" data-aos="fade-right" data-aos-duration="1400">
                         <h1 class="text-[16px] font-[600] mb-4">V-Arch Lighting</h1>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
                             ut
@@ -43,7 +43,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="text-[12px] md:text-[14px] text-start lg:text-end">
+                    <div class="text-[12px] md:text-[14px] text-start lg:text-end" data-aos="fade-right" data-aos-duration="1400">
                         <h1 class="text-[16px] font-[600] mb-4">{{ app()->getLocale() === 'en' ? 'Information' : (app()->getLocale() === 'km' ? 'ព័ត៌មាន' : 'Information') }}</h1>
                         <ul class="space-y-1">
                             <li><a class="hover:underline transition-all duration-300" href="{{ route('home') }}">{{ app()->getLocale() === 'en' ? 'Home' : (app()->getLocale() === 'km' ? 'ទំព័រដើម' : 'Home') }}</a></li>
@@ -54,7 +54,7 @@
                             <li><a class="hover:underline transition-all duration-300" href="{{ route('contact') }}">{{ app()->getLocale() === 'en' ? 'Contact Us' : (app()->getLocale() === 'km' ? 'ទំនាក់ទំនងមកយើង' : 'Contact Us') }}</a></li>
                         </ul>
                     </div>
-                    <div class="text-start">
+                    <div class="text-start" data-aos="fade-left" data-aos-duration="1400">
                         <h1 class="text-[16px] font-[600] mb-4">V-Arch Lighting</h1>
                         <div class="text-[12px] md:text-[14px] flex flex-col space-y-3">
                             <p>Our Factory is located in Kompong Cham Province</p>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="text-[12px] md:text-[14px] text-start">
+                    <div class="text-[12px] md:text-[14px] text-start" data-aos="fade-left" data-aos-duration="1400">
                         <h1 class="text-[16px] font-[600] mb-4">{{ app()->getLocale() === 'en' ? 'Working Time' : (app()->getLocale() === 'km' ? 'ម៉ោងធ្វើការ' : 'Working Time') }}  </h1>
                         <div class="text-[12px] md:text-[14px] flex flex-col space-y-3 mb-4">
                             <p>{{ app()->getLocale() === 'en' ? 'Monday - Sunday' : (app()->getLocale() === 'km' ? 'ច័ន្ទ – អាទិត្យ' : 'Monday - Sunday') }}</p>

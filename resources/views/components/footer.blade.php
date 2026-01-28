@@ -1,5 +1,5 @@
-<footer class="hidden lg:flex flex-wrap items-start gap-4 px-2 xl:px-10 pb-4">
-    <div class="w-[15%] text-right pt-16">
+<footer class="hidden lg:flex flex-wrap items-start gap-4 px-2 xl:px-10 pb-4 overflow-hidden">
+    <div class="w-[15%] text-right pt-16" data-aos="fade-right" data-aos-duration="1400">
         <h1 class="text-[16px] xl:text-[20px] font-bold">V-Arch Lighting</h1>
         <p class="text-[10px] xl:text-[12px] pt-4">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
@@ -7,7 +7,7 @@
             suscipit lobortis nisl ut aliquip ex ea commodo consequat.
         </p>
     </div>
-    <div class="w-[15%] text-right pt-16">
+    <div class="w-[15%] text-right pt-16" data-aos="fade-right" data-aos-duration="1400">
         <h1 class="text-[16px] xl:text-[20px] font-bold">{{ app()->getLocale() === 'en' ? 'Information' : (app()->getLocale() === 'km' ? 'ព័ត៌មាន' : 'Information') }}</h1>
         <ul class="text-[12px] xl:text-[14px] pt-4 space-y-1">
             <li class="py-1"><a class="hover:underline transition-all duration-300"
@@ -30,13 +30,13 @@
             </li>
         </ul>
     </div>
-    <div class="w-[31%] mx-auto">
+    <div class="w-[31%] mx-auto" data-aos="fade-up" data-aos-duration="1400">
         <img src="{{ asset('assets/images/lamp-2.png') }}" alt="" class="w-full">
         <div class="flex flex-col gap-4 items-center text-center">
             <h1>Follow Us</h1>
             <div class="flex items-center gap-4">
                 <a href="#">
-                    <svg class="w-6" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-10" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M19 0C8.52344 0 0 8.52344 0 19C0 29.4758 8.52344 38 19 38C29.4758 38 38 29.4758 38 19C38 8.52344 29.4773 0 19 0ZM23.7251 19.6689H20.634V30.6865H16.0535C16.0535 30.6865 16.0535 24.6665 16.0535 19.6689H13.8761V15.7749H16.0535V13.2562C16.0535 11.4523 16.9107 8.63365 20.6761 8.63365L24.0703 8.64666V12.4266C24.0703 12.4266 22.0077 12.4266 21.6067 12.4266C21.2057 12.4266 20.6355 12.6271 20.6355 13.4874V15.7757H24.1254L23.7251 19.6689Z"
                             fill="#007BFF" />
@@ -44,7 +44,7 @@
 
                 </a>
                 <a href="#">
-                    <svg class="w-6" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-10" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M19 38C29.4934 38 38 29.4934 38 19C38 8.50659 29.4934 0 19 0C8.50659 0 0 8.50659 0 19C0 29.4934 8.50659 38 19 38Z"
                             fill="#039BE5" />
@@ -54,7 +54,7 @@
                     </svg>
                 </a>
                 <a href="#">
-                    <svg class="w-6" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-10" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M19 38C29.4934 38 38 29.4934 38 19C38 8.50659 29.4934 0 19 0C8.50659 0 0 8.50659 0 19C0 29.4934 8.50659 38 19 38Z"
                             fill="#29A71A" />
@@ -67,7 +67,7 @@
                     </svg>
                 </a>
                 <a href="#">
-                    <svg class="w-6" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-10" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M37.9963 19.1112C37.9963 8.6799 29.54 0.223633 19.1087 0.223633C8.67733 0.223633 0.221069 8.6799 0.221069 19.1112C0.221069 29.5426 8.67733 37.9988 19.1087 37.9988C29.54 37.9988 37.9963 29.5426 37.9963 19.1112Z"
                             fill="url(#paint0_linear_101_6889)" />
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div class="w-[15%] pt-16">
+    <div class="w-[15%] pt-16" data-aos="fade-left" data-aos-duration="1400">
         <h1 class="text-[16px] xl:text-[20px] font-bold">V-Arch Lighting</h1>
         <div class="text-[12px] flex flex-col gap-2 pt-4">
             <p>
@@ -115,7 +115,7 @@
             {{-- <a href="#" class="hover:underline">www.lehsekmeasrice.com</a> --}}
         </div>
     </div>
-    <div class="w-[15%] pt-16">
+    <div class="w-[15%] pt-16" data-aos="fade-left" data-aos-duration="1400">
         <h1 class="text-[16px] xl:text-[20px] font-bold">{{ app()->getLocale() === 'en' ? 'Working Time' : (app()->getLocale() === 'km' ? 'ម៉ោងធ្វើការ' : 'Working Time') }}</h1>
         <div class="text-[12px] flex flex-col gap-2 pt-4">
             <p>
@@ -127,7 +127,7 @@
         </div>
         <h1 class="text-[16px] xl:text-[20px] font-bold pt-4">{{ app()->getLocale() === 'en' ? 'Map' : (app()->getLocale() === 'km' ? 'ទីតាំង' : 'Map') }}</h1>
         <div class="pt-2">
-            <iframe class="w-[95%] h-[100px]"
+            <iframe class="w-[95%] h-[200px]"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.4436291086704!2d104.920699!3d11.5212099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310950bf57e61dff%3A0x1cd908096238297a!2sV-Arch%20Lighting!5e1!3m2!1sen!2skh!4v1766195511008!5m2!1sen!2skh"
                 style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -136,11 +136,11 @@
 </footer>
 
 
-<footer class="flex flex-col gap-6 lg:hidden px-6 pb-6">
-    <div>
+<footer class="flex flex-col gap-6 lg:hidden px-6 pb-6 overflow-hidden">
+    <div data-aos="fade-right" data-aos-duration="1400">
         <img src="{{ asset('assets/images/lamp-2.png') }}" alt="" class="w-[15rem] mx-auto">
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 items-start gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 items-start gap-6" data-aos="fade-right" data-aos-duration="1400">
         <div class="">
             <h1 class="text-[16px] xl:text-[20px] font-bold">V-Arch Lighting</h1>
             <p class="text-[12px] pt-4">
@@ -150,7 +150,7 @@
                 suscipit lobortis nisl ut aliquip ex ea commodo consequat.
             </p>
         </div>
-        <div class="">
+        <div class="" data-aos="fade-right" data-aos-duration="1400">
             <h1 class="text-[16px] xl:text-[20px] font-bold">V-Arch Lighting</h1>
             <div class="text-[12px] flex flex-col gap-2 pt-4">
                 <p>
@@ -166,7 +166,7 @@
                 {{-- <a href="#" class="hover:underline">www.lehsekmeasrice.com</a> --}}
             </div>
         </div>
-        <div class="">
+        <div class="" data-aos="fade-right" data-aos-duration="1400">
             <h1 class="text-[16px] xl:text-[20px] font-bold">{{ app()->getLocale() === 'en' ? 'Information' : (app()->getLocale() === 'km' ? 'ព័ត៌មាន' : 'Information') }}</h1>
             <ul class="text-[12px] xl:text-[14px] pt-4 space-y-1">
                 <li class="py-1"><a class="hover:underline transition-all duration-300"
@@ -189,7 +189,7 @@
                 </li>
             </ul>
         </div>
-        <div class="">
+        <div class="" data-aos="fade-right" data-aos-duration="1400">
             <h1 class="text-[16px] xl:text-[20px] font-bold">
                 {{ app()->getLocale() === 'en' ? 'Working Time' : (app()->getLocale() === 'km' ? 'ម៉ោងធ្វើការ' : 'Working Time') }}
             </h1>
@@ -203,7 +203,7 @@
             </div>
             <h1 class="text-[16px] xl:text-[20px] font-bold pt-4">{{ app()->getLocale() === 'en' ? 'Map' : (app()->getLocale() === 'km' ? 'ទីតាំង' : 'Map') }}</h1>
             <div class="pt-2">
-                <iframe class="w-[50%] h-[150px]"
+                <iframe class="w-full sm:h-[70%] h-[200px]"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.4436291086704!2d104.920699!3d11.5212099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310950bf57e61dff%3A0x1cd908096238297a!2sV-Arch%20Lighting!5e1!3m2!1sen!2skh!4v1766195511008!5m2!1sen!2skh"
                     style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -211,20 +211,20 @@
         </div>
     </div>
 
-    <div class="flex flex-col gap-4 items-center text-center">
+    <div class="flex flex-col gap-4 items-center text-center" data-aos="fade-right" data-aos-duration="1400">
         <h1>Follow Us</h1>
         <div class="flex items-center gap-4">
             <a href="#">
-                <img src="{{ asset('assets/images/icons/fb.png') }}" alt="" class="w-6">
+                <img src="{{ asset('assets/images/icons/fb.png') }}" alt="" class="w-10">
             </a>
             <a href="#">
-                <img src="{{ asset('assets/images/icons/telegram.png') }}" alt="" class="w-6">
+                <img src="{{ asset('assets/images/icons/telegram.png') }}" alt="" class="w-10">
             </a>
             <a href="#">
-                <img src="{{ asset('assets/images/icons/whatapp.png') }}" alt="" class="w-6">
+                <img src="{{ asset('assets/images/icons/whatapp.png') }}" alt="" class="w-10">
             </a>
             <a href="#">
-                <img src="{{ asset('assets/images/icons/ig.png') }}" alt="" class="w-6">
+                <img src="{{ asset('assets/images/icons/ig.png') }}" alt="" class="w-10">
             </a>
         </div>
     </div>

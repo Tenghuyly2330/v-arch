@@ -7,15 +7,15 @@
     <x-scroll-top-button />
 
     <section class="relative w-full min-h-screen bg-cover bg-center pb-10"
-        style="background-image: url('{{ asset('assets/images/pro_bg.png') }}');">
-        <div class="relative flex flex-col w-full h-full px-4 text-center text-white lg:pt-40 pb-10 ">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="" class="w-32 mx-auto">
-            <p class="mt-4 text-[30px] md:text-[50px] text-white/50 font-[700] max-w-[500px] mx-auto">
+        style="background-image: url({{ asset($banners->image) }});">
+        <div class="relative flex flex-col w-full h-full px-4 text-center text-[#000] pt-20 lg:pt-40 pb-10 ">
+            <img src="{{ asset('assets/images/logo-black.png') }}" alt="" class="w-48 md:w-64 mx-auto" data-aos="fade-right" data-aos-duration="1200">
+            <p class="mt-4 text-[30px] md:text-[50px] text-[#000] font-[700] max-w-[500px] mx-auto" data-aos="fade-right" data-aos-duration="1400">
                 {{ app()->getLocale() === 'en' ? 'Our Projects' : (app()->getLocale() === 'km' ? 'គម្រោងរបស់យើងខ្ញុំ' : 'Our Projects') }}
             </p>
         </div>
 
-        <div class="max-w-7xl mx-auto pt-5 grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 px-2 md:px-4">
+        <div class="max-w-7xl mx-auto pt-5 grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 px-2 md:px-4" data-aos="fade-up" data-aos-duration="1200">
             @foreach ($project as $index => $item)
                 @php
                     $images = json_decode($item->image, true);

@@ -48,7 +48,7 @@
             </div>
 
 
-            <div>
+            {{-- <div>
                 <label for="dropzone-file" id="drop-area"
                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
                     <div class="flex flex-col items-center justify-center pt-5 pb-6 w-full h-full bg-contain bg-center bg-no-repeat rounded-md text-center"
@@ -66,6 +66,20 @@
                         onchange="uploadImage(event)" />
                 </label>
                 <x-input-error class="mt-2" :messages="$errors->get('image')" />
+            </div> --}}
+            <div>
+                <label for="dropzone-file" id="drop-area"
+                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
+
+                    <input id="dropzone-file" type="file" class="hidden" name="images[]" accept="image/*" multiple
+                        onchange="uploadImages(event)" />
+                </label>
+                <x-input-error class="mt-2" :messages="$errors->get('image')" />
+            </div>
+
+            <div id="img-preview"
+                class="flex flex-wrap gap-2 justify-center items-center w-full h-full bg-gray-50 rounded-md overflow-y-auto p-4">
+                <p class="text-gray-400 text-sm">No images selected.</p>
             </div>
 
             <div class="flex justify-between">
@@ -117,21 +131,63 @@
             });
 
         const dropArea = document.getElementById('drop-area');
-        const imageFile = document.getElementById('dropzone-file');
+        const imageFileInput = document.getElementById('dropzone-file');
         const imagePreview = document.getElementById('img-preview');
+        let selectedFiles = [];
 
-        function uploadImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const imgLink = URL.createObjectURL(file);
-                imagePreview.style.backgroundImage = `url(${imgLink})`;
-                imagePreview.style.backgroundSize = "contain";
-                imagePreview.style.backgroundPosition = "center";
-                imagePreview.innerHTML = "";
-            }
+        function uploadImages(event) {
+            const files = Array.from(event.target.files);
+            selectedFiles.push(...files);
+            renderImagePreviews();
+            syncInputFiles();
         }
 
-        // Drag-and-drop functionality
+        function renderImagePreviews() {
+            imagePreview.innerHTML = '';
+
+            if (selectedFiles.length === 0) {
+                imagePreview.innerHTML = '<p class="text-gray-400 text-sm">No images selected.</p>';
+                return;
+            }
+
+            selectedFiles.forEach((file, index) => {
+                const imgLink = URL.createObjectURL(file);
+                const wrapper = document.createElement('div');
+                wrapper.className = 'relative draggable';
+                wrapper.dataset.index = index;
+
+                const img = document.createElement('img');
+                img.src = imgLink;
+                img.className = 'w-24 h-24 object-contain rounded border p-1';
+
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = '✕';
+                removeBtn.className =
+                    'absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs';
+                removeBtn.type = 'button';
+                removeBtn.onclick = () => {
+                    selectedFiles.splice(index, 1);
+                    renderImagePreviews();
+                    syncInputFiles();
+                };
+
+                wrapper.appendChild(img);
+                wrapper.appendChild(removeBtn);
+                imagePreview.appendChild(wrapper);
+            });
+
+            initSortable(); // Reinitialize Sortable after DOM update
+        }
+
+        function syncInputFiles() {
+            const dataTransfer = new DataTransfer();
+            selectedFiles.forEach(file => {
+                dataTransfer.items.add(file);
+            });
+            imageFileInput.files = dataTransfer.files;
+        }
+
+        // Drag-and-drop input
         dropArea.addEventListener('dragover', (event) => {
             event.preventDefault();
             dropArea.classList.add('border-blue-500');
@@ -144,15 +200,15 @@
         dropArea.addEventListener('drop', (event) => {
             event.preventDefault();
             dropArea.classList.remove('border-blue-500');
-            const file = event.dataTransfer.files[0];
-            if (file) {
-                const imgLink = URL.createObjectURL(file);
-                imagePreview.style.backgroundImage = `url(${imgLink})`;
-                imagePreview.style.backgroundSize = "contain";
-                imagePreview.style.backgroundPosition = "center";
-                imagePreview.innerHTML = ""; // Clear the default content inside preview
-                imageFile.files = event.dataTransfer.files; // Attach the dropped file to input
-            }
+
+            const files = Array.from(event.dataTransfer.files);
+            selectedFiles.push(...files);
+            renderImagePreviews();
+            syncInputFiles();
+        });
+
+        imageFileInput.addEventListener('click', () => {
+            imageFileInput.value = null;
         });
     </script>
 </x-app-layout>

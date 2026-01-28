@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\History;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Why;
 use App\Models\About;
+use App\Models\Client;
+use App\Models\History;
 use App\Models\Product;
 use App\Models\Project;
-use App\Models\Why;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
@@ -23,6 +25,11 @@ class HomeController extends Controller
 
         $data['whys'] = Why::get();
         $data['product'] = Product::where('status', 1)->orderBy('created_at', 'asc')->get();
+        $data['products'] = Product::orderBy('created_at', 'asc')->take(8)->get();
+
+        $data['clients'] = Client::orderBy('order')->get();
+        $data['banners'] = Banner::find(4);
+
 
         $data['project'] = Project::orderBy('created_at', 'asc')
             ->limit(4)

@@ -27,14 +27,35 @@
     <!-- Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     {{-- aos --}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     @yield('css')
 </head>
 <style>
+    .text-gradient {
+        background: linear-gradient(180deg, #830B00 0%, #966927 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .bg-gradient {
+        background: linear-gradient(180deg, #830B00 0%, #966927 100%);
+    }
+
+    .bg-gradient1 {
+        background: linear-gradient(94deg, #830B00 1.01%, #966927 69.43%);
+    }
+
+    .eb{
+        font-family: "Montserrat", sans-serif;
+    }
+
+
     [x-cloak] {
         display: none !important;
     }
@@ -100,16 +121,26 @@
 
     @yield('content')
 
-    @include('components.footer')
+    @if (!Request::is('contact'))
+        @include('components.footer')
+    @endif
+
 
     {{-- aos --}}
     <!-- Swiper JS -->
     @yield('js')
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <script>
         var swiper = new Swiper(".productSwiper", {
             slidesPerView: 4,
             spaceBetween: 30,
+            autoplay: {
+                delay: 2000,
+            },
             loop: true,
             breakpoints: {
                 1280: {
@@ -141,7 +172,7 @@
             },
         });
 
-         var productSwiper = new Swiper(".ProductSwiper", {
+        var productSwiper = new Swiper(".ProductSwiper", {
             loop: true,
             autoplay: {
                 delay: 2000,

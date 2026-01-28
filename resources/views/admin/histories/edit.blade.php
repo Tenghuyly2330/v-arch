@@ -44,22 +44,50 @@
                 </div>
 
             </div>
+
+            <!-- Dropzone for Image -->
             <div>
-                <h1 class="text-[#401457]">Image</h1>
                 <label for="dropzone-file{{ $history->id }}" id="drop-area"
                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
-                    <div class="flex flex-col items-center justify-center pt-5 pb-6 w-full h-full bg-contain bg-center bg-no-repeat rounded-md text-center"
-                        id="img-preview" style="background-image: url('{{ asset($history->image) }}')">
-                        <p class="mb-2 text-[12px] sm:text-[14px] text-[#000]"><span class="font-semibold">Click
-                                to
-                                upload</span> or drag and drop</p>
-                        <p class="text-xs text-[#000]">SVG, PNG, JPG or GIF (MAX. 5MB)</p>
-                    </div>
-                    <input id="dropzone-file{{ $history->id }}" type="file" class="hidden" name="image"
-                        accept="image/*" onchange="uploadImage(event)" />
+
+                    <input id="dropzone-file{{ $history->id }}" type="file" class="hidden" name="images[]"
+                        accept="image/*" multiple onchange="uploadImages(event)" />
+                    <p class="mt-2 text-sm text-gray-500">Click or drag images here to upload</p>
                 </label>
                 <x-input-error class="mt-2" :messages="$errors->get('image')" />
             </div>
+
+            <!-- Preview Container -->
+            <div id="img-preview"
+                class="flex flex-wrap gap-2 justify-center items-center w-full h-full bg-gray-50 rounded-md overflow-y-auto p-4">
+                @php
+                    $images = json_decode($history->image, true);
+                @endphp
+
+                @if (!empty($images))
+                    @foreach ($images as $img)
+                        <div class="relative group">
+                            <img src="{{ asset($img) }}" alt="Uploaded Image"
+                                class="w-20 h-20 object-cover rounded border" />
+                            <button type="button"
+                                class="absolute -top-2 -right-2 bg-[#966927] text-white flex items-center justify-center rounded-full w-6 h-6"
+                                onclick="removeExistingImage('{{ $img }}', this)">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    strokeWidth={2} stroke="currentColor" class="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+
+
+                            </button>
+                        </div>
+                    @endforeach
+                @else
+                    <p class="text-gray-400 text-sm">No images available</p>
+                @endif
+            </div>
+
+            <input type="hidden" name="removed_images" id="removed_images" />
 
             <div class="flex justify-between">
                 <a href="{{ route('history.index') }}"
@@ -109,42 +137,94 @@
                 console.error(error);
             });
 
-        function uploadImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const imgLink = URL.createObjectURL(file);
-                const preview = document.getElementById('img-preview');
-                preview.style.backgroundImage = `url(${imgLink})`;
-                preview.style.backgroundSize = "contain";
-                preview.style.backgroundPosition = "center";
-                preview.innerHTML = "";
-            }
+        let selectedImages = []; // newly added files
+        let removedImages = []; // existing images marked for removal
+        const previewContainer = document.getElementById("img-preview");
+        const removedImagesInput = document.getElementById('removed_images');
+        const fileInput = document.getElementById("dropzone-file{{ $history->id }}");
+
+        function uploadImages(event) {
+            const files = Array.from(event.target.files);
+            selectedImages.push(...files);
+            renderPreview();
         }
 
-        // Drag and drop for image
-        const imageDropArea = document.getElementById('drop-area-image');
-        const imageInput = document.getElementById('dropzone-image');
-        const imagePreview = document.getElementById('image-preview');
+        function renderPreview() {
+            // Clear all previews (existing + new)
+            previewContainer.innerHTML = '';
 
-        imageDropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            imageDropArea.classList.add('border-blue-500');
-        });
-        imageDropArea.addEventListener('dragleave', () => {
-            imageDropArea.classList.remove('border-blue-500');
-        });
-        imageDropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            imageDropArea.classList.remove('border-blue-500');
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                imageInput.files = e.dataTransfer.files;
-                uploadImage({
-                    target: {
-                        files: [file]
-                    }
-                });
-            }
-        });
+            // Render existing images (excluding removed ones)
+            @php
+                $images = json_decode($history->image, true) ?? [];
+            @endphp
+            let existingImages = @json($images);
+
+            existingImages.forEach(img => {
+                if (!removedImages.includes(img)) {
+                    const wrapper = document.createElement('div');
+                    wrapper.classList.add('relative', 'group');
+
+                    const imageEl = document.createElement('img');
+                    imageEl.src = "{{ asset('') }}" + img;
+                    imageEl.className = "w-20 h-20 object-cover rounded border";
+
+                    const btn = document.createElement('button');
+                    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        strokeWidth={2} stroke="currentColor" class="w-4 h-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>`;
+                    btn.type = 'button';
+                    btn.className =
+                        "absolute -top-2 -right-2 bg-[#FF3217] text-white flex items-center justify-center rounded-full w-6 h-6";
+                    btn.onclick = () => removeExistingImage(img, btn);
+
+                    wrapper.appendChild(imageEl);
+                    wrapper.appendChild(btn);
+                    previewContainer.appendChild(wrapper);
+                }
+            });
+
+            // Render selected new images
+            selectedImages.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const wrapper = document.createElement('div');
+                    wrapper.classList.add('relative', 'group');
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = "w-20 h-20 object-cover rounded border";
+
+                    const btn = document.createElement('button');
+                    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        strokeWidth={2} stroke="currentColor" class="w-4 h-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>`;
+                    btn.type = 'button';
+                    btn.className =
+                        "absolute -top-2 -right-2 bg-[#FF3217] text-white flex items-center justify-center rounded-full w-6 h-6";
+                    btn.onclick = () => {
+                        selectedImages.splice(index, 1);
+                        renderPreview();
+                    };
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(btn);
+                    previewContainer.appendChild(wrapper);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            removedImagesInput.value = JSON.stringify(removedImages);
+        }
+
+        function removeExistingImage(imagePath, btn) {
+            removedImages.push(imagePath);
+            removedImagesInput.value = JSON.stringify(removedImages);
+
+            // Remove from DOM
+            const wrapper = btn.closest('div');
+            wrapper.remove();
+        }
     </script>
 </x-app-layout>

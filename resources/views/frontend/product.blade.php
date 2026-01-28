@@ -5,7 +5,7 @@
 @section('css')
     <style>
         .active {
-            background-color: #DD483A !important;
+            background-color: #830B00 !important;
             color: white !important;
         }
     </style>
@@ -15,29 +15,29 @@
     <x-scroll-top-button />
 
     <section class="relative w-full min-h-screen bg-cover bg-center pb-10"
-        style="background-image: url('{{ asset('assets/images/pro_bg.png') }}');">
-        <div class="relative flex flex-col w-full h-full px-4 text-center text-white pt-20 lg:pt-40">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="" class="w-16 md:w-32 mx-auto">
-            <p class="mt-4 text-[30px] md:text-[50px] text-white/50 font-[700] max-w-[500px] mx-auto">
+        style="background-image: url({{ asset($banners->image) }});">
+        <div class="relative flex flex-col w-full h-full px-4 text-center text-[#000] pt-20 lg:pt-40">
+            <img src="{{ asset('assets/images/logo-black.png') }}" alt="" class="w-48 md:w-64 mx-auto" data-aos="fade-up" data-aos-duration="1200">
+            <p class="mt-4 text-[30px] md:text-[50px] text-black font-[700] max-w-[500px] mx-auto" data-aos="fade-right" data-aos-duration="1400">
                 Product Category
             </p>
 
-            <div class="w-full overflow-x-auto overflow-y-visible">
+            <div class="w-full overflow-x-auto overflow-y-visible eb" data-aos="fade-up" data-aos-duration="1400">
                 <div
                     class="max-w-7xl mx-auto mt-10
-               cursor-pointer text-[14px] md:text-[16px] font-[500]
-               flex flex-nowrap md:flex-wrap
-               items-center justify-start md:justify-center
-               gap-3
-               py-3">
+                        cursor-pointer text-[14px] lg:text-[16px] font-[500]
+                        flex flex-nowrap md:flex-wrap
+                        items-center justify-start md:justify-center
+                        gap-3
+                        py-3">
 
                     <div
-                        class="cursor-pointer text-[14px] md:text-[16px] font-[500] flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center space-x-4 space-y-4 overflow-x-auto py-2">
+                        class="cursor-pointer text-[16px] lg:text-[18px] font-[500] flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center space-x-4 space-y-4 overflow-x-auto py-2">
                         <!-- "All" button -->
-                        <p class="filter-btn border border-[#DD483A] rounded-[5px] px-4 py-1 flex-shrink-0 mt-4 {{ request('category') === null || request('category') === 'all' ? 'active' : '' }}"
+                        <p class="filter-btn border border-[#830B00] rounded-[5px] px-6 py-1 flex-shrink-0 mt-4 {{ request('category') === null || request('category') === 'all' ? 'active' : '' }}"
                             data-category="all" onclick="filterProducts('all')"> {{ __('message.all') }} </p>
                         @foreach ($categories as $c)
-                            <p class="filter-btn border border-[#DD483A] rounded-[5px] px-4 py-1 mt-0 flex-shrink-0 {{ request('category') === $c->slug ? 'active' : '' }}"
+                            <p class="filter-btn border border-[#830B00] rounded-[5px] px-6 py-1 mt-0 flex-shrink-0 {{ request('category') === $c->slug ? 'active' : '' }}"
                                 data-category="{{ $c->slug }}" onclick="filterProducts('{{ $c->slug }}')">
                                 {{ app()->getLocale() === 'en' ? $c->name_en : (app()->getLocale() === 'km' ? $c->name_km : $c->name_ch) }}
                             </p>
@@ -48,8 +48,8 @@
 
         </div>
 
-        <div id="product_in_stock"
-            class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 pt-6 md:pt-10 px-2 xl:px-0">
+        <div id="product_in_stock" data-aos="fade-up" data-aos-duration="1400"
+            class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 pt-6 md:pt-10 px-2 xl:px-0 ">
             @forelse ($products as $item)
                 @php
                     $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
@@ -101,21 +101,21 @@
             {{ $products->appends(['category' => request('category')])->links() }}
         </div>
 
-        <div class="w-full max-w-7xl mx-auto px-4" id="customized_products">
-            <p class="mt-4 text-[30px] md:text-[50px] text-white/50 font-[700] text-center">
+        <div class="w-full max-w-7xl mx-auto px-4" id="customized_products" data-aos="fade-right" data-aos-duration="1400">
+            <p class="mt-4 text-[30px] md:text-[50px] text-[#000] font-[700] text-center">
                 Customized Products
             </p>
             <div class="mt-6 md:mt-10">
-                <img src="{{ asset('assets/images/customize.png') }}" alt="">
+                <img src="{{ asset('assets/images/customize-1.png') }}" alt="">
             </div>
         </div>
 
-        <section class="w-full py-10">
+        <section class="w-full py-10" data-aos="fade-up" data-aos-duration="1400">
             <div x-data="contactForm()" class="w-full max-w-3xl mx-auto px-2">
 
                 <form @submit.prevent="submitForm" class="space-y-4">
                     @csrf
-                    <h2 class="text-center text-[30px] md:text-[50px] font-bold text-[#fff] mb-6 md:mb-10">
+                    <h2 class="text-center text-[30px] md:text-[50px] font-bold text-[#000] mb-6 md:mb-10">
                         {{ app()->getLocale() === 'en'
                             ? 'Request Quotation'
                             : (app()->getLocale() === 'km'

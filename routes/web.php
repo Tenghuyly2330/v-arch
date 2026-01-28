@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\admin\AboutBackendController;
-use App\Http\Controllers\admin\WhyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\admin\WhyController;
+use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\admin\BannerController;
+use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\HistoryController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\AboutBackendController;
 use App\Http\Controllers\admin\ProductBackendController;
 use App\Http\Controllers\admin\ProjectBackendController;
-use App\Http\Controllers\GoogleAuthController;
 
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 Route::post('/', [App\Http\Controllers\Frontend\HomeController::class, 'send'])->name('home.send');
@@ -51,7 +53,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('project_backend', ProjectBackendController::class)->except(['destroy', 'show']);
     Route::get('project_backend/delete/{id}', [ProjectBackendController::class, 'delete'])->name('project_backend.delete');
 
+    Route::resource('banner', BannerController::class)->except(['destroy', 'show']);
 
+    // our client
+    Route::resource('client', ClientController::class)->except(['destroy', 'show']);
+    Route::post('/client/reorder', [ClientController::class, 'reorder'])->name('client.reorder');
+    Route::get('client/delete/{id}', [ClientController::class, 'delete'])->name('client.delete');
 });
 
 require __DIR__.'/auth.php';

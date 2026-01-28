@@ -62,6 +62,14 @@
                             </a>
                         </li>
 
+                        <li class="nav-link {{ Request::is('banner') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
+                            <a href="{{ url('banner') }}">
+                                <i class='bx bxl-vimeo icon'></i>
+                                <span class="text nav-text">Banner</span>
+                            </a>
+                        </li>
+
+
                         <li class="nav-link {{ Request::is('about_backend') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('about_backend') }}">
                                 <i class='bx bxl-vimeo icon'></i>
@@ -82,6 +90,14 @@
                                 <span class="text nav-text">History</span>
                             </a>
                         </li>
+
+                        <li class="nav-link {{ Request::is('client') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
+                            <a href="{{ url('client') }}">
+                                <i class='bx bxl-vimeo icon'></i>
+                                <span class="text nav-text">Client</span>
+                            </a>
+                        </li>
+
 
                         <li class="nav-link {{ Request::is('category') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('category') }}">

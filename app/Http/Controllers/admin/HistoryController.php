@@ -27,16 +27,28 @@ class HistoryController extends Controller
             'content_en' => 'nullable|string',
             'content_km' => 'nullable|string',
             'content_ch' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'images' => 'required|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
 
-        $data = $request->except('_token', 'image');
+        // $data = $request->except('_token', 'image');
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('histories', 'custom');
+        // $folderName = strtolower(str_replace(' ', '_', $validated['title']['en']));
+        $imagePaths = [];
+
+        foreach ($request->file('images') as $imageFile) {
+            $path = $imageFile->store("histories", 'custom');
+            $imagePaths[] = $path;
         }
 
-        History::create($data);
+        // History::create($data);
+         History::create([
+            'year' => $validated['year'],
+            'content_en' => $validated['content_en'],
+            'content_km' => $validated['content_km'],
+            'content_ch' => $validated['content_ch'],
+            'image' => json_encode($imagePaths),
+        ]);
 
         return redirect()->route('history.index')->with('success', 'Created successfully.');
     }
@@ -58,30 +70,53 @@ class HistoryController extends Controller
             'content_en' => 'nullable|string',
             'content_km' => 'nullable|string',
             'content_ch' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
 
-        $data = $request->except('_token', 'image', '_method');
+        // $data = $request->except('_token', 'image', '_method');
 
-        if ($request->hasFile('image')) {
+        // if ($request->hasFile('image')) {
 
-            // Delete old image
-            if ($history->image && Storage::disk('custom')->exists($history->image)) {
-                Storage::disk('custom')->delete($history->image);
+        //     // Delete old image
+        //     if ($history->image && Storage::disk('custom')->exists($history->image)) {
+        //         Storage::disk('custom')->delete($history->image);
+        //     }
+
+        //     // Store new image
+        //     $data['image'] = $request->file('image')->store('histories', 'custom');
+        // }
+
+        $imagePaths = json_decode($history->image, true) ?? [];
+        // $folderName = strtolower(str_replace(' ', '_', $validated['title']['en']));
+
+        if ($request->filled('removed_images')) {
+            $removedImages = json_decode($request->removed_images, true);
+
+            foreach ($removedImages as $removedImage) {
+                if (Storage::disk('custom')->exists($removedImage)) {
+                    Storage::disk('custom')->delete($removedImage);
+                }
+                $imagePaths = array_filter($imagePaths, fn($img) => $img !== $removedImage);
             }
-
-            // Store new image
-            $data['image'] = $request->file('image')->store('histories', 'custom');
         }
 
-        $update = $history->update($data);
-
-        if ($update) {
-            return redirect()->route('history.index')->with('success', 'Updated Successfully!');
-        } else {
-            return redirect()->route('history.edit')
-                ->with('error', 'Failed to update History.')
-                ->withInput();
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $imageFile) {
+                $path = $imageFile->store("histories", 'custom');
+                $imagePaths[] = $path;
+            }
         }
+
+        $history->update([
+            'year' => $validated['year'],
+            'content_en' => $validated['content_en'],
+            'content_km' => $validated['content_km'],
+            'content_ch' => $validated['content_ch'],
+            'image' => json_encode(array_values($imagePaths))
+        ]);
+
+        return redirect()->route('history.index')
+            ->with('success', 'Updated successfully!');
     }
 }
