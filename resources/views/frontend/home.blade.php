@@ -142,7 +142,7 @@
     <section class="relative -top-[2rem] z-[1]">
         <div data-aos="fade-up" data-aos-duration="1700"
             class="w-full h-full overflow-visible flex items-end justify-center pointer-events-none">
-            <img src="{{ asset('assets/images/testing.png') }}" alt="" class="p-0 w-[20rem] sm:w-[30rem]">
+            <img src="{{ asset($banners->image) }}" alt="" class="p-0 w-[20rem] sm:w-[30rem]">
         </div>
     </section>
 
@@ -257,6 +257,68 @@
         </h1>
 
 
+        {{-- <div class="hidden md:flex relative w-full">
+
+            <div class="absolute top-[140px] left-0 right-0 h-[2px] bg-[#1E1E1E]"></div>
+
+            <div class="grid grid-cols-4 gap-4 md:gap-8 px-4">
+
+                @foreach ($histories as $item)
+                    <div class="relative" x-data="{ open: false }">
+
+                        <div class="text-[12px] lg:text-sm text-gray-700 leading-relaxed line-clamp-3">
+                            {!! app()->getLocale() === 'en'
+                                ? $item->content_en
+                                : (app()->getLocale() === 'km'
+                                    ? $item->content_km
+                                    : $item->content_ch) !!}
+                        </div>
+
+                        <button @click="open = true" class="hover:translate-x-2 duration-300">
+                            <svg width="20" height="10" viewBox="0 9 21 1" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="u-animated-cta__icon u-my-5">
+                                <path d="M0 10L19 10" stroke="currentColor"></path>
+                                <path
+                                    d="M19.3 10L19.6535 10.3536L20.0071 10L19.6535 9.64645L19.3 10ZM18.9464 9.64645L14.9464 13.6464L15.6535 14.3536L19.6535 10.3536L18.9464 9.64645ZM14.9464 6.35355L18.9464 10.3536L19.6535 9.64645L15.6535 5.64645L14.9464 6.35355Z"
+                                    fill="currentColor"></path>
+                            </svg>
+                        </button>
+
+                        <div x-show="open" x-transition x-cloak
+                            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                            <div @click.away="open = false" class="bg-white max-w-lg w-full mx-4 rounded-xl p-6 relative">
+                                <button @click="open = false"
+                                    class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
+                                    ✕
+                                </button>
+
+                                <h3 class="text-lg font-bold mb-3 text-[#830B00]">{{ $item->year }}</h3>
+
+                                <div class="text-sm text-gray-700 leading-relaxed">
+                                    {!! app()->getLocale() === 'en'
+                                        ? $item->content_en
+                                        : (app()->getLocale() === 'km'
+                                            ? $item->content_km
+                                            : $item->content_ch) !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex flex-col items-center mt-4">
+                            <span class="text-[#DD483A] text-sm mb-4 font-[400]">{{ $item->year }}</span>
+                            <div class="w-3 h-3 bg-[#1E1E1E] rotate-45 z-10"></div>
+                        </div>
+
+                        <div class="mt-10">
+                            <img src="{{ $item->image }}" class="w-full h-[120px] md:h-[180px] object-cover"
+                                loading="lazy" />
+                        </div>
+
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
 
         <div class="md:hidden flex relative w-full">
             <div class="md:hidden absolute left-5 top-0 bottom-0 w-[2px] bg-[#1E1E1E]"></div>
@@ -353,7 +415,7 @@
                                 @foreach ($images as $img)
                                     @if (!empty($img))
                                         <img src="{{ asset($img) }}" alt="" loading="lazy"
-                                            class="w-full h-[300px] md:h-[400px] object-top {{ count(array_filter($images)) === 1 ? 'col-span-2 object-cover md:object-contain' : 'object-cover' }}">
+                                            class="w-full h-[300px] md:h-[400px] object-top {{ count(array_filter($images)) === 1 ? 'col-span-2 object-contain' : 'object-contain' }}">
                                     @endif
                                 @endforeach
                             </div>
@@ -368,7 +430,7 @@
                                 @foreach ($images as $img)
                                     @if (!empty($img))
                                         <img src="{{ asset($img) }}" alt="" loading="lazy"
-                                            class="w-full h-[300px] md:h-[400px] object-top {{ count(array_filter($images)) === 1 ? 'col-span-2 object-cover md:object-contain' : 'object-contain' }}">
+                                            class="w-full h-[300px] md:h-[400px] object-top {{ count(array_filter($images)) === 1 ? 'col-span-2 object-contain' : 'object-contain' }}">
                                     @endif
                                 @endforeach
                             </div>

@@ -93,7 +93,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('about') }}"
+                    <a href="{{ route('home') }}#about"
                         class="block p-2 hover:bg-gray-100 rounded {{ Route::is('about') ? 'bg-[#000] text-[#fff]' : 'text-[#000]' }}">
                         {{ app()->getLocale() === 'en' ? 'About Us' : (app()->getLocale() === 'km' ? 'អំពីយើងខ្ញុំ' : 'About Us') }}
                     </a>
