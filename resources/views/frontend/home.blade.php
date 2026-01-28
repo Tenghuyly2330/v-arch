@@ -854,9 +854,9 @@
                 class="leading-none">{{ app()->getLocale() === 'en' ? 'New Product' : (app()->getLocale() === 'km' ? 'ផលិតផល​ ថ្មី' : 'New Product') }}</span>
         </h1>
 
-        <div class="w-full pt-5 products_swiper px-2 md:px-10 xl:px-20">
+        <div class="w-full pt-5 products_swiper px-2 md:px-10 xl:px-20" data-aos="fade-up" data-aos-duration="1400">
             <div class="swiper productSwiper">
-                <div class="swiper-wrapper" data-aos="fade-up" data-aos-duration="1400">
+                <div class="swiper-wrapper">
                     @forelse ($product as $item)
                         @php
                             $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
@@ -929,7 +929,7 @@
     </section>
 
     {{-- our product --}}
-    <section class="w-full pt-5 px-2 md:px-10 xl:px-20">
+    <section class="w-full pt-5 px-2 md:px-10 xl:px-20 overflow-hidden">
         <h1 class="text-[20px] md:text-[30px] xl:text-[40px] font-bold text-[#830B00] flex items-end justify-center gap-2 px-2 pb-6 md:pb-10"
             data-aos="fade-right" data-aos-duration="1400">
             <svg class="w-10 h-10 md:w-14 md:h-14" viewBox="-68 0 511 511.94546" xmlns="http://www.w3.org/2000/svg"
@@ -961,12 +961,12 @@
                 class="leading-none">{{ app()->getLocale() === 'en' ? 'Our Products' : (app()->getLocale() === 'km' ? 'ផលិតផល​របស់យើងខ្ញុំ' : 'Our Products') }}</span>
         </h1>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" >
             @forelse ($products as $item)
                 @php
                     $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
                 @endphp
-                <div class=" text-[#580B0C] h-full">
+                <div class=" text-[#580B0C] h-full" data-aos="fade-right" data-aos-duration="1400">
                     <div class="">
                         @php
                             $colors = $item->color ?? [];
