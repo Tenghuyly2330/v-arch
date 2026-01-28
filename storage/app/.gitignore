@@ -1,6 +1,4 @@
-*
-!private/
-!public/
-!.gitignore
-/storage/app/google/token.json
-/storage/app/google/
+# *
+# !private/
+# !public/
+# !.gitignore
