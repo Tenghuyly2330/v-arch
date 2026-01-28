@@ -108,7 +108,7 @@
         </div>
 
         <div
-            class="relative z-10 flex flex-col items-center justify-center w-full h-full px-4 text-center text-white lg:pt-20">
+            class="relative z-10 flex flex-col items-center justify-center w-full h-full px-4 text-center text-[#830B00] lg:pt-20">
             <img src="{{ asset('assets/images/logo-black.png') }}" alt="" class="w-48 md:w-64" data-aos="fade-up"
                 data-aos-duration="1000">
             <div class="flex items-center justify-center mt-4" data-aos="fade-up" data-aos-duration="1200">
@@ -133,7 +133,7 @@
                 </svg>
 
             </div>
-            <p class="mt-4 text-[16px] md:text-[25px] text-[#830B00] font-[500] max-w-[500px]" data-aos="fade-up"
+            <p class="mt-4 text-[20px] md:text-[25px] text-[#830B00] font-[500] max-w-[500px] italic tracking-widest" data-aos="fade-up"
                 data-aos-duration="1500">LIGHTING UP YOUR HOME WITH CHARMING LIGHTING
             </p>
         </div>
