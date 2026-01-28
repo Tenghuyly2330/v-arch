@@ -211,7 +211,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col gap-4 items-center text-center" data-aos="fade-right" data-aos-duration="1400">
+    <div class="flex flex-col gap-4 items-center text-center">
         <h1>Follow Us</h1>
         <div class="flex items-center gap-4">
             <a href="#">

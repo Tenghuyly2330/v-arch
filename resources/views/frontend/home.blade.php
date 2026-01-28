@@ -139,7 +139,7 @@
         </div>
     </section>
 
-    <section class="relative -top-[2rem] z-[1]">
+    <section class="relative -top-[1rem] md:-top-[2rem] z-[1]">
         <div data-aos="fade-up" data-aos-duration="1700"
             class="w-full h-full overflow-visible flex items-end justify-center pointer-events-none">
             <img src="{{ asset($banners->image) }}" alt="" class="p-0 w-[20rem] sm:w-[30rem]">
