@@ -35,7 +35,7 @@
         <div class="flex flex-col gap-4 items-center text-center">
             <h1>Follow Us</h1>
             <div class="flex items-center gap-4">
-                <a href="#">
+                <a href="https://www.facebook.com/varch.lighting.52">
                     <svg class="w-10" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M19 0C8.52344 0 0 8.52344 0 19C0 29.4758 8.52344 38 19 38C29.4758 38 38 29.4758 38 19C38 8.52344 29.4773 0 19 0ZM23.7251 19.6689H20.634V30.6865H16.0535C16.0535 30.6865 16.0535 24.6665 16.0535 19.6689H13.8761V15.7749H16.0535V13.2562C16.0535 11.4523 16.9107 8.63365 20.6761 8.63365L24.0703 8.64666V12.4266C24.0703 12.4266 22.0077 12.4266 21.6067 12.4266C21.2057 12.4266 20.6355 12.6271 20.6355 13.4874V15.7757H24.1254L23.7251 19.6689Z"
@@ -43,7 +43,7 @@
                     </svg>
 
                 </a>
-                <a href="#">
+                <a href="https://t.me/limvandara_lighting">
                     <svg class="w-10" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M19 38C29.4934 38 38 29.4934 38 19C38 8.50659 29.4934 0 19 0C8.50659 0 0 8.50659 0 19C0 29.4934 8.50659 38 19 38Z"
@@ -66,7 +66,7 @@
                             fill="white" />
                     </svg>
                 </a>
-                <a href="#">
+                <a href="https://www.instagram.com/varch_lighting?igsh=MXYzMGdidHJidjd5Ng==">
                     <svg class="w-10" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M37.9963 19.1112C37.9963 8.6799 29.54 0.223633 19.1087 0.223633C8.67733 0.223633 0.221069 8.6799 0.221069 19.1112C0.221069 29.5426 8.67733 37.9988 19.1087 37.9988C29.54 37.9988 37.9963 29.5426 37.9963 19.1112Z"
@@ -223,7 +223,7 @@
             <a href="#">
                 <img src="{{ asset('assets/images/icons/whatapp.png') }}" alt="" class="w-10">
             </a>
-            <a href="#">
+            <a href="https://www.instagram.com/varch_lighting?igsh=MXYzMGdidHJidjd5Ng==">
                 <img src="{{ asset('assets/images/icons/ig.png') }}" alt="" class="w-10">
             </a>
         </div>

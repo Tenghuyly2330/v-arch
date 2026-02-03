@@ -28,13 +28,16 @@
                             style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-                    <div class="bg-[#830B00] py-4 rounded-b-[30px]">
+                    <div class="bg-[#830B00] py-4 rounded-b-[30px] font-[600]">
                         {{ app()->getLocale() === 'en'
                             ? 'Our Store ( 371 )'
                             : (app()->getLocale() === 'km'
                                 ? 'ទីតាំងហាងរបស់យើងខ្ញុំ ( 371 )'
                                 : 'Our Store ( 371 )') }}
-
+                        {{-- <div class="text-left font-[400] space-y-1">
+                            <p class="text-[14px]">#7D, ST.70, Sangkat Srah Chork, Khan Daun Penh, Phnom Penh</p>
+                             <p class="text-[14px]">(+855) 87 68 67 68</p>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="" data-aos="fade-left" data-aos-duration="1500">

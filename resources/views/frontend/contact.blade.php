@@ -38,7 +38,7 @@
                             <a href="#">
                                 <img src="{{ asset('assets/images/icons/whatapp.png') }}" alt="" class="w-6 md:w-8">
                             </a>
-                            <a href="#">
+                            <a href="https://www.instagram.com/varch_lighting?igsh=MXYzMGdidHJidjd5Ng==">
                                 <img src="{{ asset('assets/images/icons/ig.png') }}" alt="" class="w-6 md:w-8">
                             </a>
                         </div>
