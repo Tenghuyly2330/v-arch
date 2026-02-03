@@ -26,6 +26,15 @@
                         class="w-full h-full object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                         alt="">
 
+                    <div
+                            class="text-[14px] xl:text-[16px] absolute right-4 top-4 rounded-full bg-white py-1 px-2 xl:px-4">
+                            {{ app()->getLocale() === 'en'
+                                ? $item->title_en
+                                : (app()->getLocale() === 'km'
+                                    ? $item->title_km
+                                    : $item->title_ch) }}
+                        </div>
+
                     <!-- Hover button -->
                     <a href="{{ route('project.show', $item->slug) }}"
                         class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">

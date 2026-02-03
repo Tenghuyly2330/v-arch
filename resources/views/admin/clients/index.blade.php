@@ -74,17 +74,17 @@
                 </table>
             </div>
         </div> --}}
-        <div class="overflow-x-auto max-h-[70vh] overflow-y-auto my-scroll">
-            <table class="w-full table-fixed min-w-full border border-gray-200">
+        <div class="overflow-x-auto h-full md:max-h-[70vh] overflow-y-auto my-scroll">
+            <table class="w-full table-fixed min-w-[600px] md:min-w-full border border-gray-200">
                 <thead class="text-white sticky top-0 z-10 bg-white">
                     <tr>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Order</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-2/5">Image</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Action</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-1/5">Order</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-2/5">Image</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-1/5">Action</th>
                     </tr>
                 </thead>
 
-                <tbody x-ref="tableBody"  class="text-gray-700 max-h-[40vh] overflow-y-auto">
+                <tbody x-ref="tableBody"  class="text-gray-700 h-full md:max-h-[40vh] overflow-y-auto">
                     @forelse ($clients as $index => $client)
                         <tr class="cursor-move" draggable="true" x-bind:data-id="{{ $client->id }}"
                             @dragstart="dragStart($event, {{ $client->id }})" @dragover.prevent

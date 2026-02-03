@@ -21,17 +21,17 @@
         @component('admin.components.alert')
         @endcomponent
 
-        <div class="overflow-x-auto max-h-[70vh] overflow-y-auto my-scroll">
-            <table class="w-full table-fixed min-w-full border border-gray-200">
+        <div class="overflow-x-auto h-full md:max-h-[70vh] overflow-y-auto my-scroll">
+            <table class="w-full table-fixed min-w-[600px] md:min-w-full border border-gray-200">
                 <thead class="text-white sticky top-0 z-10 bg-white">
                     <tr>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-2/5">Image</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-2/5">Name</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Action</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-2/5">Image</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-2/5">Name</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-1/5">Action</th>
                     </tr>
                 </thead>
 
-                <tbody class="text-gray-700 max-h-[40vh] overflow-y-auto">
+                <tbody class="text-gray-700 h-full md:max-h-[40vh] overflow-y-auto">
                     @forelse ($projects as $index => $item)
                         <tr class="">
                             <td class="text-left py-3 px-4 text-[12px] md:text-[14px]">
@@ -45,7 +45,7 @@
                                     @endif
                                 </div>
                             </td>
-                            <td class="py-3 px-4 text-xs max-w-[200px] border-r border-[#4FC9EE]">
+                            <td class="py-3 px-4 text-xs max-w-[200px]">
                                 <div class="flex flex-col truncate">
                                     <p>{{ $item->title_en ?? '' }}</p>
                                 </div>

@@ -29,10 +29,10 @@
                             tation
                             ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
                         <div class="flex items-center justify-start lg:justify-end gap-4 pt-4">
-                            <a href="#">
+                            <a href="https://www.facebook.com/varch.lighting.52">
                                 <img src="{{ asset('assets/images/icons/fb.png') }}" alt="" class="w-6 md:w-8">
                             </a>
-                            <a href="#">
+                            <a href="https://t.me/limvandara_lighting">
                                 <img src="{{ asset('assets/images/icons/telegram.png') }}" alt="" class="w-6 md:w-8">
                             </a>
                             <a href="#">
@@ -60,7 +60,7 @@
                             <p>Our Factory is located in Kompong Cham Province</p>
                             <p>Office Address: #7D, ST.70, Sangkat Srah Chork, Khan Daun Penh, Phnom Penh</p>
                             <p>(+855) 87 68 67 68</p>
-                            <a href="" class="underline">info@lehsekmeasrice.com</a>
+                            <a href="" class="underline">info@v-archlighting.com</a>
                             {{-- <a href="">www.lehsekmeasrice.com</a> --}}
                         </div>
                     </div>

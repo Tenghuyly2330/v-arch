@@ -111,7 +111,7 @@
             <p>
                 (+855) 87 68 67 68
             </p>
-            <a href="#" class="underline">info@lehsekmeasrice.com</a>
+            <a href="#" class="underline">info@v-archlighting.com</a>
             {{-- <a href="#" class="hover:underline">www.lehsekmeasrice.com</a> --}}
         </div>
     </div>
@@ -162,7 +162,7 @@
                 <p>
                     855 (0) 87 68 67 68
                 </p>
-                <a href="#" class="underline">info@lehsekmeasrice.com</a>
+                <a href="#" class="underline">info@v-archlighting.com</a>
                 {{-- <a href="#" class="hover:underline">www.lehsekmeasrice.com</a> --}}
             </div>
         </div>
@@ -214,10 +214,10 @@
     <div class="flex flex-col gap-4 items-center text-center">
         <h1>Follow Us</h1>
         <div class="flex items-center gap-4">
-            <a href="#">
+            <a href="https://www.facebook.com/varch.lighting.52">
                 <img src="{{ asset('assets/images/icons/fb.png') }}" alt="" class="w-10">
             </a>
-            <a href="#">
+            <a href="https://t.me/limvandara_lighting">
                 <img src="{{ asset('assets/images/icons/telegram.png') }}" alt="" class="w-10">
             </a>
             <a href="#">

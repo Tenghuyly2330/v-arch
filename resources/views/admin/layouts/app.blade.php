@@ -34,12 +34,12 @@
 </head>
 
 <body style='font-family: "Fraunces", serif;'>
-    <div class="hidden md:block">
+    <div class="">
         <nav class="sidebar close py-[2px] sm:py-[10px] px-[4px] sm:px-[14px]">
             <header>
                 <div class="image-text">
                     <span class="image">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="">
+                        <img src="{{ asset('assets/images/logo-black.png') }}" alt="">
                     </span>
 
                     <div class="text header-text">
@@ -64,7 +64,7 @@
 
                         <li class="nav-link {{ Request::is('banner') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('banner') }}">
-                                <i class='bx bxl-vimeo icon'></i>
+                                <i class='bx bx-chalkboard icon'></i>
                                 <span class="text nav-text">Banner</span>
                             </a>
                         </li>
@@ -72,28 +72,28 @@
 
                         <li class="nav-link {{ Request::is('about_backend') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('about_backend') }}">
-                                <i class='bx bxl-vimeo icon'></i>
+                                <i class='bx bx-male-female icon'></i>
                                 <span class="text nav-text">About</span>
                             </a>
                         </li>
 
                         <li class="nav-link {{ Request::is('why') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('why') }}">
-                                <i class='bx bxl-vimeo icon'></i>
+                                <i class='bx bx-question-mark icon'></i>
                                 <span class="text nav-text">Why</span>
                             </a>
                         </li>
 
                         <li class="nav-link {{ Request::is('history') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('history') }}">
-                                <i class='bx bxl-vimeo icon'></i>
+                                <i class='bx bx-history icon' ></i>
                                 <span class="text nav-text">History</span>
                             </a>
                         </li>
 
                         <li class="nav-link {{ Request::is('client') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('client') }}">
-                                <i class='bx bxl-vimeo icon'></i>
+                                <i class='bx bx-user icon'></i>
                                 <span class="text nav-text">Client</span>
                             </a>
                         </li>
@@ -101,14 +101,14 @@
 
                         <li class="nav-link {{ Request::is('category') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('category') }}">
-                                <i class='bx bxl-vimeo icon'></i>
+                                <i class='bx bx-category icon'></i>
                                 <span class="text nav-text">Category</span>
                             </a>
                         </li>
 
                         <li class="nav-link {{ Request::is('product_backend') ? 'bg-[#000] rounded-md !text-[#ffffff]' : '' }}">
                             <a href="{{ url('product_backend') }}">
-                                <i class='bx bxl-vimeo icon'></i>
+                                <i class='bx bx-sitemap icon' ></i>
                                 <span class="text nav-text">Product</span>
                             </a>
                         </li>
@@ -156,10 +156,10 @@
         </section>
     </div>
 
-    <div class="md:hidden w-full h-full bg-gray-700 flex flex-col items-center justify-center space-y-2">
+    {{-- <div class="md:hidden w-full h-full bg-gray-700 flex flex-col items-center justify-center space-y-2">
         <img src="{{ asset('assets/images/window.png') }}" alt="" class="w-52 h-auto">
         <h1 class="text-[25px] text-[#fff] font-[600] tracking-wider">Window too small</h1>
-    </div>
+    </div> --}}
 
     @yield('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>

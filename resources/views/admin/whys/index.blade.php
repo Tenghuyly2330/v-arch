@@ -1,11 +1,12 @@
 @extends('admin.layouts.app')
 @section('header')
-    <h1>About Page</h1>
+    <h1>Why Us Sections</h1>
 @endsection
 @section('content')
     <style>
         .my-scroll::-webkit-scrollbar {
             width: 4px;
+            height: 4px;
         }
 
         .my-scroll::-webkit-scrollbar-track {
@@ -37,17 +38,17 @@
         @component('admin.components.alert')
         @endcomponent
 
-        <div class="overflow-x-auto max-h-[70vh] overflow-y-auto my-scroll">
-            <table class="w-full table-fixed min-w-full border border-gray-200">
+        <div class="overflow-x-auto  h-full md:max-h-[70vh] overflow-y-auto my-scroll">
+            <table class="w-full table-fixed min-w-[600px] md:min-w-full border border-gray-200">
                 <thead class="text-white sticky top-0 z-10 bg-white">
                     <tr>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Title</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-3/5">Content</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Action</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-1/5">Title</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-3/5">Content</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/3 md:w-1/5">Action</th>
                     </tr>
                 </thead>
 
-                <tbody class="text-gray-700 max-h-[40vh] overflow-y-auto">
+                <tbody class="text-gray-700  h-full md:max-h-[40vh] overflow-y-auto">
                     @forelse ($whys as $why)
                         <tr class="">
                             <td class="text-left py-3 px-4 text-[12px] md:text-[14px]">

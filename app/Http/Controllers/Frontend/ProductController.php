@@ -28,6 +28,10 @@ class ProductController extends Controller
         // ✅ paginate directly on query builder
         $data['products'] = $query->paginate(12);
 
+         if ($request->ajax()) {
+            return view('frontend.partials.product-list', $data)->render();
+        }
+
         return view('frontend.product', $data);
     }
 

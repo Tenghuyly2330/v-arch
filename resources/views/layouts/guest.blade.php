@@ -13,16 +13,25 @@
         <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
         <link rel="stylesheet" href="{{ asset('assets/css/ckeditor.css') }}">
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
         <link rel="icon" type="image/png" href="{{ asset('assets/images/logo.png') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            .montserrat{
+                font-family: "Montserrat", sans-serif;
+            }
+        </style>
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-400">
+    <body class="font-sans text-gray-900 antialiased montserrat">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0" style="background-image: url('{{ asset('assets/images/new-1.jpg') }}')">
             <div>
                 <a href="/">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="" class="w-20 h-20 fill-current text-gray-500">
+                    <img src="{{ asset('assets/images/logo-black.png') }}" alt="" class="w-40 h-40 fill-current text-gray-500">
                 </a>
             </div>
 

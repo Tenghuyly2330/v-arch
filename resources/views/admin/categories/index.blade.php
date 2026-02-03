@@ -6,6 +6,7 @@
     <style>
         .my-scroll::-webkit-scrollbar {
             width: 4px;
+            height: 4px;;
         }
 
         .my-scroll::-webkit-scrollbar-track {
@@ -38,7 +39,7 @@
         @endcomponent
 
         <div class="overflow-x-auto max-h-[70vh] overflow-y-auto my-scroll">
-            <table class="w-full table-fixed min-w-full border border-gray-200">
+            <table class="w-full table-fixed min-w-[600px] md:min-w-full border border-gray-200">
                 <thead class="text-white sticky top-0 z-10 bg-white">
                     <tr>
                         <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/2">Name</th>

@@ -6,6 +6,7 @@
     <style>
         .my-scroll::-webkit-scrollbar {
             width: 4px;
+         height: 4px;
         }
 
         .my-scroll::-webkit-scrollbar-track {
@@ -37,18 +38,18 @@
         @component('admin.components.alert')
         @endcomponent
 
-        <div class="overflow-x-auto max-h-[70vh] overflow-y-auto my-scroll">
-            <table class="w-full table-fixed min-w-full border border-gray-200">
+        <div class="overflow-x-auto w-full h-full md:max-h-[70vh] overflow-y-auto my-scroll">
+            <table class="w-full min-w-[600px] md:min-w-full border border-gray-200">
                 <thead class="text-white sticky top-0 z-10 bg-white">
                     <tr>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Name</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Image</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-2/5">Media</th>
-                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/5">Action</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/4 md:w-2/5">Name</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/4 md:w-1/5">Image</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/4 md:w-1/5">Media</th>
+                        <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-1/4 md:w-1/5">Action</th>
                     </tr>
                 </thead>
 
-                <tbody class="text-gray-700 max-h-[40vh] overflow-y-auto">
+                <tbody class="text-gray-700 h-full md:max-h-[40vh] overflow-y-auto">
                     @forelse ($banners as $banner)
                         @php
                             $media = $banner->media;
@@ -61,7 +62,7 @@
                             <td class="text-left py-3 px-4 text-[12px] md:text-[14px]">
                                 @if ($banner->image)
                                     <img src="{{ asset($banner->image) }}" alt="Banner Image"
-                                        class="w-20 h-20 object-cover rounded-md">
+                                        class="w-12 h-12 md:w-20 md:h-20 object-cover rounded-md">
                                 @else
                                     <span class="text-gray-400">No image</span>
                                 @endif
@@ -71,10 +72,10 @@
                             <td class="text-left py-3 px-4 text-[12px] md:text-[14px]">
                                 @if ($media && isset($media['type'], $media['path']))
                                     @if ($media['type'] === 'image')
-                                        <img src="{{ asset($media['path']) }}" class="w-20 h-20 object-cover rounded-md"
+                                        <img src="{{ asset($media['path']) }}" class="w-12 h-12 md:w-20 md:h-20 object-cover rounded-md"
                                             alt="Media">
                                     @elseif ($media['type'] === 'video')
-                                        <video controls class="w-20 h-20 rounded-md">
+                                        <video controls class="w-12 h-12 md:w-20 md:h-20 rounded-md">
                                             <source src="{{ asset($media['path']) }}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>

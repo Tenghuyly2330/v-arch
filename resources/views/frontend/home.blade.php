@@ -73,7 +73,19 @@
             }
 
             .products_swiper .swiper-button-prev {
-                left: 10px;
+                left: 88%;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .products_swiper .swiper {
+                margin-inline: 0;
+                padding-top: 0rem;
+            }
+
+            .products_swiper .swiper-button-next,
+            .products_swiper .swiper-button-prev {
+                display: none;
             }
         }
     </style>
@@ -86,11 +98,6 @@
         <div class="absolute inset-0 z-[8] opacity-50 w-full h-full overflow-hidden bg-[#ffe19a]">
         </div>
         <div class="absolute inset-0 w-full h-full overflow-hidden z-[7]">
-            {{-- <video autoplay muted loop class="w-full h-full object-cover">
-                <source src="{{ asset('assets/videos/home-video.mp4') }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video> --}}
-
             @php
                 $videoPath = is_array($banners->media) ? $banners->media['path'] ?? null : $banners->media;
             @endphp
@@ -102,9 +109,6 @@
                     Your browser does not support the video tag.
                 </video>
             @endif
-
-            {{-- <img src="{{ asset('assets/images/home_bg_new.png') }}" alt="" class="object-cover w-full h-full"
-                loading="lazy"> --}}
         </div>
 
         <div
@@ -133,8 +137,8 @@
                 </svg>
 
             </div>
-            <p class="mt-4 text-[20px] md:text-[25px] text-[#830B00] font-[500] max-w-[500px] italic tracking-widest" data-aos="fade-up"
-                data-aos-duration="1500">LIGHTING UP YOUR HOME WITH CHARMING LIGHTING
+            <p class="mt-4 text-[20px] md:text-[25px] text-[#830B00] font-[500] max-w-[500px] italic tracking-widest"
+                data-aos="fade-up" data-aos-duration="1500">LIGHTING UP YOUR HOME WITH CHARMING LIGHTING
             </p>
         </div>
     </section>
@@ -148,27 +152,35 @@
 
     {{-- about us --}}
     <section id="about" class="w-full pb-10 bg-white">
-        <div class="max-w-7xl mx-auto px-2 grid grid-cols-1 md:grid-cols-2 gap-4 items-center overflow-hidden">
+        <div
+            class="max-w-7xl mx-auto px-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center overflow-hidden">
 
             <!-- LEFT IMAGE COLLAGE -->
-            <div class="flex items-center gap-2" data-aos="fade-right" data-aos-duration="1400">
-                <div class="flex flex-col gap-2">
-                    <img src="{{ asset('assets/images/about/about-1.jpg') }}" class="w-52 h-40 object-cover">
-                    <div class="flex gap-2 items-start">
-                        <div class="w-8 h-8 bg-[#326BEA]"></div>
-                        <img src="{{ asset('assets/images/about/about-3.jpg') }}"
-                            class="w-[142px] sm:w-36 lg:w-[164px] h-40 object-cover" loading="lazy">
+            <div class="p-4 relative " data-aos="fade-right" data-aos-duration="1400">
+                <div class="w-[100px] h-[2px] bg-[#830B00] border-0 absolute top-0 left-0"></div>
+                <div class="w-[2px] h-[100px] bg-[#830B00] border-0 absolute top-0 left-0"></div>
+                <div class="w-[100px] h-[2px] bg-[#830B00] border-0 absolute bottom-0 right-0"></div>
+                <div class="w-[2px] h-[100px] bg-[#830B00] border-0 absolute bottom-0 right-0"></div>
+                <div class="flex items-center gap-2">
+                    <div class="flex flex-col gap-2">
+                        <img src="{{ asset('assets/images/about/about-1.jpg') }}" class="w-52 h-40 object-cover">
+                        <div class="flex gap-2 items-start">
+                            <div class="w-8 h-8 bg-[#326BEA]"></div>
+                            <img src="{{ asset('assets/images/about/about-3.jpg') }}"
+                                class="w-[142px] sm:w-36 lg:w-[164px] h-40 object-cover" loading="lazy">
+                        </div>
                     </div>
-                </div>
 
-                <div class="flex flex-col gap-2">
-                    <div class="w-8 h-8 bg-[#830B00]"></div>
-                    <img src="{{ asset('assets/images/about/about-2.jpg') }}" class="w-48 h-48 object-cover" loading="lazy">
+                    <div class="flex flex-col gap-2">
+                        <div class="w-8 h-8 bg-[#830B00]"></div>
+                        <img src="{{ asset('assets/images/about/about-2.jpg') }}" class="w-48 h-48 object-cover"
+                            loading="lazy">
+                    </div>
                 </div>
             </div>
 
             <!-- RIGHT CONTENT -->
-            <div data-aos="fade-left" data-aos-duration="1400">
+            <div data-aos="fade-left" data-aos-duration="1400" class="md:col-span-2 lg:pl-10">
                 <h2 class="text-[20px] md:text-[30px] xl:text-[40px] flex items-end gap-4 font-bold text-[#830B00] mb-4">
                     <svg class="w-10 h-10 md:w-14 md:h-14" fill="none" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -256,134 +268,10 @@
             </span>
         </h1>
 
-
-        {{-- <div class="hidden md:flex relative w-full">
-
-            <div class="absolute top-[140px] left-0 right-0 h-[2px] bg-[#1E1E1E]"></div>
-
-            <div class="grid grid-cols-4 gap-4 md:gap-8 px-4">
-
-                @foreach ($histories as $item)
-                    <div class="relative" x-data="{ open: false }">
-
-                        <div class="text-[12px] lg:text-sm text-gray-700 leading-relaxed line-clamp-3">
-                            {!! app()->getLocale() === 'en'
-                                ? $item->content_en
-                                : (app()->getLocale() === 'km'
-                                    ? $item->content_km
-                                    : $item->content_ch) !!}
-                        </div>
-
-                        <button @click="open = true" class="hover:translate-x-2 duration-300">
-                            <svg width="20" height="10" viewBox="0 9 21 1" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" class="u-animated-cta__icon u-my-5">
-                                <path d="M0 10L19 10" stroke="currentColor"></path>
-                                <path
-                                    d="M19.3 10L19.6535 10.3536L20.0071 10L19.6535 9.64645L19.3 10ZM18.9464 9.64645L14.9464 13.6464L15.6535 14.3536L19.6535 10.3536L18.9464 9.64645ZM14.9464 6.35355L18.9464 10.3536L19.6535 9.64645L15.6535 5.64645L14.9464 6.35355Z"
-                                    fill="currentColor"></path>
-                            </svg>
-                        </button>
-
-                        <div x-show="open" x-transition x-cloak
-                            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                            <div @click.away="open = false" class="bg-white max-w-lg w-full mx-4 rounded-xl p-6 relative">
-                                <button @click="open = false"
-                                    class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
-                                    ✕
-                                </button>
-
-                                <h3 class="text-lg font-bold mb-3 text-[#830B00]">{{ $item->year }}</h3>
-
-                                <div class="text-sm text-gray-700 leading-relaxed">
-                                    {!! app()->getLocale() === 'en'
-                                        ? $item->content_en
-                                        : (app()->getLocale() === 'km'
-                                            ? $item->content_km
-                                            : $item->content_ch) !!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="relative flex flex-col items-center mt-4">
-                            <span class="text-[#DD483A] text-sm mb-4 font-[400]">{{ $item->year }}</span>
-                            <div class="w-3 h-3 bg-[#1E1E1E] rotate-45 z-10"></div>
-                        </div>
-
-                        <div class="mt-10">
-                            <img src="{{ $item->image }}" class="w-full h-[120px] md:h-[180px] object-cover"
-                                loading="lazy" />
-                        </div>
-
-                    </div>
-                @endforeach
-
+        <div class="relative" id="timeline-wrapper">
+            <div class="absolute left-1/2 top-0 w-1 bg-gradient transform -translate-x-1/2">
+                <div id="timeline-line" class="w-full h-0 bg-gradient transition-all duration-500"></div>
             </div>
-        </div>
-
-        <div class="md:hidden flex relative w-full">
-            <div class="md:hidden absolute left-5 top-0 bottom-0 w-[2px] bg-[#1E1E1E]"></div>
-
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-                @foreach ($histories as $item)
-                    <div class="relative md:text-center pl-12 pr-2" x-data="{ open: false }">
-
-                        <div
-                            class="absolute md:static left-[14px] top-2 md:top-auto
-                            w-3 h-3 bg-[#1E1E1E] rotate-45 z-10">
-                        </div>
-
-                        <span class="block text-[#DD483A] text-sm mb-4 font-[400]">
-                            {{ $item->year }}
-                        </span>
-
-                        <div class="text-[12px] text-gray-700 leading-relaxed line-clamp-3">
-                            {!! app()->getLocale() === 'en'
-                                ? $item->content_en
-                                : (app()->getLocale() === 'km'
-                                    ? $item->content_km
-                                    : $item->content_ch) !!}
-                        </div>
-
-                        <button @click="open = true" class="mb-4 hover:translate-x-2 duration-300">
-                            <svg width="20" height="10" viewBox="0 9 21 1" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" class="u-animated-cta__icon u-my-5">
-                                <path d="M0 10L19 10" stroke="currentColor"></path>
-                                <path
-                                    d="M19.3 10L19.6535 10.3536L20.0071 10L19.6535 9.64645L19.3 10ZM18.9464 9.64645L14.9464 13.6464L15.6535 14.3536L19.6535 10.3536L18.9464 9.64645ZM14.9464 6.35355L18.9464 10.3536L19.6535 9.64645L15.6535 5.64645L14.9464 6.35355Z"
-                                    fill="currentColor"></path>
-                            </svg>
-                        </button>
-
-                        <div x-show="open" x-transition x-cloak
-                            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                            <div @click.away="open = false" class="bg-white max-w-lg w-full mx-4 rounded-xl p-6 relative">
-                                <button @click="open = false"
-                                    class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
-                                    ✕
-                                </button>
-
-                                <h3 class="text-lg font-bold mb-3 text-[#830B00]">{{ $item->year }}</h3>
-
-                                <div class="text-[12px] text-gray-700 leading-relaxed">
-                                    {!! app()->getLocale() === 'en'
-                                        ? $item->content_en
-                                        : (app()->getLocale() === 'km'
-                                            ? $item->content_km
-                                            : $item->content_ch) !!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <img src="{{ $item->image }}" class="w-full h-[140px] sm:h-[150px] object-cover"
-                            loading="lazy" />
-
-                    </div>
-                @endforeach
-            </div>
-        </div> --}}
-
-        <div class="relative">
-            <div class="absolute left-1/2 w-1 h-full bg-gradient transform -translate-x-1/2"></div>
 
             @forelse ($histories as $index => $item)
                 @php
@@ -391,8 +279,8 @@
                 @endphp
                 @if (($index + 1) % 2 === 1)
                     <div
-                        class="mb-10 md:mb-32 flex flex-col md:flex-row justify-between items-center w-full relative overflow-hidden">
-                        <div data-aos="fade-right" data-aos-duration="1400"
+                        class="mb-5 md:mb-32 flex flex-col md:flex-row justify-between items-center w-full relative overflow-hidden">
+                        <div data-aos="fade-right" data-aos-duration="1000"
                             class="w-full order-1 md:order-1 md:w-5/12 px-2 md:px-4 py-4 bg-white rounded-lg shadow-xl mt-8 md:mt-0 mr-0 md:mr-8">
                             <h3 class="text-gradient font-[600] text-[20px] md:text-[30px] mt-1">{{ $item->year }}
                             </h3>
@@ -409,7 +297,7 @@
                             class="absolute left-1/2 w-6 h-6 bg-gradient rounded-full transform -translate-x-1/2 border-4 border-white">
                         </div>
 
-                        <div data-aos="fade-left" data-aos-duration="1400"
+                        <div data-aos="fade-left" data-aos-duration="1000"
                             class="w-full order-1 md:order-2 mt-2 md:mt-0 px-2 md:px-0 md:w-5/12 flex justify-center md:justify-start mb-4 md:mb-0">
                             <div class="w-full h-full grid grid-cols-2 gap-2 rounded-md overflow-hidden">
                                 @foreach ($images as $img)
@@ -423,8 +311,8 @@
                     </div>
                 @else
                     <div
-                        class="mb-10 md:mb-32 flex flex-col md:flex-row justify-between items-center w-full relative overflow-hidden">
-                        <div data-aos="fade-right" data-aos-duration="1400"
+                        class="mb-5 md:mb-32 flex flex-col md:flex-row justify-between items-center w-full relative overflow-hidden">
+                        <div data-aos="fade-right" data-aos-duration="1000"
                             class="w-full order-2 md:order-1 mt-2 md:mt-0 px-2 md:px-0 md:w-5/12 flex justify-center md:justify-end mb-4 md:mb-0">
                             <div class="w-full h-full grid grid-cols-2 gap-2 rounded-md overflow-hidden">
                                 @foreach ($images as $img)
@@ -440,7 +328,7 @@
                             class="absolute left-1/2 w-6 h-6 bg-gradient rounded-full transform -translate-x-1/2 border-4 border-white">
                         </div>
 
-                        <div data-aos="fade-left" data-aos-duration="1400"
+                        <div data-aos="fade-left" data-aos-duration="1000"
                             class="w-full order-1 md:w-5/12 px-2 md:px-4 py-4 bg-white rounded-lg shadow-xl mt-8 md:mt-0 ml-0 md:ml-8">
                             <h3 class="text-gradient font-[600]  text-[20px] md:text-[30px] mt-1">{{ $item->year }}
                             </h3>
@@ -464,7 +352,7 @@
     </section>
 
     {{-- vision & mission & core value --}}
-    <section class="w-full max-w-7xl mx-auto px-2 xl:px-4 pt-10 mb-10">
+    <section class="w-full max-w-7xl mx-auto px-2 xl:px-4 pt-0 mb-10">
         {{-- vision & mission --}}
         <div class="relative grid grid-cols-1 md:grid-cols-2 gap-4 items-center z-20 overflow-hidden">
             <div data-aos="fade-right" data-aos-duration="1000"
@@ -814,8 +702,6 @@
                         </div>
                     </div>
                 @endforeach
-
-
             </div>
         </div>
     </section>
@@ -961,7 +847,7 @@
                 class="leading-none">{{ app()->getLocale() === 'en' ? 'Our Products' : (app()->getLocale() === 'km' ? 'ផលិតផល​របស់យើងខ្ញុំ' : 'Our Products') }}</span>
         </h1>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" >
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             @forelse ($products as $item)
                 @php
                     $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
@@ -1255,7 +1141,7 @@
             <div class="flex gap-6 animate-scroll">
                 @foreach ($clients as $item)
                     <div
-                        class="flex-shrink-0 relative w-[150px] h-[150px] md:w-[200px] md:h-[200px] border border-gray-400 rounded-full shadow overflow-hidden flex items-center justify-center">
+                        class="flex-shrink-0 relative w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] border border-gray-400 rounded-full shadow overflow-hidden flex items-center justify-center">
                         <img src="{{ asset($item->image) }}" alt="Client {{ $item->order }}"
                             class="w-[80px] md:w-[120px] h-auto object-contain">
                     </div>
@@ -1264,7 +1150,7 @@
                 {{-- duplicate for seamless loop --}}
                 @foreach ($clients as $item)
                     <div
-                        class="flex-shrink-0 relative w-[150px] h-[150px] md:w-[200px] md:h-[200px] border border-gray-400 rounded-full shadow overflow-hidden flex items-center justify-center">
+                        class="flex-shrink-0 relative w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] border border-gray-400 rounded-full shadow overflow-hidden flex items-center justify-center">
                         <img src="{{ asset($item->image) }}" alt="Client {{ $item->order }}"
                             class="w-[80px] md:w-[120px] h-auto object-contain">
                     </div>
@@ -1357,4 +1243,24 @@
 
         </div>
     </section>
+@endsection
+
+@section('js')
+    <script>
+        const timeline = document.getElementById('timeline-line');
+        const wrapper = document.getElementById('timeline-wrapper');
+
+        window.addEventListener('scroll', () => {
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // How much of timeline is visible
+            const progress = Math.min(
+                Math.max(windowHeight - wrapperRect.top, 0),
+                wrapperRect.height
+            );
+
+            timeline.style.height = progress + 'px';
+        });
+    </script>
 @endsection

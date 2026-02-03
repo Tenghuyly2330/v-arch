@@ -17,8 +17,10 @@
     <section class="relative w-full min-h-screen bg-cover bg-center pb-10"
         style="background-image: url({{ asset($banners->image) }});">
         <div class="relative flex flex-col w-full h-full px-4 text-center text-[#000] pt-20 lg:pt-40">
-            <img src="{{ asset('assets/images/logo-black.png') }}" alt="" class="w-48 md:w-64 mx-auto" data-aos="fade-up" data-aos-duration="1200">
-            <p class="mt-4 text-[30px] md:text-[50px] text-black font-[700] max-w-[500px] mx-auto" data-aos="fade-right" data-aos-duration="1400">
+            <img src="{{ asset('assets/images/logo-black.png') }}" alt="" class="w-48 md:w-64 mx-auto"
+                data-aos="fade-up" data-aos-duration="1200">
+            <p class="mt-4 text-[30px] md:text-[50px] text-black font-[700] max-w-[500px] mx-auto" data-aos="fade-right"
+                data-aos-duration="1400">
                 Product Category
             </p>
 
@@ -35,10 +37,13 @@
                         class="cursor-pointer text-[16px] lg:text-[18px] font-[500] flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center space-x-4 space-y-4 overflow-x-auto py-2">
                         <!-- "All" button -->
                         <p class="filter-btn border border-[#830B00] rounded-[5px] px-6 py-1 flex-shrink-0 mt-4 {{ request('category') === null || request('category') === 'all' ? 'active' : '' }}"
-                            data-category="all" onclick="filterProducts('all')"> {{ __('message.all') }} </p>
+                            data-category="all" onclick="filterProducts(event)">
+                            {{ __('message.all') }}
+                        </p>
+
                         @foreach ($categories as $c)
                             <p class="filter-btn border border-[#830B00] rounded-[5px] px-6 py-1 mt-0 flex-shrink-0 {{ request('category') === $c->slug ? 'active' : '' }}"
-                                data-category="{{ $c->slug }}" onclick="filterProducts('{{ $c->slug }}')">
+                                data-category="{{ $c->slug }}" onclick="filterProducts(event)">
                                 {{ app()->getLocale() === 'en' ? $c->name_en : (app()->getLocale() === 'km' ? $c->name_km : $c->name_ch) }}
                             </p>
                         @endforeach
@@ -48,58 +53,10 @@
 
         </div>
 
-        <div id="product_in_stock" data-aos="fade-up" data-aos-duration="1400"
-            class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 pt-6 md:pt-10 px-2 xl:px-0 ">
-            @forelse ($products as $item)
-                @php
-                    $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
-                @endphp
-                <div class="relative text-[#580B0C] text-[16px] xl:text-[20px] text-center flex flex-col items-center justify-start"
-                    data-category="{{ $item->slug }}">
-                    @php
-                        $colors = $item->color ?? [];
-                        $firstColor = $colors[0] ?? null;
-                        $firstCode = $firstColor['code'] ?? null;
-                        $firstName = $firstColor['name'] ?? null;
-                        $firstImage = $firstColor['images'][0] ?? null;
-                    @endphp
-
-                    <div class="relative group w-full rounded-xl overflow-hidden">
-                        <!-- Image -->
-                        @if ($firstImage)
-                            <div class="w-full h-[200px] sm:h-[250px] md:h-[300px]">
-                                <img src="{{ asset($firstImage) }}" class="w-full h-full object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105" />
-                            </div>
-                        @else
-                            <div class="w-full h-[200px] sm:h-[250px] md:h-[300px]">
-                                <img src="{{ asset('assets/images/default.jpg') }}"
-                                    class="w-full h-full object-cover object-center rounded-xl transition-transform duration-300 group-hover:scale-105" />
-                            </div>
-                        @endif
-                        {{-- @if ($item->status)
-                            <span class="absolute top-2 right-2 bg-green-600 text-white text-[10px] px-2 py-1 rounded">
-                                New
-                            </span>
-                        @endif --}}
-
-                        <!-- Hover button -->
-                        <a href="{{ route('product.show', $item->id) }}"
-                            class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
-                            <button class="p-4 md:p-10 bg-black/80 text-white">
-                                More Detail
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            @empty
-                <p class="text-center text-white py-10">
-                    No Products available in this category.
-                </p>
-            @endforelse
+        <div id="product-list">
+            @include('frontend.partials.product-list', ['products' => $products])
         </div>
-        <div class="max-w-7xl mx-auto pagination-links py-5">
-            {{ $products->appends(['category' => request('category')])->links() }}
-        </div>
+
 
         <div class="w-full max-w-7xl mx-auto px-4" id="customized_products" data-aos="fade-right" data-aos-duration="1400">
             <p class="mt-4 text-[30px] md:text-[50px] text-[#000] font-[700] text-center">
@@ -170,13 +127,83 @@
 @endsection
 @section('js')
     <script>
-        function filterProducts(category) {
-            let url = new URL(window.location.href);
-            url.searchParams.set('category', category); // Update the category in the URL
-            url.searchParams.set('page', 1); // Always reset to page 1
+        function filterProducts(event) {
+            event.preventDefault();
 
-            // Update the URL and reload the page
-            window.location.href = url.toString();
+            const category = event.currentTarget.dataset.category;
+
+            // Update active class
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Fetch products
+            fetch(`?category=${category}`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('product-list').innerHTML = html;
+                    history.pushState(null, '', `?category=${category}&page=1`);
+                    window.scrollTo({
+                        // top: 0,
+                        behavior: 'smooth'
+                    });
+                })
+                .catch(err => console.error(err));
         }
+
+        // Handle AJAX pagination
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('.pagination a');
+            if (!link) return;
+
+            e.preventDefault();
+
+            fetch(link.href, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('product-list').innerHTML = html;
+                    history.pushState(null, '', link.href);
+                    window.scrollTo({
+                        // top: 0,
+                        behavior: 'smooth'
+                    });
+
+                    // Update active category after pagination
+                    const urlParams = new URL(link.href).searchParams;
+                    const category = urlParams.get('category') || 'all';
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.category === category);
+                    });
+                })
+                .catch(err => console.error(err));
+        });
+
+        // Optional: handle browser back/forward buttons
+        window.addEventListener('popstate', function() {
+            const url = window.location.href;
+            fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('product-list').innerHTML = html;
+
+                    // Update active category
+                    const urlParams = new URL(url).searchParams;
+                    const category = urlParams.get('category') || 'all';
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.category === category);
+                    });
+                });
+        });
     </script>
 @endsection

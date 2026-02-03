@@ -6,6 +6,7 @@
     <style>
         .my-scroll::-webkit-scrollbar {
             width: 4px;
+            height: 4px;
         }
 
         .my-scroll::-webkit-scrollbar-track {
@@ -51,8 +52,8 @@
         @component('admin.components.alert')
         @endcomponent
 
-        <div class="overflow-x-auto max-h-[70vh] overflow-y-auto my-scroll">
-            <table class="min-w-full border border-gray-200">
+        <div class="overflow-x-auto h-full md:max-h-[70vh] overflow-y-auto my-scroll">
+            <table class="min-w-[800px] md:min-w-full border border-gray-200">
                 <thead class="text-white sticky top-0 z-10 bg-white">
                     <tr>
                         <th class="text-left py-3 px-4 text-[12px] text-gray-500 w-2/6">Product Image</th>
@@ -63,7 +64,7 @@
                     </tr>
                 </thead>
 
-                <tbody class="text-gray-700 max-h-[40vh] overflow-y-auto">
+                <tbody class="text-gray-700 h-full md:max-h-[40vh] overflow-y-auto">
                     @forelse ($products as $item)
                         @php
                             $colors = is_array($item->color) ? $item->color : json_decode($item->color ?? '[]', true);
@@ -95,8 +96,8 @@
                                 </div>
 
                                 <div>
-                                    <p class="uppercase">{{ $item->name_en }}</p>
-                                    <p class="text-[12px] text-gray-500">
+                                    <p class="uppercase text-[12px] md:text-[16px]">{{ $item->name_en }}</p>
+                                    <p class="text-[10px] md:text-[12px] text-gray-500">
                                         {{ $item->category->name_en ?? '' }}
                                     </p>
                                 </div>
