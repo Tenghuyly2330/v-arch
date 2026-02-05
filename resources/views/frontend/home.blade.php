@@ -95,8 +95,8 @@
     <x-scroll-top-button />
 
     <section class="relative w-full h-[70vh] sm:h-screen">
-        <div class="absolute inset-0 z-[8] opacity-50 w-full h-full overflow-hidden bg-[#ffe19a]">
-        </div>
+        {{-- <div class="absolute inset-0 z-[8] opacity-50 w-full h-full overflow-hidden bg-[#ffe19a]">
+        </div> --}}
         <div class="absolute inset-0 w-full h-full overflow-hidden z-[7]">
             @php
                 $videoPath = is_array($banners->media) ? $banners->media['path'] ?? null : $banners->media;
